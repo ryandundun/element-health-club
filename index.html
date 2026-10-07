@@ -1,0 +1,898 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title data-i18n="meta.title">Element Health Club · Laureles, Medellín</title>
+<meta name="description" data-i18n-content="meta.description" content="A health and wellness club in Laureles, Medellín. Cold plunge, sauna, red light therapy, HIIT, pilates, yoga, salsa, trampoline fitness and a juice bar, all under one roof.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#F6F3EC" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#101814" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Element Health Club">
+<meta property="og:title" content="Element Health Club · Laureles, Medellín">
+<meta property="og:description" content="Cold plunge, sauna, red light therapy, HIIT, pilates, yoga, salsa, trampoline fitness and a juice bar, all under one roof in Laureles.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=Manrope:wght@400;500;600;700;800&display=swap">
+<style>
+  /* ---------- tokens ---------- */
+  :root {
+    color-scheme: light;
+    --bg: #F6F3EC;
+    --bg-2: #EDE8DC;
+    --surface: #FDFCF8;
+    --ink: #14201A;
+    --ink-2: #2E3D35;
+    --muted: #65736C;
+    --line: #D9D3C4;
+    --line-strong: #B5AD9B;
+
+    --forest: #1F4D3A;
+    --forest-ink: #FFFFFF;
+    --forest-soft: #DCE9E0;
+    --clay: #C9643B;
+    --clay-soft: #F6E2D7;
+    --water: #2E6F8E;
+    --water-soft: #D9E8F0;
+    --sun: #D9A441;
+    --sun-soft: #F8EDD2;
+    --air: #7A8C9C;
+    --air-soft: #E4E9ED;
+
+    --shadow: 0 1px 2px rgba(20,32,26,.06), 0 18px 40px -18px rgba(20,32,26,.28);
+    --radius: 18px;
+
+    --display: "Fraunces", Georgia, "Times New Roman", serif;
+    --sans: "Manrope", "Helvetica Neue", Arial, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --bg: #101814;
+      --bg-2: #16211B;
+      --surface: #1A2620;
+      --ink: #EEF2EE;
+      --ink-2: #C9D3CC;
+      --muted: #8E9C94;
+      --line: #2A3830;
+      --line-strong: #3E5046;
+      --forest: #6FBF95;
+      --forest-ink: #0D1A13;
+      --forest-soft: #1D3328;
+      --clay: #E08A62;
+      --clay-soft: #3A2419;
+      --water: #6FB2D3;
+      --water-soft: #16303B;
+      --sun: #E6BC5F;
+      --sun-soft: #3A2F14;
+      --air: #A8B8C5;
+      --air-soft: #253038;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 18px 40px -18px rgba(0,0,0,.6);
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --bg: #101814; --bg-2: #16211B; --surface: #1A2620; --ink: #EEF2EE; --ink-2: #C9D3CC;
+    --muted: #8E9C94; --line: #2A3830; --line-strong: #3E5046;
+    --forest: #6FBF95; --forest-ink: #0D1A13; --forest-soft: #1D3328;
+    --clay: #E08A62; --clay-soft: #3A2419; --water: #6FB2D3; --water-soft: #16303B;
+    --sun: #E6BC5F; --sun-soft: #3A2F14; --air: #A8B8C5; --air-soft: #253038;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 18px 40px -18px rgba(0,0,0,.6);
+  }
+
+  /* ---------- base ---------- */
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  h1, h2, h3, h4 { font-family: var(--display); font-weight: 400; line-height: 1.1; margin: 0; letter-spacing: -0.01em; }
+  p { margin: 0; }
+  a { color: inherit; }
+  img, svg { display: block; }
+  .wrap { width: min(1140px, 100% - 32px); margin-inline: auto; }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 12px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
+    color: var(--forest);
+  }
+  .eyebrow::before { content: ""; width: 22px; height: 2px; background: currentColor; border-radius: 2px; }
+  .lead { font-size: 19px; color: var(--ink-2); max-width: 58ch; }
+  section { padding: 96px 0; }
+  @media (max-width: 720px) { section { padding: 64px 0; } body { font-size: 16px; } }
+
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    padding: 14px 24px; border-radius: 999px; font-weight: 700; font-size: 15px;
+    text-decoration: none; border: 1.5px solid transparent; cursor: pointer;
+    transition: transform .15s ease, background .2s ease, color .2s ease, border-color .2s ease;
+    font-family: var(--sans);
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn-primary { background: var(--forest); color: var(--forest-ink); }
+  .btn-ghost { background: transparent; color: var(--ink); border-color: var(--line-strong); }
+  .btn-ghost:hover { border-color: var(--ink); }
+  .btn-clay { background: var(--clay); color: #fff; }
+  .btn svg { width: 18px; height: 18px; }
+
+  /* ---------- nav ---------- */
+  .nav {
+    position: sticky; top: 0; z-index: 50;
+    background: color-mix(in srgb, var(--bg) 82%, transparent);
+    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; height: 72px; }
+  .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .brand-mark { width: 36px; height: 36px; }
+  .brand-name { font-family: var(--display); font-size: 22px; font-weight: 500; letter-spacing: -.01em; line-height: 1; }
+  .brand-name small { display: block; font-family: var(--sans); font-size: 10px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
+  .nav-links { display: flex; align-items: center; gap: 28px; list-style: none; margin: 0; padding: 0; }
+  .nav-links a { text-decoration: none; font-weight: 600; font-size: 14.5px; color: var(--ink-2); }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-right { display: flex; align-items: center; gap: 12px; }
+
+  .lang {
+    display: inline-flex; padding: 3px; border-radius: 999px; border: 1px solid var(--line-strong);
+    background: var(--surface); gap: 2px;
+  }
+  .lang button {
+    appearance: none; border: 0; background: transparent; color: var(--muted);
+    font: 700 12.5px/1 var(--sans); letter-spacing: .08em; padding: 8px 12px; border-radius: 999px; cursor: pointer;
+    transition: background .2s, color .2s;
+  }
+  .lang button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+  .nav .btn-primary { padding: 11px 18px; font-size: 14px; }
+
+  .menu-btn { display: none; appearance: none; background: transparent; border: 1px solid var(--line-strong); border-radius: 12px; width: 42px; height: 42px; align-items: center; justify-content: center; cursor: pointer; color: var(--ink); }
+  .menu-btn svg { width: 20px; height: 20px; }
+  @media (max-width: 900px) {
+    .nav-links { display: none; }
+    .nav .btn-primary { display: none; }
+    .menu-btn { display: inline-flex; }
+    .nav.open .nav-links {
+      display: flex; flex-direction: column; align-items: flex-start; gap: 4px;
+      position: absolute; left: 0; right: 0; top: 72px; padding: 12px 16px 20px;
+      background: var(--bg); border-bottom: 1px solid var(--line);
+    }
+    .nav.open .nav-links a { display: block; padding: 12px 8px; font-size: 17px; width: 100%; }
+  }
+
+  /* ---------- hero ---------- */
+  .hero { padding: 72px 0 56px; position: relative; overflow: hidden; }
+  .hero::before {
+    content: ""; position: absolute; inset: -20% -10% auto auto; width: 60vw; height: 60vw; max-width: 760px; max-height: 760px;
+    background: radial-gradient(closest-side, color-mix(in srgb, var(--forest) 22%, transparent), transparent 70%);
+    pointer-events: none;
+  }
+  .hero-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 56px; align-items: center; position: relative; }
+  .hero h1 { font-size: clamp(42px, 6.2vw, 78px); font-weight: 300; letter-spacing: -.025em; margin: 18px 0 22px; }
+  .hero h1 em { font-style: italic; font-weight: 400; color: var(--forest); }
+  .hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+  .hero-note { margin-top: 18px; font-size: 14px; color: var(--muted); }
+
+  .hero-art { position: relative; aspect-ratio: 4 / 5; border-radius: 28px; overflow: hidden; box-shadow: var(--shadow);
+    background: linear-gradient(160deg, var(--forest) 0%, #163a2b 55%, #0f2a1f 100%); }
+  .hero-art svg { width: 100%; height: 100%; }
+  .hero-chip {
+    position: absolute; display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 14px;
+    background: color-mix(in srgb, var(--surface) 92%, transparent); color: var(--ink); box-shadow: var(--shadow);
+    font-size: 13px; font-weight: 700; backdrop-filter: blur(8px);
+  }
+  .hero-chip .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .chip-1 { left: 18px; bottom: 84px; } .chip-2 { right: 18px; top: 22px; } .chip-3 { right: 26px; bottom: 26px; }
+
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); margin-top: 56px; overflow: hidden; }
+  .stat { padding: 22px 24px; border-right: 1px solid var(--line); }
+  .stat:last-child { border-right: 0; }
+  .stat b { display: block; font-family: var(--display); font-size: 34px; font-weight: 400; line-height: 1; }
+  .stat span { display: block; margin-top: 6px; font-size: 13.5px; color: var(--muted); font-weight: 600; }
+  @media (max-width: 900px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 36px; }
+    .hero-art { aspect-ratio: 16 / 11; }
+  }
+  @media (max-width: 640px) {
+    .stats { grid-template-columns: 1fr; }
+    .stat { border-right: 0; border-bottom: 1px solid var(--line); }
+    .stat:last-child { border-bottom: 0; }
+  }
+
+  /* ---------- elements ---------- */
+  .section-head { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: end; margin-bottom: 48px; }
+  .section-head h2 { font-size: clamp(32px, 4.4vw, 52px); margin-top: 14px; letter-spacing: -.02em; }
+  @media (max-width: 820px) { .section-head { grid-template-columns: 1fr; gap: 14px; } }
+
+  .elements { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .element { padding: 26px 24px 28px; border-radius: var(--radius); background: var(--surface); border: 1px solid var(--line); position: relative; overflow: hidden; }
+  .element::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 4px; background: var(--el); }
+  .element .icon { width: 48px; height: 48px; border-radius: 14px; display: grid; place-items: center; background: var(--el-soft); color: var(--el); margin-bottom: 20px; }
+  .element .icon svg { width: 24px; height: 24px; }
+  .element h3 { font-size: 26px; margin-bottom: 8px; }
+  .element p { color: var(--muted); font-size: 15px; }
+  .element ul { margin: 16px 0 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 6px; }
+  .element li { font-size: 12.5px; font-weight: 700; padding: 5px 10px; border-radius: 999px; background: var(--bg-2); color: var(--ink-2); }
+  .el-water { --el: var(--water); --el-soft: var(--water-soft); }
+  .el-fire  { --el: var(--clay);  --el-soft: var(--clay-soft); }
+  .el-earth { --el: var(--forest); --el-soft: var(--forest-soft); }
+  .el-air   { --el: var(--air);   --el-soft: var(--air-soft); }
+  @media (max-width: 980px) { .elements { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 540px) { .elements { grid-template-columns: 1fr; } }
+
+  /* ---------- services grid ---------- */
+  .services-section { background: var(--bg-2); }
+  .services { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .service { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; display: flex; gap: 18px; align-items: flex-start; transition: transform .2s ease, box-shadow .2s ease; }
+  .service:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+  .service .icon { flex: 0 0 44px; width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; background: var(--el-soft); color: var(--el); }
+  .service .icon svg { width: 22px; height: 22px; }
+  .service h3 { font-size: 20px; margin-bottom: 6px; font-weight: 500; }
+  .service p { color: var(--muted); font-size: 14.5px; }
+  .service .tag { display: inline-block; margin-top: 10px; font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--el); }
+  @media (max-width: 900px) { .services { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .services { grid-template-columns: 1fr; } }
+
+  /* ---------- day ---------- */
+  .day-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 56px; align-items: start; }
+  .timeline { list-style: none; margin: 0; padding: 0; border-left: 2px solid var(--line); }
+  .timeline li { position: relative; padding: 0 0 28px 28px; }
+  .timeline li:last-child { padding-bottom: 0; }
+  .timeline li::before { content: ""; position: absolute; left: -7px; top: 8px; width: 12px; height: 12px; border-radius: 50%; background: var(--forest); box-shadow: 0 0 0 4px var(--bg); }
+  .timeline time { display: block; font-size: 12px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--forest); margin-bottom: 4px; }
+  .timeline h3 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
+  .timeline p { color: var(--muted); font-size: 15px; }
+  @media (max-width: 820px) { .day-grid { grid-template-columns: 1fr; gap: 36px; } }
+
+  /* ---------- memberships ---------- */
+  .plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .plan { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 30px 28px; display: flex; flex-direction: column; }
+  .plan.featured { border-color: var(--forest); box-shadow: var(--shadow); position: relative; }
+  .plan .badge { position: absolute; top: -13px; left: 28px; background: var(--forest); color: var(--forest-ink); font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; padding: 6px 12px; border-radius: 999px; }
+  .plan h3 { font-size: 28px; }
+  .plan .sub { color: var(--muted); font-size: 14.5px; margin: 6px 0 20px; }
+  .plan ul { list-style: none; margin: 0 0 26px; padding: 0; display: grid; gap: 10px; flex: 1; }
+  .plan li { display: flex; gap: 10px; align-items: flex-start; font-size: 15px; color: var(--ink-2); }
+  .plan li svg { flex: 0 0 18px; width: 18px; height: 18px; color: var(--forest); margin-top: 3px; }
+  .plan .btn { width: 100%; }
+  @media (max-width: 900px) { .plans { grid-template-columns: 1fr; } }
+
+  /* ---------- location ---------- */
+  .location-section { background: var(--bg-2); }
+  .loc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: stretch; }
+  .map { border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); min-height: 380px; background: var(--surface); }
+  .map iframe { width: 100%; height: 100%; min-height: 380px; border: 0; display: block; }
+  .loc-list { display: grid; gap: 22px; margin-top: 28px; }
+  .loc-item { display: flex; gap: 16px; }
+  .loc-item .icon { flex: 0 0 42px; width: 42px; height: 42px; border-radius: 12px; background: var(--forest-soft); color: var(--forest); display: grid; place-items: center; }
+  .loc-item .icon svg { width: 20px; height: 20px; }
+  .loc-item b { display: block; font-weight: 800; font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 2px; }
+  .loc-item span { color: var(--ink-2); }
+  @media (max-width: 820px) { .loc-grid { grid-template-columns: 1fr; } }
+
+  /* ---------- cta ---------- */
+  .cta { padding: 0 0 96px; }
+  .cta-card { background: var(--forest); color: var(--forest-ink); border-radius: 28px; padding: 64px 48px; text-align: center; position: relative; overflow: hidden; }
+  .cta-card::before { content: ""; position: absolute; inset: auto -10% -60% auto; width: 60%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(closest-side, rgba(255,255,255,.14), transparent); }
+  .cta-card h2 { font-size: clamp(32px, 4.6vw, 54px); font-weight: 300; letter-spacing: -.02em; max-width: 18ch; margin: 0 auto 16px; }
+  .cta-card p { opacity: .85; max-width: 50ch; margin: 0 auto 32px; }
+  .cta-card .btn-ghost { color: var(--forest-ink); border-color: color-mix(in srgb, var(--forest-ink) 45%, transparent); }
+  .cta-card .btn-ghost:hover { border-color: var(--forest-ink); }
+  .cta-card .btn-clay { background: var(--sun); color: #1B1A17; }
+  .cta-row { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; position: relative; }
+  @media (max-width: 640px) { .cta-card { padding: 48px 24px; border-radius: 22px; } }
+
+  /* ---------- footer ---------- */
+  footer { border-top: 1px solid var(--line); padding: 40px 0; }
+  .foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 20px; align-items: center; font-size: 14px; color: var(--muted); }
+  .foot .brand-name { font-size: 18px; }
+  .foot-links { display: flex; gap: 20px; list-style: none; margin: 0; padding: 0; }
+  .foot-links a { text-decoration: none; font-weight: 600; color: var(--ink-2); }
+
+  html.js .fade { opacity: 0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease; }
+  html.js .fade.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) { .fade { opacity: 1; transform: none; transition: none; } html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<header class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a href="#top" class="brand" aria-label="Element Health Club">
+      <svg class="brand-mark" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+        <circle cx="20" cy="20" r="19" stroke="currentColor" stroke-width="1.5"/>
+        <path d="M20 6 L31 26 H9 Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+        <path d="M20 34 L9 14 H31 Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" opacity=".55"/>
+      </svg>
+      <span class="brand-name">Element <small data-i18n="brand.tag">Health Club · Laureles</small></span>
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="#elements" data-i18n="nav.elements">The elements</a></li>
+      <li><a href="#experiences" data-i18n="nav.experiences">Experiences</a></li>
+      <li><a href="#day" data-i18n="nav.day">A day here</a></li>
+      <li><a href="#memberships" data-i18n="nav.memberships">Memberships</a></li>
+      <li><a href="#location" data-i18n="nav.location">Location</a></li>
+    </ul>
+
+    <div class="nav-right">
+      <div class="lang" role="group" aria-label="Language / Idioma">
+        <button type="button" data-lang="en" aria-pressed="true">EN</button>
+        <button type="button" data-lang="es" aria-pressed="false">ES</button>
+      </div>
+      <a href="#visit" class="btn btn-primary" data-i18n="nav.cta">Book a visit</a>
+      <button class="menu-btn" type="button" aria-label="Menu" aria-expanded="false" id="menuBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <span class="eyebrow" data-i18n="hero.eyebrow">Opening soon in Laureles, Medellín</span>
+        <h1 data-i18n-html="hero.title">Where the body <em>finds its balance</em></h1>
+        <p class="lead" data-i18n="hero.lead">A health and wellness club built around the four elements. Plunge into ice water, sweat in the sauna, move through HIIT, pilates and salsa, then refuel at the juice bar. Everything you need to feel alive, in one place.</p>
+        <div class="hero-ctas">
+          <a href="#visit" class="btn btn-primary" data-i18n="hero.cta1">Book a visit</a>
+          <a href="#experiences" class="btn btn-ghost" data-i18n="hero.cta2">See all experiences</a>
+        </div>
+        <p class="hero-note" data-i18n="hero.note">Founding memberships are limited. Join the list to lock in opening pricing.</p>
+      </div>
+
+      <div class="hero-art" aria-hidden="true">
+        <svg viewBox="0 0 400 500" fill="none">
+          <defs>
+            <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#ffffff" stop-opacity=".16"/>
+              <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+            </linearGradient>
+            <linearGradient id="g2" x1="0" y1="1" x2="0" y2="0">
+              <stop offset="0" stop-color="#2E6F8E" stop-opacity=".9"/>
+              <stop offset="1" stop-color="#2E6F8E" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <circle cx="300" cy="110" r="150" fill="url(#g1)"/>
+          <circle cx="300" cy="110" r="46" fill="#D9A441"/>
+          <path d="M-20 360 C 60 330, 120 390, 200 360 S 340 330, 420 360 L 420 500 L -20 500 Z" fill="url(#g2)"/>
+          <path d="M-20 400 C 60 370, 120 430, 200 400 S 340 370, 420 400" stroke="#ffffff" stroke-opacity=".5" stroke-width="2"/>
+          <path d="M-20 440 C 60 410, 120 470, 200 440 S 340 410, 420 440" stroke="#ffffff" stroke-opacity=".3" stroke-width="2"/>
+          <g stroke="#ffffff" stroke-opacity=".85" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none">
+            <path d="M128 300 L190 190 L252 300 Z"/>
+            <path d="M190 330 L128 220 L252 220 Z" stroke-opacity=".45"/>
+          </g>
+          <g fill="#ffffff" fill-opacity=".25">
+            <circle cx="70" cy="80" r="3"/><circle cx="92" cy="140" r="2"/><circle cx="40" cy="200" r="2.5"/><circle cx="350" cy="260" r="2.5"/><circle cx="330" cy="300" r="2"/>
+          </g>
+        </svg>
+        <div class="hero-chip chip-2"><span class="dot" style="background:var(--clay)"></span><span data-i18n="hero.chip2">Sauna · 85 °C</span></div>
+        <div class="hero-chip chip-1"><span class="dot" style="background:var(--water)"></span><span data-i18n="hero.chip1">Cold plunge · 4 °C</span></div>
+        <div class="hero-chip chip-3"><span class="dot" style="background:var(--sun)"></span><span data-i18n="hero.chip3">Red light therapy</span></div>
+      </div>
+    </div>
+
+    <div class="stats fade">
+      <div class="stat"><b>11</b><span data-i18n="stats.one">experiences under one roof</span></div>
+      <div class="stat"><b>4</b><span data-i18n="stats.two">elements, one philosophy</span></div>
+      <div class="stat"><b>7</b><span data-i18n="stats.three">days a week in Laureles</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ELEMENTS ============ -->
+<section id="elements">
+  <div class="wrap">
+    <div class="section-head fade">
+      <div>
+        <span class="eyebrow" data-i18n="elements.eyebrow">Our philosophy</span>
+        <h2 data-i18n="elements.title">Four elements. One complete practice.</h2>
+      </div>
+      <p class="lead" data-i18n="elements.lead">Real wellbeing is not one thing. It is contrast, movement, recovery and nourishment working together. We built the club so you can touch all four in a single visit.</p>
+    </div>
+
+    <div class="elements">
+      <article class="element el-water fade">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c3 4 6 7.3 6 11a6 6 0 0 1-12 0c0-3.7 3-7 6-11z"/></svg></div>
+        <h3 data-i18n="el.water.title">Water</h3>
+        <p data-i18n="el.water.text">Shock the system, calm the mind. Cold immersion and hydration that resets you from the inside.</p>
+        <ul><li data-i18n="svc.plunge.name">Cold plunge</li><li data-i18n="svc.juice.name">Juice & protein bar</li><li data-i18n="svc.cafe.name">Smoothie café</li></ul>
+      </article>
+      <article class="element el-fire fade">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c4 0 7-3 7-7 0-3-2-5-3-7-1 2-2 3-3 3 0-3-1-6-4-8 0 4-5 6-5 12a7 7 0 0 0 8 7z"/></svg></div>
+        <h3 data-i18n="el.fire.title">Fire</h3>
+        <p data-i18n="el.fire.text">Heat, light and intensity. Sweat it out, recover faster and build real conditioning.</p>
+        <ul><li data-i18n="svc.sauna.name">Sauna</li><li data-i18n="svc.redlight.name">Red light therapy</li><li data-i18n="svc.hiit.name">HIIT</li></ul>
+      </article>
+      <article class="element el-earth fade">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M5 20l3-9 4 5 3-7 4 11"/></svg></div>
+        <h3 data-i18n="el.earth.title">Earth</h3>
+        <p data-i18n="el.earth.text">Strength, stability and control. The foundation that everything else is built on.</p>
+        <ul><li data-i18n="svc.fitness.name">Fitness classes</li><li data-i18n="svc.pilates.name">Pilates</li><li data-i18n="svc.yoga.name">Yoga</li></ul>
+      </article>
+      <article class="element el-air fade">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h11a3 3 0 1 0-3-3M3 12h15a3 3 0 1 1-3 3M3 16h8a2.5 2.5 0 1 1-2.5 2.5"/></svg></div>
+        <h3 data-i18n="el.air.title">Air</h3>
+        <p data-i18n="el.air.text">Rhythm, bounce and joy. Movement that makes you forget you are exercising.</p>
+        <ul><li data-i18n="svc.salsa.name">Salsa classes</li><li data-i18n="svc.trampoline.name">Trampoline fitness</li></ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EXPERIENCES ============ -->
+<section id="experiences" class="services-section">
+  <div class="wrap">
+    <div class="section-head fade">
+      <div>
+        <span class="eyebrow" data-i18n="svc.eyebrow">Everything inside</span>
+        <h2 data-i18n="svc.title">Eleven ways to feel better today.</h2>
+      </div>
+      <p class="lead" data-i18n="svc.lead">Drop in for one thing or stay for the whole circuit. Every experience is included in membership, and most are available as single sessions.</p>
+    </div>
+
+    <div class="services">
+      <article class="service el-water fade">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14c2-2 4-2 6 0s4 2 6 0 4-2 6 0M4 19c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/><path d="M12 3v7M9 7l3 3 3-3"/></svg></div>
+        <div><h3 data-i18n="svc.plunge.name">Cold plunge</h3><p data-i18n="svc.plunge.text">Guided immersion at 4 °C to 8 °C. Reduces inflammation, sharpens focus and builds a calm you can carry all day.</p><span class="tag" data-i18n="el.water.title">Water</span></div>
+      </article>
+      <article class="service el-fire fade">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V9l9-6 9 6v12"/><path d="M8 21v-6h8v6M9 11h2M13 11h2"/></svg></div>
+        <div><h3 data-i18n="svc.sauna.name">Sauna</h3><p data-i18n="svc.sauna.text">Traditional dry sauna up to 85 °C. Pair it with the plunge for the classic hot and cold contrast circuit.</p><span class="tag" data-i18n="el.fire.title">Fire</span></div>
+      </article>
+      <article class="service el-fire fade">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1 7 17M17 7l2.1-2.1"/></svg></div>
+        <div><h3 data-i18n="svc.redlight.name">Red light therapy</h3><p data-i18n="svc.redlight.text">Full-body red and near-infrared light sessions to support recovery, skin health and sleep.</p><span class="tag" data-i18n="el.fire.title">Fire</span></div>
+      </article>
+      <article class="service el-fire fade">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"/></svg></div>
+        <div><h3 data-i18n="svc.hiit.name">HIIT classes</h3><p data-i18n="svc.hiit.text">Forty-five minutes of high-intensity intervals, coached in small groups. Maximum result, minimum time.</p><span class="tag" data-i18n="el.fire.title">Fire</span></div>
+      </article>
+      <article class="service el-earth fade">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8v8M18 8v8M3 10v4M21 10v4M6 12h12"/></svg></div>
+        <div><h3 data-i18n="svc.fitness.name">Fitness classes</h3><p data-i18n="svc.fitness.text">Strength, mobility and functional training for every level, led by coaches who know your name.</p><span class="tag" data-i18n="el.earth.title">Earth</span></div>
+      </article>
+      <article class="service el-earth fade">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17h18M5 17V9a7 7 0 0 1 14 0v8"/><circle cx="12" cy="6" r="1.5"/></svg></div>
+        <div><h3 data-i18n="svc.pilates.name">Pilates</h3><p data-i18n="svc.pilates.text">Mat and reformer pilates to build core strength, posture and long, controlled movement.</p><span class="tag" data-i18n="el.earth.title">Earth</span></div>
+      </article>
+      <article class="service el-earth fade">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c2 4 2 8 0 12-2-4-2-8 0-12z"/><path d="M12 15c-3-2-7-2-9 0 2 3 6 4 9 3M12 15c3-2 7-2 9 0-2 3-6 4-9 3M12 18v3"/></svg></div>
+        <div><h3 data-i18n="svc.yoga.name">Yoga</h3><p data-i18n="svc.yoga.text">Vinyasa, hatha and restorative classes. Breath, flexibility and a quieter mind.</p><span class="tag" data-i18n="el.earth.title">Earth</span></div>
+      </article>
+      <article class="service el-air fade">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div>
+        <div><h3 data-i18n="svc.salsa.name">Salsa classes</h3><p data-i18n="svc.salsa.text">This is Medellín. Learn salsa with local instructors, from your first basic step to full social dancing.</p><span class="tag" data-i18n="el.air.title">Air</span></div>
+      </article>
+      <article class="service el-air fade">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="15" rx="9" ry="3"/><path d="M5 17v3M19 17v3M12 3v4M9 7l3-4 3 4"/></svg></div>
+        <div><h3 data-i18n="svc.trampoline.name">Trampoline fitness</h3><p data-i18n="svc.trampoline.text">Low-impact, high-energy rebounding classes. Great for the lymphatic system, better for your mood.</p><span class="tag" data-i18n="el.air.title">Air</span></div>
+      </article>
+      <article class="service el-water fade">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h10l-1 18H8L7 3z"/><path d="M7.5 9h9"/><path d="M14 3l3-1"/></svg></div>
+        <div><h3 data-i18n="svc.juice.name">Juice & protein bar</h3><p data-i18n="svc.juice.text">Cold-pressed juices, protein shakes and post-session recovery drinks made with Colombian fruit.</p><span class="tag" data-i18n="el.water.title">Water</span></div>
+      </article>
+      <article class="service el-water fade">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h12v7a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4V8z"/><path d="M16 10h2a2 2 0 0 1 0 4h-2M7 4c0 1 1 1 1 2M11 4c0 1 1 1 1 2"/></svg></div>
+        <div><h3 data-i18n="svc.cafe.name">Smoothie café</h3><p data-i18n="svc.cafe.text">A café stand with smoothies, bowls, Colombian coffee and light, healthy food. Stay a while.</p><span class="tag" data-i18n="el.water.title">Water</span></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ A DAY HERE ============ -->
+<section id="day">
+  <div class="wrap day-grid">
+    <div class="fade">
+      <span class="eyebrow" data-i18n="day.eyebrow">A day at Element</span>
+      <h2 style="font-size:clamp(32px,4.4vw,52px);margin-top:14px;letter-spacing:-.02em" data-i18n="day.title">Come for an hour. Leave feeling like a new person.</h2>
+      <p class="lead" style="margin-top:18px" data-i18n="day.lead">There is no right way to use the club, but here is one we love. Mix it up however your body asks.</p>
+      <a href="#visit" class="btn btn-primary" style="margin-top:28px" data-i18n="day.cta">Plan your first visit</a>
+    </div>
+    <ol class="timeline fade">
+      <li><time>07:00</time><h3 data-i18n="day.1.title">Move</h3><p data-i18n="day.1.text">Start with HIIT, pilates or a trampoline class. Wake the body up.</p></li>
+      <li><time>07:50</time><h3 data-i18n="day.2.title">Heat</h3><p data-i18n="day.2.text">Fifteen minutes in the sauna to loosen everything.</p></li>
+      <li><time>08:10</time><h3 data-i18n="day.3.title">Cold</h3><p data-i18n="day.3.text">Three minutes in the plunge. Breathe. This is the part you will talk about.</p></li>
+      <li><time>08:20</time><h3 data-i18n="day.4.title">Light</h3><p data-i18n="day.4.text">A red light session while your heart rate settles.</p></li>
+      <li><time>08:40</time><h3 data-i18n="day.5.title">Refuel</h3><p data-i18n="day.5.text">Protein shake or a smoothie bowl at the café. Then go run your day.</p></li>
+      <li><time>19:00</time><h3 data-i18n="day.6.title">Dance</h3><p data-i18n="day.6.text">Come back for salsa. Because you are in Medellín.</p></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ MEMBERSHIPS ============ -->
+<section id="memberships">
+  <div class="wrap">
+    <div class="section-head fade">
+      <div>
+        <span class="eyebrow" data-i18n="plans.eyebrow">Memberships</span>
+        <h2 data-i18n="plans.title">Pick the rhythm that fits your life.</h2>
+      </div>
+      <p class="lead" data-i18n="plans.lead">Founding member pricing is available for a limited time before opening. Contact us for current rates.</p>
+    </div>
+
+    <div class="plans">
+      <article class="plan fade">
+        <h3 data-i18n="plans.flex.name">Flex</h3>
+        <p class="sub" data-i18n="plans.flex.sub">For when you want to drop in.</p>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg><span data-i18n="plans.flex.1">Single sessions and class packs</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg><span data-i18n="plans.flex.2">Sauna and cold plunge access</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg><span data-i18n="plans.flex.3">No commitment</span></li>
+        </ul>
+        <a href="#visit" class="btn btn-ghost" data-i18n="plans.cta">Ask about pricing</a>
+      </article>
+      <article class="plan featured fade">
+        <span class="badge" data-i18n="plans.badge">Most popular</span>
+        <h3 data-i18n="plans.full.name">Element</h3>
+        <p class="sub" data-i18n="plans.full.sub">The full club, every day.</p>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg><span data-i18n="plans.full.1">Unlimited classes: HIIT, pilates, yoga, fitness, trampoline and salsa</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg><span data-i18n="plans.full.2">Unlimited sauna and cold plunge</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg><span data-i18n="plans.full.3">Red light therapy sessions included</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg><span data-i18n="plans.full.4">Member discount at the juice bar and café</span></li>
+        </ul>
+        <a href="#visit" class="btn btn-primary" data-i18n="plans.cta">Ask about pricing</a>
+      </article>
+      <article class="plan fade">
+        <h3 data-i18n="plans.recovery.name">Recovery</h3>
+        <p class="sub" data-i18n="plans.recovery.sub">For athletes and busy bodies.</p>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg><span data-i18n="plans.recovery.1">Unlimited sauna and cold plunge</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg><span data-i18n="plans.recovery.2">Red light therapy sessions</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg><span data-i18n="plans.recovery.3">Yoga and mobility classes</span></li>
+        </ul>
+        <a href="#visit" class="btn btn-ghost" data-i18n="plans.cta">Ask about pricing</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LOCATION ============ -->
+<section id="location" class="location-section">
+  <div class="wrap loc-grid">
+    <div class="fade">
+      <span class="eyebrow" data-i18n="loc.eyebrow">Find us</span>
+      <h2 style="font-size:clamp(32px,4.4vw,52px);margin-top:14px;letter-spacing:-.02em" data-i18n="loc.title">In the heart of Laureles.</h2>
+      <p class="lead" style="margin-top:18px" data-i18n="loc.lead">Tree-lined streets, the best cafés in the city and now a place to take care of yourself. A short walk from Segundo Parque and the Estadio metro station.</p>
+      <div class="loc-list">
+        <div class="loc-item">
+          <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg></div>
+          <div><b data-i18n="loc.address.label">Address</b><span data-i18n="loc.address.value">Laureles, Medellín, Antioquia. Exact address announced soon.</span></div>
+        </div>
+        <div class="loc-item">
+          <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+          <div><b data-i18n="loc.hours.label">Hours</b><span data-i18n="loc.hours.value">Monday to Saturday 6:00 to 21:00 · Sunday 8:00 to 18:00</span></div>
+        </div>
+        <div class="loc-item">
+          <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v14H4z"/><path d="m4 7 8 6 8-6"/></svg></div>
+          <div><b data-i18n="loc.contact.label">Contact</b><span><a href="mailto:hola@elementhealthclub.co">hola@elementhealthclub.co</a> · <a href="https://instagram.com/elementhealthclub" target="_blank" rel="noopener">@elementhealthclub</a></span></div>
+        </div>
+      </div>
+    </div>
+    <div class="map fade">
+      <iframe title="Map of Laureles, Medellín" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Laureles,+Medell%C3%ADn,+Antioquia&z=15&output=embed"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section id="visit" class="cta">
+  <div class="wrap">
+    <div class="cta-card fade">
+      <h2 data-i18n="cta.title">Ready to find your element?</h2>
+      <p data-i18n="cta.text">Send us a message on WhatsApp to book a free first visit, ask about founding memberships or just say hello.</p>
+      <div class="cta-row">
+        <a class="btn btn-clay" id="waLink" href="https://wa.me/573000000000?text=Hola%2C%20quiero%20reservar%20una%20visita%20a%20Element%20Health%20Club" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1.1 2.7c.1.2 1.9 2.8 4.5 4 1.7.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2l-.5-.3z"/></svg>
+          <span data-i18n="cta.whatsapp">Message us on WhatsApp</span>
+        </a>
+        <a class="btn btn-ghost" href="mailto:hola@elementhealthclub.co" data-i18n="cta.email">Send an email</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <div class="brand"><span class="brand-name">Element</span></div>
+    <ul class="foot-links">
+      <li><a href="#experiences" data-i18n="nav.experiences">Experiences</a></li>
+      <li><a href="#memberships" data-i18n="nav.memberships">Memberships</a></li>
+      <li><a href="#location" data-i18n="nav.location">Location</a></li>
+      <li><a href="https://instagram.com/elementhealthclub" target="_blank" rel="noopener">Instagram</a></li>
+    </ul>
+    <p><span data-i18n="footer.copy">© 2026 Element Health Club · Laureles, Medellín</span></p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  document.documentElement.classList.add("js");
+  var T = {
+    en: {
+      "meta.title": "Element Health Club · Laureles, Medellín",
+      "meta.description": "A health and wellness club in Laureles, Medellín. Cold plunge, sauna, red light therapy, HIIT, pilates, yoga, salsa, trampoline fitness and a juice bar, all under one roof.",
+      "brand.tag": "Health Club · Laureles",
+      "nav.elements": "The elements",
+      "nav.experiences": "Experiences",
+      "nav.day": "A day here",
+      "nav.memberships": "Memberships",
+      "nav.location": "Location",
+      "nav.cta": "Book a visit",
+
+      "hero.eyebrow": "Opening soon in Laureles, Medellín",
+      "hero.title": "Where the body <em>finds its balance</em>",
+      "hero.lead": "A health and wellness club built around the four elements. Plunge into ice water, sweat in the sauna, move through HIIT, pilates and salsa, then refuel at the juice bar. Everything you need to feel alive, in one place.",
+      "hero.cta1": "Book a visit",
+      "hero.cta2": "See all experiences",
+      "hero.note": "Founding memberships are limited. Join the list to lock in opening pricing.",
+      "hero.chip1": "Cold plunge · 4 °C",
+      "hero.chip2": "Sauna · 85 °C",
+      "hero.chip3": "Red light therapy",
+      "stats.one": "experiences under one roof",
+      "stats.two": "elements, one philosophy",
+      "stats.three": "days a week in Laureles",
+
+      "elements.eyebrow": "Our philosophy",
+      "elements.title": "Four elements. One complete practice.",
+      "elements.lead": "Real wellbeing is not one thing. It is contrast, movement, recovery and nourishment working together. We built the club so you can touch all four in a single visit.",
+      "el.water.title": "Water",
+      "el.water.text": "Shock the system, calm the mind. Cold immersion and hydration that resets you from the inside.",
+      "el.fire.title": "Fire",
+      "el.fire.text": "Heat, light and intensity. Sweat it out, recover faster and build real conditioning.",
+      "el.earth.title": "Earth",
+      "el.earth.text": "Strength, stability and control. The foundation that everything else is built on.",
+      "el.air.title": "Air",
+      "el.air.text": "Rhythm, bounce and joy. Movement that makes you forget you are exercising.",
+
+      "svc.eyebrow": "Everything inside",
+      "svc.title": "Eleven ways to feel better today.",
+      "svc.lead": "Drop in for one thing or stay for the whole circuit. Every experience is included in membership, and most are available as single sessions.",
+      "svc.plunge.name": "Cold plunge",
+      "svc.plunge.text": "Guided immersion at 4 °C to 8 °C. Reduces inflammation, sharpens focus and builds a calm you can carry all day.",
+      "svc.sauna.name": "Sauna",
+      "svc.sauna.text": "Traditional dry sauna up to 85 °C. Pair it with the plunge for the classic hot and cold contrast circuit.",
+      "svc.redlight.name": "Red light therapy",
+      "svc.redlight.text": "Full-body red and near-infrared light sessions to support recovery, skin health and sleep.",
+      "svc.hiit.name": "HIIT classes",
+      "svc.hiit.text": "Forty-five minutes of high-intensity intervals, coached in small groups. Maximum result, minimum time.",
+      "svc.fitness.name": "Fitness classes",
+      "svc.fitness.text": "Strength, mobility and functional training for every level, led by coaches who know your name.",
+      "svc.pilates.name": "Pilates",
+      "svc.pilates.text": "Mat and reformer pilates to build core strength, posture and long, controlled movement.",
+      "svc.yoga.name": "Yoga",
+      "svc.yoga.text": "Vinyasa, hatha and restorative classes. Breath, flexibility and a quieter mind.",
+      "svc.salsa.name": "Salsa classes",
+      "svc.salsa.text": "This is Medellín. Learn salsa with local instructors, from your first basic step to full social dancing.",
+      "svc.trampoline.name": "Trampoline fitness",
+      "svc.trampoline.text": "Low-impact, high-energy rebounding classes. Great for the lymphatic system, better for your mood.",
+      "svc.juice.name": "Juice & protein bar",
+      "svc.juice.text": "Cold-pressed juices, protein shakes and post-session recovery drinks made with Colombian fruit.",
+      "svc.cafe.name": "Smoothie café",
+      "svc.cafe.text": "A café stand with smoothies, bowls, Colombian coffee and light, healthy food. Stay a while.",
+
+      "day.eyebrow": "A day at Element",
+      "day.title": "Come for an hour. Leave feeling like a new person.",
+      "day.lead": "There is no right way to use the club, but here is one we love. Mix it up however your body asks.",
+      "day.cta": "Plan your first visit",
+      "day.1.title": "Move", "day.1.text": "Start with HIIT, pilates or a trampoline class. Wake the body up.",
+      "day.2.title": "Heat", "day.2.text": "Fifteen minutes in the sauna to loosen everything.",
+      "day.3.title": "Cold", "day.3.text": "Three minutes in the plunge. Breathe. This is the part you will talk about.",
+      "day.4.title": "Light", "day.4.text": "A red light session while your heart rate settles.",
+      "day.5.title": "Refuel", "day.5.text": "Protein shake or a smoothie bowl at the café. Then go run your day.",
+      "day.6.title": "Dance", "day.6.text": "Come back for salsa. Because you are in Medellín.",
+
+      "plans.eyebrow": "Memberships",
+      "plans.title": "Pick the rhythm that fits your life.",
+      "plans.lead": "Founding member pricing is available for a limited time before opening. Contact us for current rates.",
+      "plans.badge": "Most popular",
+      "plans.cta": "Ask about pricing",
+      "plans.flex.name": "Flex", "plans.flex.sub": "For when you want to drop in.",
+      "plans.flex.1": "Single sessions and class packs", "plans.flex.2": "Sauna and cold plunge access", "plans.flex.3": "No commitment",
+      "plans.full.name": "Element", "plans.full.sub": "The full club, every day.",
+      "plans.full.1": "Unlimited classes: HIIT, pilates, yoga, fitness, trampoline and salsa",
+      "plans.full.2": "Unlimited sauna and cold plunge",
+      "plans.full.3": "Red light therapy sessions included",
+      "plans.full.4": "Member discount at the juice bar and café",
+      "plans.recovery.name": "Recovery", "plans.recovery.sub": "For athletes and busy bodies.",
+      "plans.recovery.1": "Unlimited sauna and cold plunge", "plans.recovery.2": "Red light therapy sessions", "plans.recovery.3": "Yoga and mobility classes",
+
+      "loc.eyebrow": "Find us",
+      "loc.title": "In the heart of Laureles.",
+      "loc.lead": "Tree-lined streets, the best cafés in the city and now a place to take care of yourself. A short walk from Segundo Parque and the Estadio metro station.",
+      "loc.address.label": "Address", "loc.address.value": "Laureles, Medellín, Antioquia. Exact address announced soon.",
+      "loc.hours.label": "Hours", "loc.hours.value": "Monday to Saturday 6:00 to 21:00 · Sunday 8:00 to 18:00",
+      "loc.contact.label": "Contact",
+
+      "cta.title": "Ready to find your element?",
+      "cta.text": "Send us a message on WhatsApp to book a free first visit, ask about founding memberships or just say hello.",
+      "cta.whatsapp": "Message us on WhatsApp",
+      "cta.email": "Send an email",
+      "wa.text": "Hi, I'd like to book a visit to Element Health Club.",
+
+      "footer.copy": "© 2026 Element Health Club · Laureles, Medellín"
+    },
+    es: {
+      "meta.title": "Element Health Club · Laureles, Medellín",
+      "meta.description": "Un club de salud y bienestar en Laureles, Medellín. Cold plunge, sauna, terapia de luz roja, HIIT, pilates, yoga, salsa, trampolín y bar de jugos, todo en un solo lugar.",
+      "brand.tag": "Club de bienestar · Laureles",
+      "nav.elements": "Los elementos",
+      "nav.experiences": "Experiencias",
+      "nav.day": "Un día aquí",
+      "nav.memberships": "Membresías",
+      "nav.location": "Ubicación",
+      "nav.cta": "Reserva una visita",
+
+      "hero.eyebrow": "Próximamente en Laureles, Medellín",
+      "hero.title": "Donde el cuerpo <em>encuentra su equilibrio</em>",
+      "hero.lead": "Un club de salud y bienestar inspirado en los cuatro elementos. Sumérgete en agua helada, suda en el sauna, muévete con HIIT, pilates y salsa, y recarga energía en el bar de jugos. Todo lo que necesitas para sentirte vivo, en un solo lugar.",
+      "hero.cta1": "Reserva una visita",
+      "hero.cta2": "Ver todas las experiencias",
+      "hero.note": "Las membresías fundadoras son limitadas. Únete a la lista y asegura el precio de apertura.",
+      "hero.chip1": "Cold plunge · 4 °C",
+      "hero.chip2": "Sauna · 85 °C",
+      "hero.chip3": "Terapia de luz roja",
+      "stats.one": "experiencias bajo un mismo techo",
+      "stats.two": "elementos, una filosofía",
+      "stats.three": "días a la semana en Laureles",
+
+      "elements.eyebrow": "Nuestra filosofía",
+      "elements.title": "Cuatro elementos. Una práctica completa.",
+      "elements.lead": "El bienestar real no es una sola cosa. Es contraste, movimiento, recuperación y nutrición trabajando juntos. Diseñamos el club para que toques los cuatro en una sola visita.",
+      "el.water.title": "Agua",
+      "el.water.text": "Despierta el cuerpo, calma la mente. Inmersión en frío e hidratación que te reinician desde adentro.",
+      "el.fire.title": "Fuego",
+      "el.fire.text": "Calor, luz e intensidad. Suda, recupérate más rápido y construye una condición física real.",
+      "el.earth.title": "Tierra",
+      "el.earth.text": "Fuerza, estabilidad y control. La base sobre la que se construye todo lo demás.",
+      "el.air.title": "Aire",
+      "el.air.text": "Ritmo, salto y alegría. Movimiento que te hace olvidar que estás haciendo ejercicio.",
+
+      "svc.eyebrow": "Todo lo que hay adentro",
+      "svc.title": "Once formas de sentirte mejor hoy.",
+      "svc.lead": "Ven por una sola cosa o quédate para el circuito completo. Todas las experiencias están incluidas en la membresía, y la mayoría también se pueden tomar por sesión.",
+      "svc.plunge.name": "Cold plunge",
+      "svc.plunge.text": "Inmersión guiada en agua de 4 °C a 8 °C. Reduce la inflamación, agudiza el enfoque y te da una calma que dura todo el día.",
+      "svc.sauna.name": "Sauna",
+      "svc.sauna.text": "Sauna seco tradicional hasta 85 °C. Combínalo con el cold plunge para el clásico circuito de contraste frío y calor.",
+      "svc.redlight.name": "Terapia de luz roja",
+      "svc.redlight.text": "Sesiones de luz roja e infrarroja de cuerpo completo para apoyar la recuperación, la piel y el sueño.",
+      "svc.hiit.name": "Clases de HIIT",
+      "svc.hiit.text": "Cuarenta y cinco minutos de intervalos de alta intensidad en grupos pequeños. Máximo resultado, mínimo tiempo.",
+      "svc.fitness.name": "Clases de fitness",
+      "svc.fitness.text": "Fuerza, movilidad y entrenamiento funcional para todos los niveles, con entrenadores que saben tu nombre.",
+      "svc.pilates.name": "Pilates",
+      "svc.pilates.text": "Pilates en colchoneta y reformer para fortalecer el core, mejorar la postura y moverte con control.",
+      "svc.yoga.name": "Yoga",
+      "svc.yoga.text": "Clases de vinyasa, hatha y restaurativo. Respiración, flexibilidad y una mente más tranquila.",
+      "svc.salsa.name": "Clases de salsa",
+      "svc.salsa.text": "Esto es Medellín. Aprende salsa con instructores locales, desde el paso básico hasta bailar en cualquier fiesta.",
+      "svc.trampoline.name": "Trampolín fitness",
+      "svc.trampoline.text": "Clases de rebote de bajo impacto y alta energía. Buenísimo para el sistema linfático, mejor para el ánimo.",
+      "svc.juice.name": "Bar de jugos y proteína",
+      "svc.juice.text": "Jugos prensados en frío, batidos de proteína y bebidas de recuperación con fruta colombiana.",
+      "svc.cafe.name": "Café de smoothies",
+      "svc.cafe.text": "Un stand de café con smoothies, bowls, café colombiano y comida ligera y saludable. Quédate un rato.",
+
+      "day.eyebrow": "Un día en Element",
+      "day.title": "Ven por una hora. Sal sintiéndote otra persona.",
+      "day.lead": "No hay una forma correcta de usar el club, pero esta es una que nos encanta. Cámbiala como tu cuerpo lo pida.",
+      "day.cta": "Planea tu primera visita",
+      "day.1.title": "Muévete", "day.1.text": "Empieza con HIIT, pilates o una clase de trampolín. Despierta el cuerpo.",
+      "day.2.title": "Calor", "day.2.text": "Quince minutos en el sauna para soltar todo.",
+      "day.3.title": "Frío", "day.3.text": "Tres minutos en el cold plunge. Respira. Esta es la parte de la que vas a hablar.",
+      "day.4.title": "Luz", "day.4.text": "Una sesión de luz roja mientras tu ritmo cardíaco se calma.",
+      "day.5.title": "Recarga", "day.5.text": "Batido de proteína o un bowl de smoothie en el café. Y a conquistar el día.",
+      "day.6.title": "Baila", "day.6.text": "Vuelve en la noche para la clase de salsa. Porque estás en Medellín.",
+
+      "plans.eyebrow": "Membresías",
+      "plans.title": "Elige el ritmo que va con tu vida.",
+      "plans.lead": "El precio de miembro fundador está disponible por tiempo limitado antes de la apertura. Escríbenos para conocer las tarifas actuales.",
+      "plans.badge": "La más popular",
+      "plans.cta": "Pregunta por precios",
+      "plans.flex.name": "Flex", "plans.flex.sub": "Para cuando quieres venir de vez en cuando.",
+      "plans.flex.1": "Sesiones individuales y paquetes de clases", "plans.flex.2": "Acceso a sauna y cold plunge", "plans.flex.3": "Sin compromiso",
+      "plans.full.name": "Element", "plans.full.sub": "Todo el club, todos los días.",
+      "plans.full.1": "Clases ilimitadas: HIIT, pilates, yoga, fitness, trampolín y salsa",
+      "plans.full.2": "Sauna y cold plunge ilimitados",
+      "plans.full.3": "Sesiones de terapia de luz roja incluidas",
+      "plans.full.4": "Descuento de miembro en el bar de jugos y el café",
+      "plans.recovery.name": "Recovery", "plans.recovery.sub": "Para deportistas y cuerpos ocupados.",
+      "plans.recovery.1": "Sauna y cold plunge ilimitados", "plans.recovery.2": "Sesiones de terapia de luz roja", "plans.recovery.3": "Clases de yoga y movilidad",
+
+      "loc.eyebrow": "Encuéntranos",
+      "loc.title": "En el corazón de Laureles.",
+      "loc.lead": "Calles arboladas, los mejores cafés de la ciudad y ahora un lugar para cuidarte. A pocos pasos del Segundo Parque y de la estación Estadio del metro.",
+      "loc.address.label": "Dirección", "loc.address.value": "Laureles, Medellín, Antioquia. Pronto anunciamos la dirección exacta.",
+      "loc.hours.label": "Horario", "loc.hours.value": "Lunes a sábado 6:00 a 21:00 · Domingo 8:00 a 18:00",
+      "loc.contact.label": "Contacto",
+
+      "cta.title": "¿Listo para encontrar tu elemento?",
+      "cta.text": "Escríbenos por WhatsApp para reservar una primera visita gratis, preguntar por las membresías fundadoras o simplemente saludar.",
+      "cta.whatsapp": "Escríbenos por WhatsApp",
+      "cta.email": "Envíanos un correo",
+      "wa.text": "Hola, quiero reservar una visita a Element Health Club.",
+
+      "footer.copy": "© 2026 Element Health Club · Laureles, Medellín"
+    }
+  };
+
+  var WA_NUMBER = "573000000000"; /* TODO: replace with the club's WhatsApp number (country code, no + or spaces) */
+
+  function setLang(lang) {
+    if (!T[lang]) lang = "en";
+    var dict = T[lang];
+    document.documentElement.lang = lang;
+    document.querySelectorAll("[data-i18n]").forEach(function (el) {
+      var k = el.getAttribute("data-i18n");
+      if (dict[k] != null) el.textContent = dict[k];
+    });
+    document.querySelectorAll("[data-i18n-html]").forEach(function (el) {
+      var k = el.getAttribute("data-i18n-html");
+      if (dict[k] != null) el.innerHTML = dict[k];
+    });
+    document.querySelectorAll("[data-i18n-content]").forEach(function (el) {
+      var k = el.getAttribute("data-i18n-content");
+      if (dict[k] != null) el.setAttribute("content", dict[k]);
+    });
+    document.querySelectorAll(".lang button").forEach(function (b) {
+      b.setAttribute("aria-pressed", b.getAttribute("data-lang") === lang ? "true" : "false");
+    });
+    var wa = document.getElementById("waLink");
+    if (wa) wa.href = "https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(dict["wa.text"]);
+    try { localStorage.setItem("element-lang", lang); } catch (e) {}
+  }
+
+  function initialLang() {
+    var q = new URLSearchParams(location.search).get("lang");
+    if (q && T[q]) return q;
+    try { var s = localStorage.getItem("element-lang"); if (s && T[s]) return s; } catch (e) {}
+    var nav = (navigator.language || "en").toLowerCase();
+    return nav.indexOf("es") === 0 ? "es" : "en";
+  }
+
+  document.querySelectorAll(".lang button").forEach(function (b) {
+    b.addEventListener("click", function () { setLang(b.getAttribute("data-lang")); });
+  });
+  setLang(initialLang());
+
+  /* mobile menu */
+  var nav = document.getElementById("nav"), menuBtn = document.getElementById("menuBtn");
+  menuBtn.addEventListener("click", function () {
+    var open = nav.classList.toggle("open");
+    menuBtn.setAttribute("aria-expanded", open ? "true" : "false");
+  });
+  nav.querySelectorAll(".nav-links a").forEach(function (a) {
+    a.addEventListener("click", function () { nav.classList.remove("open"); menuBtn.setAttribute("aria-expanded", "false"); });
+  });
+
+  /* reveal on scroll */
+  var els = document.querySelectorAll(".fade");
+  if ("IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
+    }, { rootMargin: "0px 0px -8% 0px", threshold: 0.1 });
+    els.forEach(function (el) { io.observe(el); });
+  } else {
+    els.forEach(function (el) { el.classList.add("in"); });
+  }
+  /* safety net: never leave content hidden */
+  setTimeout(function () { els.forEach(function (el) { el.classList.add("in"); }); }, 1800);
+})();
+</script>
+</body>
+</html>
