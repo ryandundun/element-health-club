@@ -7,14 +7,21 @@
 <meta name="description" data-i18n-content="meta.description" content="A health and wellness club in Laureles, Medellín. Cold plunge, sauna, red light therapy, HIIT, pilates, yoga, salsa, trampoline fitness and a juice bar, all under one roof.">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <meta name="theme-color" content="#F6F3EC" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#101814" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#121010" media="(prefers-color-scheme: dark)">
+<link rel="canonical" href="https://elementhealthclub.com/">
+<meta property="og:url" content="https://elementhealthclub.com/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Element Health Club">
 <meta property="og:title" content="Element Health Club · Laureles, Medellín">
 <meta property="og:description" content="Cold plunge, sauna, red light therapy, HIIT, pilates, yoga, salsa, trampoline fitness and a juice bar, all under one roof in Laureles.">
+<meta property="og:image" content="https://elementhealthclub.com/assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://elementhealthclub.com/assets/og.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=Manrope:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=Manrope:wght@400;500;600;700;800&family=Cinzel:wght@500;600&display=swap">
 <style>
   /* ---------- tokens ---------- */
   :root {
@@ -28,7 +35,12 @@
     --line: #D9D3C4;
     --line-strong: #B5AD9B;
 
-    --forest: #1F4D3A;
+    --brand: #8F6B3C;
+    --brand-ink: #FFFFFF;
+    --brand-soft: #F0E4D0;
+    --charcoal: #16130F;
+    --charcoal-2: #221D18;
+    --forest: #2F6A4F;
     --forest-ink: #FFFFFF;
     --forest-soft: #DCE9E0;
     --clay: #C9643B;
@@ -44,20 +56,26 @@
     --radius: 18px;
 
     --display: "Fraunces", Georgia, "Times New Roman", serif;
+    --wordmark: "Cinzel", "Fraunces", Georgia, serif;
     --sans: "Manrope", "Helvetica Neue", Arial, sans-serif;
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
       color-scheme: dark;
-      --bg: #101814;
-      --bg-2: #16211B;
-      --surface: #1A2620;
-      --ink: #EEF2EE;
-      --ink-2: #C9D3CC;
-      --muted: #8E9C94;
-      --line: #2A3830;
-      --line-strong: #3E5046;
-      --forest: #6FBF95;
+      --bg: #121010;
+      --bg-2: #1A1613;
+      --surface: #1E1915;
+      --ink: #F1ECE4;
+      --ink-2: #D3CBBE;
+      --muted: #9A9086;
+      --line: #2E2824;
+      --line-strong: #4A413A;
+      --brand: #CFA86E;
+      --brand-ink: #1A1510;
+      --brand-soft: #332A1E;
+      --charcoal: #0E0C0A;
+      --charcoal-2: #1A1613;
+      --forest: #7FC9A0;
       --forest-ink: #0D1A13;
       --forest-soft: #1D3328;
       --clay: #E08A62;
@@ -73,9 +91,10 @@
   }
   :root[data-theme="dark"] {
     color-scheme: dark;
-    --bg: #101814; --bg-2: #16211B; --surface: #1A2620; --ink: #EEF2EE; --ink-2: #C9D3CC;
-    --muted: #8E9C94; --line: #2A3830; --line-strong: #3E5046;
-    --forest: #6FBF95; --forest-ink: #0D1A13; --forest-soft: #1D3328;
+    --bg: #121010; --bg-2: #1A1613; --surface: #1E1915; --ink: #F1ECE4; --ink-2: #D3CBBE;
+    --muted: #9A9086; --line: #2E2824; --line-strong: #4A413A;
+    --brand: #CFA86E; --brand-ink: #1A1510; --brand-soft: #332A1E; --charcoal: #0E0C0A; --charcoal-2: #1A1613;
+    --forest: #7FC9A0; --forest-ink: #0D1A13; --forest-soft: #1D3328;
     --clay: #E08A62; --clay-soft: #3A2419; --water: #6FB2D3; --water-soft: #16303B;
     --sun: #E6BC5F; --sun-soft: #3A2F14; --air: #A8B8C5; --air-soft: #253038;
     --shadow: 0 1px 2px rgba(0,0,0,.3), 0 18px 40px -18px rgba(0,0,0,.6);
@@ -102,7 +121,7 @@
   .eyebrow {
     display: inline-flex; align-items: center; gap: 10px;
     font-size: 12px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
-    color: var(--forest);
+    color: var(--brand);
   }
   .eyebrow::before { content: ""; width: 22px; height: 2px; background: currentColor; border-radius: 2px; }
   .lead { font-size: 19px; color: var(--ink-2); max-width: 58ch; }
@@ -117,7 +136,7 @@
     font-family: var(--sans);
   }
   .btn:hover { transform: translateY(-1px); }
-  .btn-primary { background: var(--forest); color: var(--forest-ink); }
+  .btn-primary { background: var(--brand); color: var(--brand-ink); }
   .btn-ghost { background: transparent; color: var(--ink); border-color: var(--line-strong); }
   .btn-ghost:hover { border-color: var(--ink); }
   .btn-clay { background: var(--clay); color: #fff; }
@@ -132,9 +151,9 @@
   }
   .nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; height: 72px; }
   .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
-  .brand-mark { width: 36px; height: 36px; }
-  .brand-name { font-family: var(--display); font-size: 22px; font-weight: 500; letter-spacing: -.01em; line-height: 1; }
-  .brand-name small { display: block; font-family: var(--sans); font-size: 10px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
+  .brand-mark { flex: 0 0 34px; width: 34px; height: 34px; color: var(--brand); }
+  .brand-name { font-family: var(--wordmark); font-size: 19px; font-weight: 600; letter-spacing: .26em; text-transform: uppercase; line-height: 1; color: var(--ink); }
+  .brand-name small { display: block; font-family: var(--sans); font-size: 9.5px; font-weight: 700; letter-spacing: .3em; text-transform: uppercase; color: var(--muted); margin-top: 5px; }
   .nav-links { display: flex; align-items: center; gap: 28px; list-style: none; margin: 0; padding: 0; }
   .nav-links a { text-decoration: none; font-weight: 600; font-size: 14.5px; color: var(--ink-2); }
   .nav-links a:hover { color: var(--ink); }
@@ -149,11 +168,12 @@
     font: 700 12.5px/1 var(--sans); letter-spacing: .08em; padding: 8px 12px; border-radius: 999px; cursor: pointer;
     transition: background .2s, color .2s;
   }
-  .lang button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+  .lang button[aria-pressed="true"] { background: var(--brand); color: var(--brand-ink); }
   .nav .btn-primary { padding: 11px 18px; font-size: 14px; }
 
   .menu-btn { display: none; appearance: none; background: transparent; border: 1px solid var(--line-strong); border-radius: 12px; width: 42px; height: 42px; align-items: center; justify-content: center; cursor: pointer; color: var(--ink); }
   .menu-btn svg { width: 20px; height: 20px; }
+  @media (max-width: 480px) { .brand-name small { display: none; } .brand-name { font-size: 17px; } }
   @media (max-width: 900px) {
     .nav-links { display: none; }
     .nav .btn-primary { display: none; }
@@ -170,25 +190,17 @@
   .hero { padding: 72px 0 56px; position: relative; overflow: hidden; }
   .hero::before {
     content: ""; position: absolute; inset: -20% -10% auto auto; width: 60vw; height: 60vw; max-width: 760px; max-height: 760px;
-    background: radial-gradient(closest-side, color-mix(in srgb, var(--forest) 22%, transparent), transparent 70%);
+    background: radial-gradient(closest-side, color-mix(in srgb, var(--brand) 18%, transparent), transparent 70%);
     pointer-events: none;
   }
-  .hero-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 56px; align-items: center; position: relative; }
+  .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; position: relative; }
   .hero h1 { font-size: clamp(42px, 6.2vw, 78px); font-weight: 300; letter-spacing: -.025em; margin: 18px 0 22px; }
-  .hero h1 em { font-style: italic; font-weight: 400; color: var(--forest); }
+  .hero h1 em { font-style: italic; font-weight: 400; color: var(--brand); }
   .hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
   .hero-note { margin-top: 18px; font-size: 14px; color: var(--muted); }
 
-  .hero-art { position: relative; aspect-ratio: 4 / 5; border-radius: 28px; overflow: hidden; box-shadow: var(--shadow);
-    background: linear-gradient(160deg, var(--forest) 0%, #163a2b 55%, #0f2a1f 100%); }
-  .hero-art svg { width: 100%; height: 100%; }
-  .hero-chip {
-    position: absolute; display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 14px;
-    background: color-mix(in srgb, var(--surface) 92%, transparent); color: var(--ink); box-shadow: var(--shadow);
-    font-size: 13px; font-weight: 700; backdrop-filter: blur(8px);
-  }
-  .hero-chip .dot { width: 10px; height: 10px; border-radius: 50%; }
-  .chip-1 { left: 18px; bottom: 84px; } .chip-2 { right: 18px; top: 22px; } .chip-3 { right: 26px; bottom: 26px; }
+  .hero-art { position: relative; aspect-ratio: 3 / 2; border-radius: 28px; overflow: hidden; box-shadow: var(--shadow); background: var(--charcoal); }
+  .hero-art img { width: 100%; height: 100%; object-fit: cover; }
 
   .stats { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); margin-top: 56px; overflow: hidden; }
   .stat { padding: 22px 24px; border-right: 1px solid var(--line); }
@@ -197,7 +209,7 @@
   .stat span { display: block; margin-top: 6px; font-size: 13.5px; color: var(--muted); font-weight: 600; }
   @media (max-width: 900px) {
     .hero-grid { grid-template-columns: 1fr; gap: 36px; }
-    .hero-art { aspect-ratio: 16 / 11; }
+    .hero-art { aspect-ratio: 3 / 2; }
   }
   @media (max-width: 640px) {
     .stats { grid-template-columns: 1fr; }
@@ -244,8 +256,8 @@
   .timeline { list-style: none; margin: 0; padding: 0; border-left: 2px solid var(--line); }
   .timeline li { position: relative; padding: 0 0 28px 28px; }
   .timeline li:last-child { padding-bottom: 0; }
-  .timeline li::before { content: ""; position: absolute; left: -7px; top: 8px; width: 12px; height: 12px; border-radius: 50%; background: var(--forest); box-shadow: 0 0 0 4px var(--bg); }
-  .timeline time { display: block; font-size: 12px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--forest); margin-bottom: 4px; }
+  .timeline li::before { content: ""; position: absolute; left: -7px; top: 8px; width: 12px; height: 12px; border-radius: 50%; background: var(--brand); box-shadow: 0 0 0 4px var(--bg); }
+  .timeline time { display: block; font-size: 12px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--brand); margin-bottom: 4px; }
   .timeline h3 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
   .timeline p { color: var(--muted); font-size: 15px; }
   @media (max-width: 820px) { .day-grid { grid-template-columns: 1fr; gap: 36px; } }
@@ -253,13 +265,13 @@
   /* ---------- memberships ---------- */
   .plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
   .plan { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 30px 28px; display: flex; flex-direction: column; }
-  .plan.featured { border-color: var(--forest); box-shadow: var(--shadow); position: relative; }
-  .plan .badge { position: absolute; top: -13px; left: 28px; background: var(--forest); color: var(--forest-ink); font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; padding: 6px 12px; border-radius: 999px; }
+  .plan.featured { border-color: var(--brand); box-shadow: var(--shadow); position: relative; }
+  .plan .badge { position: absolute; top: -13px; left: 28px; background: var(--brand); color: var(--brand-ink); font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; padding: 6px 12px; border-radius: 999px; }
   .plan h3 { font-size: 28px; }
   .plan .sub { color: var(--muted); font-size: 14.5px; margin: 6px 0 20px; }
   .plan ul { list-style: none; margin: 0 0 26px; padding: 0; display: grid; gap: 10px; flex: 1; }
   .plan li { display: flex; gap: 10px; align-items: flex-start; font-size: 15px; color: var(--ink-2); }
-  .plan li svg { flex: 0 0 18px; width: 18px; height: 18px; color: var(--forest); margin-top: 3px; }
+  .plan li svg { flex: 0 0 18px; width: 18px; height: 18px; color: var(--brand); margin-top: 3px; }
   .plan .btn { width: 100%; }
   @media (max-width: 900px) { .plans { grid-template-columns: 1fr; } }
 
@@ -270,7 +282,7 @@
   .map iframe { width: 100%; height: 100%; min-height: 380px; border: 0; display: block; }
   .loc-list { display: grid; gap: 22px; margin-top: 28px; }
   .loc-item { display: flex; gap: 16px; }
-  .loc-item .icon { flex: 0 0 42px; width: 42px; height: 42px; border-radius: 12px; background: var(--forest-soft); color: var(--forest); display: grid; place-items: center; }
+  .loc-item .icon { flex: 0 0 42px; width: 42px; height: 42px; border-radius: 12px; background: var(--brand-soft); color: var(--brand); display: grid; place-items: center; }
   .loc-item .icon svg { width: 20px; height: 20px; }
   .loc-item b { display: block; font-weight: 800; font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 2px; }
   .loc-item span { color: var(--ink-2); }
@@ -278,13 +290,14 @@
 
   /* ---------- cta ---------- */
   .cta { padding: 0 0 96px; }
-  .cta-card { background: var(--forest); color: var(--forest-ink); border-radius: 28px; padding: 64px 48px; text-align: center; position: relative; overflow: hidden; }
-  .cta-card::before { content: ""; position: absolute; inset: auto -10% -60% auto; width: 60%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(closest-side, rgba(255,255,255,.14), transparent); }
+  .cta-card { background: var(--charcoal); color: #F1ECE4; border-radius: 28px; padding: 64px 48px; text-align: center; position: relative; overflow: hidden; }
+  .cta-card::before { content: ""; position: absolute; inset: -40% auto auto -10%; width: 70%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(closest-side, rgba(207,168,110,.22), transparent); }
+  .cta-card h2 em { font-style: italic; color: #CFA86E; }
   .cta-card h2 { font-size: clamp(32px, 4.6vw, 54px); font-weight: 300; letter-spacing: -.02em; max-width: 18ch; margin: 0 auto 16px; }
   .cta-card p { opacity: .85; max-width: 50ch; margin: 0 auto 32px; }
-  .cta-card .btn-ghost { color: var(--forest-ink); border-color: color-mix(in srgb, var(--forest-ink) 45%, transparent); }
-  .cta-card .btn-ghost:hover { border-color: var(--forest-ink); }
-  .cta-card .btn-clay { background: var(--sun); color: #1B1A17; }
+  .cta-card .btn-ghost { color: #F1ECE4; border-color: rgba(241,236,228,.4); }
+  .cta-card .btn-ghost:hover { border-color: #F1ECE4; }
+  .cta-card .btn-clay { background: #CFA86E; color: #1A1510; }
   .cta-row { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; position: relative; }
   @media (max-width: 640px) { .cta-card { padding: 48px 24px; border-radius: 22px; } }
 
@@ -306,12 +319,10 @@
 <header class="nav" id="nav">
   <div class="wrap nav-inner">
     <a href="#top" class="brand" aria-label="Element Health Club">
-      <svg class="brand-mark" viewBox="0 0 40 40" fill="none" aria-hidden="true">
-        <circle cx="20" cy="20" r="19" stroke="currentColor" stroke-width="1.5"/>
-        <path d="M20 6 L31 26 H9 Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
-        <path d="M20 34 L9 14 H31 Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" opacity=".55"/>
+      <svg class="brand-mark" viewBox="0 0 40 40" fill="currentColor" aria-hidden="true">
+        <path d="M11 7h20l-3 5H8z"/><path d="M11 17.5h20l-3 5H8z"/><path d="M11 28h20l-3 5H8z"/>
       </svg>
-      <span class="brand-name">Element <small data-i18n="brand.tag">Health Club · Laureles</small></span>
+      <span class="brand-name">Element<small data-i18n="brand.tag">Health Club · Laureles</small></span>
     </a>
 
     <ul class="nav-links">
@@ -352,34 +363,8 @@
         <p class="hero-note" data-i18n="hero.note">Founding memberships are limited. Join the list to lock in opening pricing.</p>
       </div>
 
-      <div class="hero-art" aria-hidden="true">
-        <svg viewBox="0 0 400 500" fill="none">
-          <defs>
-            <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stop-color="#ffffff" stop-opacity=".16"/>
-              <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
-            </linearGradient>
-            <linearGradient id="g2" x1="0" y1="1" x2="0" y2="0">
-              <stop offset="0" stop-color="#2E6F8E" stop-opacity=".9"/>
-              <stop offset="1" stop-color="#2E6F8E" stop-opacity="0"/>
-            </linearGradient>
-          </defs>
-          <circle cx="300" cy="110" r="150" fill="url(#g1)"/>
-          <circle cx="300" cy="110" r="46" fill="#D9A441"/>
-          <path d="M-20 360 C 60 330, 120 390, 200 360 S 340 330, 420 360 L 420 500 L -20 500 Z" fill="url(#g2)"/>
-          <path d="M-20 400 C 60 370, 120 430, 200 400 S 340 370, 420 400" stroke="#ffffff" stroke-opacity=".5" stroke-width="2"/>
-          <path d="M-20 440 C 60 410, 120 470, 200 440 S 340 410, 420 440" stroke="#ffffff" stroke-opacity=".3" stroke-width="2"/>
-          <g stroke="#ffffff" stroke-opacity=".85" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none">
-            <path d="M128 300 L190 190 L252 300 Z"/>
-            <path d="M190 330 L128 220 L252 220 Z" stroke-opacity=".45"/>
-          </g>
-          <g fill="#ffffff" fill-opacity=".25">
-            <circle cx="70" cy="80" r="3"/><circle cx="92" cy="140" r="2"/><circle cx="40" cy="200" r="2.5"/><circle cx="350" cy="260" r="2.5"/><circle cx="330" cy="300" r="2"/>
-          </g>
-        </svg>
-        <div class="hero-chip chip-2"><span class="dot" style="background:var(--clay)"></span><span data-i18n="hero.chip2">Sauna · 85 °C</span></div>
-        <div class="hero-chip chip-1"><span class="dot" style="background:var(--water)"></span><span data-i18n="hero.chip1">Cold plunge · 4 °C</span></div>
-        <div class="hero-chip chip-3"><span class="dot" style="background:var(--sun)"></span><span data-i18n="hero.chip3">Red light therapy</span></div>
+      <div class="hero-art">
+        <img src="assets/logo-wall.jpg" alt="Element Health Club logo in bronze on a stone wall" width="1536" height="1024" fetchpriority="high">
       </div>
     </div>
 
@@ -608,7 +593,9 @@
 
 <footer>
   <div class="wrap foot">
-    <div class="brand"><span class="brand-name">Element</span></div>
+    <div class="brand"><svg class="brand-mark" viewBox="0 0 40 40" fill="currentColor" aria-hidden="true">
+        <path d="M11 7h20l-3 5H8z"/><path d="M11 17.5h20l-3 5H8z"/><path d="M11 28h20l-3 5H8z"/>
+      </svg><span class="brand-name">Element<small>Health Club</small></span></div>
     <ul class="foot-links">
       <li><a href="#experiences" data-i18n="nav.experiences">Experiences</a></li>
       <li><a href="#memberships" data-i18n="nav.memberships">Memberships</a></li>
