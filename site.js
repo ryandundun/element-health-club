@@ -223,7 +223,7 @@
     }
   };
 
-  var WA_NUMBER = "573000000000"; /* TODO: replace with the club's WhatsApp number (country code, no + or spaces) */
+  var WA_NUMBER = "573106508588"; /* club WhatsApp number: country code + number, no + or spaces */
 
   function setLang(lang) {
     if (!T[lang]) lang = "en";
