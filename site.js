@@ -246,10 +246,16 @@
     });
     var wa = document.getElementById("waLink");
     if (wa) wa.href = "https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(dict["wa.text"]);
-    try { localStorage.setItem("element-lang", lang); } catch (e) {}
+    /* a locked page must not change the visitor's saved language for the rest of the site */
+    if (!document.documentElement.hasAttribute("data-lang-lock")) {
+      try { localStorage.setItem("element-lang", lang); } catch (e) {}
+    }
   }
 
   function initialLang() {
+    /* pages written in one language (the blog) set <html data-lang-lock="es"> */
+    var lock = document.documentElement.getAttribute("data-lang-lock");
+    if (lock && T[lock]) return lock;
     var q = new URLSearchParams(location.search).get("lang");
     if (q && T[q]) return q;
     try { var s = localStorage.getItem("element-lang"); if (s && T[s]) return s; } catch (e) {}
