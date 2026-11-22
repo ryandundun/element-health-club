@@ -10,7 +10,7 @@
       "meta.title": "Class schedule · Element Health Club",
       "meta.description": "See this week's HIIT, trampoline and mat pilates classes in Laureles, Medellín. Free, optional sauna and cold plunge after every class. Book and pay online.",
       "nav.schedule": "Schedule", "nav.cta": "Book a class",
-      "mock.pill": "Mockup", "mock.text": "The spots shown are sample data, and no real payment is taken.",
+      "mock.pill": "Mockup", "mock.text": "Bookings are simulated, and no real payment is taken.",
       "hero.eyebrow": "Class schedule",
       "hero.title": "Move for an hour. <em>Stay for the spa if you like.</em>",
       "hero.lead": "Every class is one hour. Afterwards, the saunas and cold plunge are yours for up to an hour, free and completely optional. Pick a time, reserve your spot and pay in under a minute.",
@@ -26,12 +26,12 @@
       "c.hiit": "HIIT · Kettlebells", "c.tramp": "Trampoline", "c.pil": "Mat Pilates",
       "e.fire": "Fire", "e.air": "Air", "e.earth": "Earth",
       "morning": "Morning", "evening": "Evening", "today": "Today",
-      "with": "with {name}", "spots": "{n} spots left", "spot1": "1 spot left", "full": "Full", "ended": "Ended",
-      "left": "{n} left", "booked": "You're booked", "bookedShort": "Booked",
+      "with": "with {name}", "last": "Last spots", "full": "Full", "ended": "Ended",
+      "booked": "You're booked", "bookedShort": "Booked",
       "spaBand": "Free spa after class, optional · until {e}", "spaMini": "+ Free spa",
       "book": "Book", "noClasses": "No classes match this filter on this day.",
       "how.eyebrow": "How booking works", "how.title": "Three taps and you're in",
-      "how.s1": "Pick a class", "how.s1b": "Choose a day and time. Every class shows the spots left and the free spa time after it.",
+      "how.s1": "Pick a class", "how.s1b": "Choose a day and time. Every class shows who's teaching and the free spa time after it.",
       "how.s2": "Reserve your spot", "how.s2b": "Add your name, WhatsApp and email. No account or password needed.",
       "how.s3": "Pay and you're in", "how.s3b": "Pay by card, PSE, Nequi, Bancolombia or Daviplata. Your confirmation arrives straight away.",
       "know.c": "Cancellations", "know.cb": "Cancel at least 12 hours before your class and we'll give you a class credit.",
@@ -69,7 +69,7 @@
       "meta.title": "Horario de clases · Element Health Club",
       "meta.description": "Consulta las clases de HIIT, trampolín y pilates en colchoneta de esta semana en Laureles, Medellín. Sauna y cold plunge gratis y opcionales después de cada clase. Reserva y paga en línea.",
       "nav.schedule": "Horario", "nav.cta": "Reserva tu clase",
-      "mock.pill": "Maqueta", "mock.text": "Los cupos que ves son de ejemplo y no se cobra ningún pago real.",
+      "mock.pill": "Maqueta", "mock.text": "Las reservas son simuladas y no se cobra ningún pago real.",
       "hero.eyebrow": "Horario de clases",
       "hero.title": "Una hora para moverte. <em>Y el spa, si te provoca.</em>",
       "hero.lead": "Cada clase dura una hora. Después, los saunas y el cold plunge son tuyos hasta por una hora, gratis y totalmente opcional. Elige un horario, reserva tu cupo y paga en menos de un minuto.",
@@ -85,12 +85,12 @@
       "c.hiit": "HIIT con kettlebells", "c.tramp": "Trampolín", "c.pil": "Pilates en colchoneta",
       "e.fire": "Fuego", "e.air": "Aire", "e.earth": "Tierra",
       "morning": "Mañana", "evening": "Tarde", "today": "Hoy",
-      "with": "con {name}", "spots": "Quedan {n} cupos", "spot1": "Queda 1 cupo", "full": "Llena", "ended": "Finalizada",
-      "left": "{n} cupos", "booked": "Ya reservaste", "bookedShort": "Reservada",
+      "with": "con {name}", "last": "Últimos cupos", "full": "Llena", "ended": "Finalizada",
+      "booked": "Ya reservaste", "bookedShort": "Reservada",
       "spaBand": "Spa gratis después de clase, opcional · hasta las {e}", "spaMini": "+ Spa gratis",
       "book": "Reservar", "noClasses": "Ese día no hay clases con este filtro.",
       "how.eyebrow": "Cómo reservar", "how.title": "Tres toques y listo",
-      "how.s1": "Elige tu clase", "how.s1b": "Escoge el día y la hora. Cada clase muestra los cupos disponibles y el spa gratis que viene después.",
+      "how.s1": "Elige tu clase", "how.s1b": "Escoge el día y la hora. Cada clase muestra quién la dicta y el spa gratis que viene después.",
       "how.s2": "Reserva tu cupo", "how.s2b": "Escribe tu nombre, WhatsApp y correo. No necesitas cuenta ni contraseña.",
       "how.s3": "Paga y listo", "how.s3b": "Paga con tarjeta, PSE, Nequi, Bancolombia o Daviplata. La confirmación te llega al instante.",
       "know.c": "Cancelaciones", "know.cb": "Cancela con al menos 12 horas de anticipación y te damos un crédito de clase.",
@@ -137,6 +137,7 @@
   var PRICE_REG = 60000;          /* COP, regular price per class */
   var PRICE = 40000;              /* COP, December founding price */
   var CAP = 16;                   /* spots per class */
+  var LAST = 3;                   /* spot counts are never shown; "Last spots" appears at this many or fewer */
   var HOLD_MS = 15 * 60 * 1000;   /* spot held while paying */
   var PROMO = "PRIMERA";
   var SLOTS = [6, 7, 8, 17, 18, 19];
@@ -150,7 +151,7 @@
   var B = ["tramp", "pil", "hiit", "pil", "tramp", "hiit"];
   var C = ["pil", "hiit", "tramp", "hiit", "pil", "tramp"];
   var ROTA = [A, B, C, A, B, C];
-  var POPULAR = { 6: 8, 7: 7, 8: 3, 17: 7, 18: 10, 19: 5 };
+  var POPULAR = { 6: 7, 7: 6, 8: 3, 17: 6, 18: 9, 19: 4 };
 
   /* ---------- time: everything is Medellín wall-clock time (UTC-5, no daylight saving) ---------- */
   var DAY = 864e5, HOUR = 36e5, TZ_MS = 5 * HOUR;
@@ -218,11 +219,13 @@
 
   /* ---------- schedule ---------- */
   var $ = function (id) { return document.getElementById(id); };
-  function spotsText(s, short) {
-    if (s.mine) return t("bookedShort");
+  /* availability is shown only when it helps: nearly full or full, never as a count */
+  function isLast(s) { return !s.past && !s.mine && s.left > 0 && s.left <= LAST; }
+  function statusText(s) {
+    if (s.past) return t("ended");
+    if (s.mine) return "✓ " + t("bookedShort");
     if (s.left <= 0) return t("full");
-    if (short) return t("left", { n: s.left });
-    return s.left === 1 ? t("spot1") : t("spots", { n: s.left });
+    return isLast(s) ? t("last") : "";
   }
   function matches(s) { return state.filter === "all" || state.filter === s.type; }
 
@@ -256,7 +259,6 @@
   }
 
   function cardHTML(s) {
-    var low = !s.mine && s.left > 0 && s.left <= 3;
     var action = s.mine ? '<span class="state ok">✓ ' + esc(t("booked")) + "</span>"
       : s.past ? '<span class="state">' + esc(t("ended")) + "</span>"
       : s.left <= 0 ? '<span class="state">' + esc(t("full")) + "</span>"
@@ -264,7 +266,7 @@
     return '<article class="cls el-' + s.el + (s.past ? " is-past" : "") + '">' +
       '<div class="cls-time"><b>' + hm(s.h) + "</b><span>" + ap(s.h) + "</span></div>" +
       '<div class="cls-card"><div class="cls-top"><h4>' + esc(t("c." + s.type)) + '</h4><span class="el-tag">' + esc(t("e." + s.el)) + "</span></div>" +
-      '<p class="cls-meta">' + esc(t("with", { name: s.who })) + (s.past ? "" : ' · <span class="' + (low ? "low" : "") + '">' + esc(spotsText(s)) + "</span>") + "</p>" +
+      '<p class="cls-meta">' + esc(t("with", { name: s.who })) + (isLast(s) ? ' · <span class="low">' + esc(t("last")) + "</span>" : "") + "</p>" +
       '<div class="spa-band">' + IC.drop + "<span>" + esc(t("spaBand", { e: until(s.h) })) + "</span></div>" +
       '<div class="cls-foot"><span class="price"><s>' + money(PRICE_REG) + "</s>" + money(PRICE) + "<small>COP</small></span>" + action + "</div></div></article>";
   }
@@ -281,15 +283,11 @@
   function cellHTML(s) {
     var dis = s.past || s.mine || s.left <= 0;
     var label = t("c." + s.type) + ", " + cap1(fmt(s.day, { weekday: "long", day: "numeric", month: "long" })) + ", " + hm(s.h) + " " + ap(s.h) + ", " +
-      t("with", { name: s.who }) + ", " + (s.past ? t("ended") : spotsText(s));
-    var meter = "";
-    for (var i = 0; i < CAP; i++) meter += '<i class="' + (i < s.taken ? "" : "free") + '"></i>';
+      t("with", { name: s.who }) + (statusText(s) ? ", " + statusText(s).replace("✓ ", "") : "");
     var cls = "cell el-" + s.el + (s.left <= 0 && !s.mine ? " is-full" : "") + (s.mine ? " is-booked" : "") + (matches(s) ? "" : " is-dim");
-    var low = !s.mine && s.left > 0 && s.left <= 3;
     return '<button type="button" class="' + cls + '" data-book="' + s.id + '"' + (dis ? " disabled" : "") + ' aria-label="' + esc(label) + '">' +
       '<span class="el-tag">' + esc(t("e." + s.el)) + '</span><span class="nm">' + esc(t("c." + s.type)) + '</span><span class="who">' + esc(s.who) + "</span>" +
-      '<span class="meter" aria-hidden="true">' + meter + "</span>" +
-      '<span class="bot"><span class="spots' + (low ? " low" : "") + '">' + esc(s.past ? t("ended") : (s.mine ? "✓ " : "") + spotsText(s, true)) + '</span><span class="spa-mini">' + esc(t("spaMini")) + "</span></span></button>";
+      '<span class="bot"><span class="spots' + (isLast(s) ? " low" : "") + '">' + esc(statusText(s)) + '</span><span class="spa-mini">' + esc(t("spaMini")) + "</span></span></button>";
   }
 
   function renderGrid() {
