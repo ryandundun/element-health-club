@@ -14,6 +14,7 @@ Static multi-page site: plain HTML, CSS and JS with no build step. Deployed on V
 | `/a-day-here` | `a-day-here.html` | A day at Element timeline |
 | `/memberships` | `memberships.html` | Membership plans |
 | `/location` | `location.html` | Address, hours, contact, map |
+| `/schedule` | `schedule.html` | Class schedule and booking flow (design mockup: placeholder data, simulated Wompi payment, `noindex`, not in the sitemap). Uses `schedule.css` and `schedule.js`; add `?now=2026-11-23T07:30` to the URL to preview a specific Medellín date and time. |
 
 Shared by every page: `styles.css` (design), `site.js` (language toggle, mobile menu, all EN/ES copy). For search engines: `sitemap.xml` and `robots.txt`.
 
