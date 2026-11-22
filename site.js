@@ -31,7 +31,7 @@
       "nav.schedule": "Schedule",
       "nav.cta": "Book a class",
 
-      "hero.eyebrow": "Opening soon in Laureles, Medellín",
+      "hero.eyebrow": "Opening Tuesday, 1 December",
       "hero.title": "Where the body <em>finds its balance</em>",
       "hero.lead": "A health and wellness club built around the four elements. Plunge into ice water, sweat in the sauna, move through HIIT, pilates and dance exercise, then refuel at the juice bar. Everything you need to feel alive, in one place.",
       "hero.cta1": "Book a visit",
@@ -105,7 +105,7 @@
       "loc.title": "In the heart of Laureles.",
       "loc.lead": "Tree-lined streets, the best cafés in the city and now a place to take care of yourself. A short walk from Segundo Parque and the Estadio metro station.",
       "loc.address.label": "Address", "loc.address.value": "Laureles, Medellín, Antioquia. Exact address announced soon.",
-      "loc.hours.label": "Hours", "loc.hours.value": "Monday to Saturday 6:00 to 20:00 · Sunday closed for private events",
+      "loc.hours.label": "Hours", "loc.hours.value": "Monday to Saturday 6:00 to 21:00 · Sunday closed for private events",
       "loc.contact.label": "Contact",
 
       "cta.title": "Ready to find your element?",
@@ -138,7 +138,7 @@
       "nav.schedule": "Horario",
       "nav.cta": "Reserva tu clase",
 
-      "hero.eyebrow": "Próximamente en Laureles, Medellín",
+      "hero.eyebrow": "Abrimos el martes 1 de diciembre",
       "hero.title": "Donde el cuerpo <em>encuentra su equilibrio</em>",
       "hero.lead": "Un club de salud y bienestar inspirado en los cuatro elementos. Sumérgete en agua helada, suda en el sauna, muévete con HIIT, pilates y baile fitness, y recarga energía en el bar de jugos. Todo lo que necesitas para sentirte vivo, en un solo lugar.",
       "hero.cta1": "Reserva una visita",
@@ -212,7 +212,7 @@
       "loc.title": "En el corazón de Laureles.",
       "loc.lead": "Calles arboladas, los mejores cafés de la ciudad y ahora un lugar para cuidarte. A pocos pasos del Segundo Parque y de la estación Estadio del metro.",
       "loc.address.label": "Dirección", "loc.address.value": "Laureles, Medellín, Antioquia. Pronto anunciamos la dirección exacta.",
-      "loc.hours.label": "Horario", "loc.hours.value": "Lunes a sábado 6:00 a 20:00 · Domingo cerrado por eventos privados",
+      "loc.hours.label": "Horario", "loc.hours.value": "Lunes a sábado 6:00 a 21:00 · Domingo cerrado por eventos privados",
       "loc.contact.label": "Contacto",
 
       "cta.title": "¿Listo para encontrar tu elemento?",
