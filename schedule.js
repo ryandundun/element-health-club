@@ -8,17 +8,18 @@
   var S = {
     en: {
       "meta.title": "Class schedule · Element Health Club",
-      "meta.description": "See this week's HIIT, trampoline and mat pilates classes in Laureles, Medellín. Every class includes an hour of sauna and cold plunge. Book and pay online.",
+      "meta.description": "See this week's HIIT, trampoline and mat pilates classes in Laureles, Medellín. Free, optional sauna and cold plunge after every class. Book and pay online.",
       "nav.schedule": "Schedule", "nav.cta": "Book a class",
-      "mock.pill": "Mockup", "mock.text": "Classes, instructors, prices and spots are placeholders, and no real payment is taken.",
+      "mock.pill": "Mockup", "mock.text": "The spots shown are sample data, and no real payment is taken.",
       "hero.eyebrow": "Class schedule",
-      "hero.title": "Move for an hour. <em>Recover for another.</em>",
-      "hero.lead": "Every class comes with an hour in the sauna and cold plunge afterwards, included in the price. Pick a time, reserve your spot and pay in under a minute.",
-      "ritual.kicker": "Class + Spa", "ritual.title": "Two hours, one price",
-      "ritual.text": "Train for an hour, then stay for an hour of sauna and cold plunge. It's optional, and it's always included.",
-      "ritual.s1": "1 hour class", "ritual.s1b": "HIIT, trampoline or mat pilates",
-      "ritual.s2": "Sauna", "ritual.s2b": "Dry heat up to 85 °C",
-      "ritual.s3": "Cold plunge", "ritual.s3b": "Guided, 4 to 8 °C",
+      "hero.title": "Move for an hour. <em>Stay for the spa if you like.</em>",
+      "hero.lead": "Every class is one hour. Afterwards, the saunas and cold plunge are yours for up to an hour, free and completely optional. Pick a time, reserve your spot and pay in under a minute.",
+      "ritual.kicker": "Free with every class", "ritual.title": "The spa is on the house",
+      "ritual.text": "After class, stay up to an hour in the saunas and cold plunge at no extra charge. Use one, two or all three, come and go as you like, or head straight out. Your class is still just one hour.",
+      "ritual.s1": "Your class", "ritual.s1b": "One hour: HIIT, trampoline or mat pilates",
+      "ritual.s2": "Saunas", "ritual.s2b": "Finnish and infrared",
+      "ritual.s3": "Cold plunge", "ritual.s3b": "If you're up for it", "ritual.free": "Free · optional",
+      "offer.tag": "December founding price", "offer.post": "per class, with free spa time after.",
       "week.label": "Week", "week.this": "This week", "week.next": "Next week",
       "filter.label": "Filter classes", "filter.all": "All classes", "day.label": "Day",
       "sch.foot": "Closed Sundays for private events.",
@@ -27,19 +28,19 @@
       "morning": "Morning", "evening": "Evening", "today": "Today",
       "with": "with {name}", "spots": "{n} spots left", "spot1": "1 spot left", "full": "Full", "ended": "Ended",
       "left": "{n} left", "booked": "You're booked", "bookedShort": "Booked",
-      "spaBand": "+ Spa {r} · sauna + cold plunge · included", "spaMini": "+ Spa",
+      "spaBand": "Free spa after class, optional · until {e}", "spaMini": "+ Free spa",
       "book": "Book", "noClasses": "No classes match this filter on this day.",
       "how.eyebrow": "How booking works", "how.title": "Three taps and you're in",
-      "how.s1": "Pick a class", "how.s1b": "Choose a day and time. Every class shows the spots left and the spa hour that follows.",
+      "how.s1": "Pick a class", "how.s1b": "Choose a day and time. Every class shows the spots left and the free spa time after it.",
       "how.s2": "Reserve your spot", "how.s2b": "Add your name, WhatsApp and email. No account or password needed.",
       "how.s3": "Pay and you're in", "how.s3b": "Pay by card, PSE, Nequi, Bancolombia or Daviplata. Your confirmation arrives straight away.",
       "know.c": "Cancellations", "know.cb": "Cancel at least 12 hours before your class and we'll give you a class credit.",
-      "know.s": "The spa hour", "know.sb": "Optional, and always included. Swimwear on, phone off.",
+      "know.s": "The spa", "know.sb": "Free after every class, and completely optional. Stay five minutes or the full hour.",
       "know.h": "Hours", "know.hb": "Monday to Saturday. Closed Sundays for private events.",
       "close": "Close", "step.1": "Class", "step.2": "Details", "step.3": "Payment",
-      "p1.title": "Your class", "spaLine": "Spa: sauna + cold plunge", "spaOff": "Not today",
-      "sw.title": "Stay for the spa hour", "sw.sub": "Sauna + cold plunge from {r}, included in your class.",
-      "promo.q": "Have a code?", "promo.ph": "Code", "promo.apply": "Apply", "promo.ok": "First class free applied.",
+      "p1.title": "Your class", "spa.tl": "Free spa, optional: saunas and cold plunge", "spa.until": "After class, until {e}",
+      "spa.note": "No need to decide now. Stay five minutes or the full hour, or head straight out after class.",
+            "promo.q": "Have a code?", "promo.ph": "Code", "promo.apply": "Apply", "promo.ok": "First class free applied.",
       "promo.bad": "That code isn't valid.", "promo.hint": "Mockup: try PRIMERA",
       "total": "Total", "continue": "Continue", "back": "Back", "toPay": "Continue to payment",
       "expired": "Your hold ran out, so the spot was released. Check the class and try again.",
@@ -51,7 +52,7 @@
       "err.email": "Please enter a valid email.", "err.waiver": "Please accept to continue.",
       "p3.title": "Payment", "hold": "Your spot is held for",
       "declined": "The payment wasn't approved. Your spot is still held, so you can try again or use another method.",
-      "l.spa": "Spa hour", "l.incl": "Included", "l.code": "Code {c}",
+      "l.spa": "Spa after class", "l.free": "Free", "l.found": "December founding price", "l.code": "Code {c}",
       "payWith": "You can pay with", "m.card": "Card",
       "secure": "Payments are processed securely by Wompi. Element never sees your card details.",
       "pay": "Pay {p} with Wompi", "confirm": "Confirm booking",
@@ -60,23 +61,24 @@
       "sim.ok": "Simulate approved payment", "sim.no": "Simulate declined payment", "sim.close": "Close",
       "p4.title": "You're booked", "p4.text": "A confirmation is on its way to {email}.",
       "ref": "Booking reference", "bring": "What to bring",
-      "b1": "Training clothes and shoes", "b2": "A water bottle", "b3": "Swimwear for the sauna and cold plunge", "b4": "Arrive 10 minutes early",
+      "b1": "Training clothes and shoes", "b2": "A water bottle", "b3": "Swimwear, if you'd like to stay for the spa", "b4": "Arrive 10 minutes early",
       "ics": "Add to calendar", "getHere": "How to get here", "done": "Done",
-      "ics.desc": "Class at Element Health Club, Laureles, Medellín.", "ics.spa": "Followed by an hour of sauna and cold plunge, included."
+      "ics.desc": "Class at Element Health Club, Laureles, Medellín.", "ics.spa": "Free spa after class (optional), until {e}."
     },
     es: {
       "meta.title": "Horario de clases · Element Health Club",
-      "meta.description": "Consulta las clases de HIIT, trampolín y pilates en colchoneta de esta semana en Laureles, Medellín. Cada clase incluye una hora de sauna y cold plunge. Reserva y paga en línea.",
+      "meta.description": "Consulta las clases de HIIT, trampolín y pilates en colchoneta de esta semana en Laureles, Medellín. Sauna y cold plunge gratis y opcionales después de cada clase. Reserva y paga en línea.",
       "nav.schedule": "Horario", "nav.cta": "Reserva tu clase",
-      "mock.pill": "Maqueta", "mock.text": "Las clases, los instructores, los precios y los cupos son de ejemplo, y no se cobra ningún pago real.",
+      "mock.pill": "Maqueta", "mock.text": "Los cupos que ves son de ejemplo y no se cobra ningún pago real.",
       "hero.eyebrow": "Horario de clases",
-      "hero.title": "Una hora para moverte. <em>Otra para recuperarte.</em>",
-      "hero.lead": "Cada clase incluye, al terminar, una hora de sauna y cold plunge sin costo adicional. Elige un horario, reserva tu cupo y paga en menos de un minuto.",
-      "ritual.kicker": "Clase + Spa", "ritual.title": "Dos horas, un solo precio",
-      "ritual.text": "Entrena una hora y quédate otra hora en el sauna y el cold plunge. Es opcional y siempre está incluida.",
-      "ritual.s1": "Clase de 1 hora", "ritual.s1b": "HIIT, trampolín o pilates en colchoneta",
-      "ritual.s2": "Sauna", "ritual.s2b": "Calor seco hasta 85 °C",
-      "ritual.s3": "Cold plunge", "ritual.s3b": "Guiado, de 4 a 8 °C",
+      "hero.title": "Una hora para moverte. <em>Y el spa, si te provoca.</em>",
+      "hero.lead": "Cada clase dura una hora. Después, los saunas y el cold plunge son tuyos hasta por una hora, gratis y totalmente opcional. Elige un horario, reserva tu cupo y paga en menos de un minuto.",
+      "ritual.kicker": "Gratis con cada clase", "ritual.title": "El spa va por cuenta de la casa",
+      "ritual.text": "Después de clase, quédate hasta una hora en los saunas y el cold plunge sin costo adicional. Usa uno, dos o los tres, entra y sal cuando quieras, o vete directo. Tu clase sigue siendo de solo una hora.",
+      "ritual.s1": "Tu clase", "ritual.s1b": "Una hora: HIIT, trampolín o pilates en colchoneta",
+      "ritual.s2": "Saunas", "ritual.s2b": "Finlandés e infrarrojo",
+      "ritual.s3": "Cold plunge", "ritual.s3b": "Si te animas", "ritual.free": "Gratis · opcional",
+      "offer.tag": "Precio fundador de diciembre", "offer.post": "por clase, con spa gratis después.",
       "week.label": "Semana", "week.this": "Esta semana", "week.next": "Próxima semana",
       "filter.label": "Filtrar clases", "filter.all": "Todas las clases", "day.label": "Día",
       "sch.foot": "Los domingos cerramos para eventos privados.",
@@ -85,19 +87,19 @@
       "morning": "Mañana", "evening": "Tarde", "today": "Hoy",
       "with": "con {name}", "spots": "Quedan {n} cupos", "spot1": "Queda 1 cupo", "full": "Llena", "ended": "Finalizada",
       "left": "{n} cupos", "booked": "Ya reservaste", "bookedShort": "Reservada",
-      "spaBand": "+ Spa {r} · sauna + cold plunge · incluido", "spaMini": "+ Spa",
+      "spaBand": "Spa gratis después de clase, opcional · hasta las {e}", "spaMini": "+ Spa gratis",
       "book": "Reservar", "noClasses": "Ese día no hay clases con este filtro.",
       "how.eyebrow": "Cómo reservar", "how.title": "Tres toques y listo",
-      "how.s1": "Elige tu clase", "how.s1b": "Escoge el día y la hora. Cada clase muestra los cupos disponibles y la hora de spa que sigue.",
+      "how.s1": "Elige tu clase", "how.s1b": "Escoge el día y la hora. Cada clase muestra los cupos disponibles y el spa gratis que viene después.",
       "how.s2": "Reserva tu cupo", "how.s2b": "Escribe tu nombre, WhatsApp y correo. No necesitas cuenta ni contraseña.",
       "how.s3": "Paga y listo", "how.s3b": "Paga con tarjeta, PSE, Nequi, Bancolombia o Daviplata. La confirmación te llega al instante.",
       "know.c": "Cancelaciones", "know.cb": "Cancela con al menos 12 horas de anticipación y te damos un crédito de clase.",
-      "know.s": "La hora de spa", "know.sb": "Opcional y siempre incluida. Vestido de baño puesto, celular guardado.",
+      "know.s": "El spa", "know.sb": "Gratis después de cada clase y totalmente opcional. Quédate cinco minutos o la hora completa.",
       "know.h": "Horario", "know.hb": "De lunes a sábado. Los domingos cerramos para eventos privados.",
       "close": "Cerrar", "step.1": "Clase", "step.2": "Datos", "step.3": "Pago",
-      "p1.title": "Tu clase", "spaLine": "Spa: sauna + cold plunge", "spaOff": "Hoy no",
-      "sw.title": "Quedarme a la hora de spa", "sw.sub": "Sauna + cold plunge de {r}, incluida en tu clase.",
-      "promo.q": "¿Tienes un código?", "promo.ph": "Código", "promo.apply": "Aplicar", "promo.ok": "Primera clase gratis aplicada.",
+      "p1.title": "Tu clase", "spa.tl": "Spa gratis y opcional: saunas y cold plunge", "spa.until": "Después de clase, hasta las {e}",
+      "spa.note": "No tienes que decidir ahora. Quédate cinco minutos o la hora completa, o vete directo después de clase.",
+            "promo.q": "¿Tienes un código?", "promo.ph": "Código", "promo.apply": "Aplicar", "promo.ok": "Primera clase gratis aplicada.",
       "promo.bad": "Ese código no es válido.", "promo.hint": "Maqueta: prueba con PRIMERA",
       "total": "Total", "continue": "Continuar", "back": "Atrás", "toPay": "Continuar al pago",
       "expired": "Se acabó el tiempo de reserva y el cupo se liberó. Revisa la clase e inténtalo de nuevo.",
@@ -109,7 +111,7 @@
       "err.email": "Escribe un correo válido.", "err.waiver": "Debes aceptar para continuar.",
       "p3.title": "Pago", "hold": "Tu cupo está reservado por",
       "declined": "El pago no fue aprobado. Tu cupo sigue reservado: puedes intentarlo de nuevo o usar otro método.",
-      "l.spa": "Hora de spa", "l.incl": "Incluida", "l.code": "Código {c}",
+      "l.spa": "Spa después de clase", "l.free": "Gratis", "l.found": "Precio fundador de diciembre", "l.code": "Código {c}",
       "payWith": "Puedes pagar con", "m.card": "Tarjeta",
       "secure": "Los pagos se procesan de forma segura con Wompi. Element nunca ve los datos de tu tarjeta.",
       "pay": "Pagar {p} con Wompi", "confirm": "Confirmar reserva",
@@ -118,9 +120,9 @@
       "sim.ok": "Simular pago aprobado", "sim.no": "Simular pago rechazado", "sim.close": "Cerrar",
       "p4.title": "¡Listo, ya tienes tu cupo!", "p4.text": "Te enviamos la confirmación a {email}.",
       "ref": "Código de reserva", "bring": "Qué traer",
-      "b1": "Ropa y zapatos deportivos", "b2": "Una botella de agua", "b3": "Vestido de baño para el sauna y el cold plunge", "b4": "Llega 10 minutos antes",
+      "b1": "Ropa y zapatos deportivos", "b2": "Una botella de agua", "b3": "Vestido de baño, si quieres quedarte al spa", "b4": "Llega 10 minutos antes",
       "ics": "Agregar al calendario", "getHere": "Cómo llegar", "done": "Listo",
-      "ics.desc": "Clase en Element Health Club, Laureles, Medellín.", "ics.spa": "Seguida de una hora de sauna y cold plunge, incluida."
+      "ics.desc": "Clase en Element Health Club, Laureles, Medellín.", "ics.spa": "Spa gratis después de clase (opcional), hasta las {e}."
     }
   };
   function L() { return document.documentElement.lang === "es" ? "es" : "en"; }
@@ -132,22 +134,23 @@
   function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
 
   /* ---------- placeholder data for the mockup ---------- */
-  var PRICE = 45000;              /* COP, class + spa hour */
-  var CAP = 12;                   /* spots per class */
+  var PRICE_REG = 60000;          /* COP, regular price per class */
+  var PRICE = 40000;              /* COP, December founding price */
+  var CAP = 16;                   /* spots per class */
   var HOLD_MS = 15 * 60 * 1000;   /* spot held while paying */
   var PROMO = "PRIMERA";
   var SLOTS = [6, 7, 8, 17, 18, 19];
   var TYPES = {
-    hiit: { el: "fire", who: ["Valentina", "Mateo"] },
-    tramp: { el: "air", who: ["Camila", "Sara"] },
-    pil: { el: "earth", who: ["Laura", "Daniela"] }
+    hiit: { el: "fire", who: ["Juan Pablo"] },
+    tramp: { el: "air", who: ["Stefi", "Diana"] },
+    pil: { el: "earth", who: ["Camila"] }
   };
   /* weekly rotation: Mon & Thu = A, Tue & Fri = B, Wed & Sat = C (one entry per slot above) */
   var A = ["hiit", "tramp", "pil", "tramp", "hiit", "pil"];
   var B = ["tramp", "pil", "hiit", "pil", "tramp", "hiit"];
   var C = ["pil", "hiit", "tramp", "hiit", "pil", "tramp"];
   var ROTA = [A, B, C, A, B, C];
-  var POPULAR = { 6: 5, 7: 4, 8: 2, 17: 4, 18: 7, 19: 3 };
+  var POPULAR = { 6: 8, 7: 7, 8: 3, 17: 7, 18: 10, 19: 5 };
 
   /* ---------- time: everything is Medellín wall-clock time (UTC-5, no daylight saving) ---------- */
   var DAY = 864e5, HOUR = 36e5, TZ_MS = 5 * HOUR;
@@ -168,6 +171,7 @@
   function hm(h) { return (((h + 11) % 12) + 1) + ":00"; }
   function ap(h) { var pm = h >= 12; return L() === "es" ? (pm ? "p. m." : "a. m.") : (pm ? "pm" : "am"); }
   function range(a, b) { return ap(a) === ap(b) ? hm(a) + "–" + hm(b) + " " + ap(b) : hm(a) + " " + ap(a) + "–" + hm(b) + " " + ap(b); }
+  function until(h) { return hm(h + 2) + " " + ap(h + 2); }   /* the free spa time runs until 2 hours after class start */
   function money(n) { return L() === "es" ? "$" + n.toLocaleString("es-CO") : "$" + n.toLocaleString("en-US"); }
   function hash(s) { var h = 2166136261; for (var i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; }
 
@@ -179,11 +183,11 @@
       var day = new Date(mon.getTime() + i * DAY);
       SLOTS.forEach(function (h, j) {
         var id = ymd(day) + "-" + h, type = ROTA[i][j];
-        var base = Math.min(CAP, POPULAR[h] + hash(id) % 6);
+        var base = Math.min(CAP, POPULAR[h] + hash(id) % 7);
         var mine = !!state.mine[id];
         var taken = Math.min(CAP, base + (mine ? 1 : 0));
         var start = new Date(day.getTime() + h * HOUR);
-        out.push({ id: id, day: day, di: i, h: h, type: type, el: TYPES[type].el, who: TYPES[type].who[(i + j) % 2],
+        out.push({ id: id, day: day, di: i, h: h, type: type, el: TYPES[type].el, who: TYPES[type].who[(i + j) % TYPES[type].who.length],
                    start: start, taken: taken, left: CAP - taken, mine: mine, past: start <= NOW });
       });
     }
@@ -231,6 +235,7 @@
       chips += '<button type="button" class="chip el-' + TYPES[k].el + '" data-f="' + k + '" aria-pressed="' + (state.filter === k) + '"><i></i>' + esc(t("c." + k)) + "</button>";
     });
     $("chips").innerHTML = chips;
+    $("offer").innerHTML = '<span class="offer-tag">' + esc(t("offer.tag")) + "</span><span><s>" + money(PRICE_REG) + "</s> <b>" + money(PRICE) + "</b> " + esc(t("offer.post")) + "</span>";
   }
 
   function defaultDay() {
@@ -251,7 +256,7 @@
   }
 
   function cardHTML(s) {
-    var spaR = range(s.h + 1, s.h + 2), low = !s.mine && s.left > 0 && s.left <= 3;
+    var low = !s.mine && s.left > 0 && s.left <= 3;
     var action = s.mine ? '<span class="state ok">✓ ' + esc(t("booked")) + "</span>"
       : s.past ? '<span class="state">' + esc(t("ended")) + "</span>"
       : s.left <= 0 ? '<span class="state">' + esc(t("full")) + "</span>"
@@ -260,8 +265,8 @@
       '<div class="cls-time"><b>' + hm(s.h) + "</b><span>" + ap(s.h) + "</span></div>" +
       '<div class="cls-card"><div class="cls-top"><h4>' + esc(t("c." + s.type)) + '</h4><span class="el-tag">' + esc(t("e." + s.el)) + "</span></div>" +
       '<p class="cls-meta">' + esc(t("with", { name: s.who })) + (s.past ? "" : ' · <span class="' + (low ? "low" : "") + '">' + esc(spotsText(s)) + "</span>") + "</p>" +
-      '<div class="spa-band">' + IC.drop + "<span>" + esc(t("spaBand", { r: spaR })) + "</span></div>" +
-      '<div class="cls-foot"><span class="price">' + money(PRICE) + "<small>COP</small></span>" + action + "</div></div></article>";
+      '<div class="spa-band">' + IC.drop + "<span>" + esc(t("spaBand", { e: until(s.h) })) + "</span></div>" +
+      '<div class="cls-foot"><span class="price"><s>' + money(PRICE_REG) + "</s>" + money(PRICE) + "<small>COP</small></span>" + action + "</div></div></article>";
   }
 
   function renderList() {
@@ -316,21 +321,21 @@
     var s = find(id);
     if (!s || s.past || s.mine || s.left <= 0) return;
     state.trigger = trigger || null;
-    state.b = { id: id, step: 1, spa: true, promo: false, promoMsg: null, showPromo: false, holdEnd: 0, expired: false, declined: false,
+    state.b = { id: id, step: 1, promo: false, promoMsg: null, showPromo: false, holdEnd: 0, expired: false, declined: false,
                 showPolicy: false, method: "card", errs: {}, f: { name: "", wa: "", email: "", first: false, waiver: false }, ref: "" };
     renderSheet();
     sheet.showModal();
     clearInterval(timer); timer = setInterval(tick, 1000);
   }
   function total() { return state.b.promo ? 0 : PRICE; }
-  function summaryHTML(s, b) {
+  function summaryHTML(s) {
     return '<div class="sum el-' + s.el + '"><span class="el-tag">' + esc(t("e." + s.el)) + "</span><h3>" + esc(t("c." + s.type)) + "</h3>" +
       "<p>" + esc(cap1(fmt(s.day, { weekday: "long", day: "numeric", month: "long" }))) + " · " + esc(t("with", { name: s.who })) + "</p>" +
       '<ol class="tl"><li><b>' + range(s.h, s.h + 1) + "</b>" + esc(t("c." + s.type)) + "</li>" +
-      '<li class="spa' + (b.spa ? "" : " off") + '"><b>' + range(s.h + 1, s.h + 2) + "</b>" + esc(b.spa ? t("spaLine") : t("spaLine") + " · " + t("spaOff")) + "</li></ol></div>";
+      '<li class="spa"><b>' + esc(t("spa.until", { e: until(s.h) })) + "</b>" + esc(t("spa.tl")) + "</li></ol></div>";
   }
   function totHTML() {
-    return '<div class="tot"><small>' + esc(t("total")) + "</small><b>" + money(total()) + "</b>" + (state.b.promo ? "<s>" + money(PRICE) + "</s>" : "") + "</div>";
+    return '<div class="tot"><small>' + esc(t("total")) + "</small><b>" + money(total()) + "</b><s>" + money(PRICE_REG) + "</s></div>";
   }
   function mmss(ms) { var s = Math.max(0, Math.ceil(ms / 1000)); return Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0"); }
 
@@ -342,9 +347,8 @@
     });
     if (b.step === 1) {
       if (b.expired) html += '<p class="alert" role="alert">' + esc(t("expired")) + "</p>";
-      html += '<h2 id="sheetTitle">' + esc(t("p1.title")) + "</h2>" + summaryHTML(s, b) +
-        '<label class="switch-row"><span class="sw-text"><b>' + esc(t("sw.title")) + '</b><span class="sw-sub">' + esc(t("sw.sub", { r: range(s.h + 1, s.h + 2) })) + "</span></span>" +
-        '<input type="checkbox" role="switch" class="switch" id="spaSw"' + (b.spa ? " checked" : "") + "></label>" +
+      html += '<h2 id="sheetTitle">' + esc(t("p1.title")) + "</h2>" + summaryHTML(s) +
+        '<p class="spa-note">' + IC.drop + "<span>" + esc(t("spa.note")) + "</span></p>" +
         '<div class="promo"><button type="button" class="link-btn" id="promoToggle" aria-expanded="' + b.showPromo + '">' + esc(t("promo.q")) + "</button>" +
         (b.showPromo ? '<div class="promo-row"><input type="text" id="promoIn" autocomplete="off" aria-label="' + esc(t("promo.ph")) + '" placeholder="' + esc(t("promo.ph")) + '" value="' + (b.promo ? PROMO : "") + '">' +
           '<button type="button" class="btn btn-ghost btn-sm" id="promoApply">' + esc(t("promo.apply")) + "</button></div>" +
@@ -373,8 +377,9 @@
       html += '<p class="hold">' + IC.clock + "<span>" + esc(t("hold")) + ' <b id="holdT">' + mmss(b.holdEnd - Date.now()) + "</b></span></p>" +
         (b.declined ? '<p class="alert" role="alert">' + esc(t("declined")) + "</p>" : "") +
         '<h2 id="sheetTitle">' + esc(t("p3.title")) + "</h2>" +
-        '<ul class="lines"><li><span>' + esc(t("c." + s.type)) + "<br><small>" + esc(cap1(fmt(s.day, { weekday: "short", day: "numeric", month: "short" }))) + ", " + hm(s.h) + " " + ap(s.h) + "</small></span><b>" + money(PRICE) + "</b></li>" +
-        "<li><span>" + esc(t("l.spa")) + "</span><b>" + esc(b.spa ? t("l.incl") : t("spaOff")) + "</b></li>" +
+        '<ul class="lines"><li><span>' + esc(t("c." + s.type)) + "<br><small>" + esc(cap1(fmt(s.day, { weekday: "short", day: "numeric", month: "short" }))) + ", " + hm(s.h) + " " + ap(s.h) + "</small></span><b>" + money(PRICE_REG) + "</b></li>" +
+        "<li><span>" + esc(t("l.found")) + "</span><b>−" + money(PRICE_REG - PRICE) + "</b></li>" +
+        "<li><span>" + esc(t("l.spa")) + "</span><b>" + esc(t("l.free")) + "</b></li>" +
         (b.promo ? "<li><span>" + esc(t("l.code", { c: PROMO })) + "</span><b>−" + money(PRICE) + "</b></li>" : "") +
         "<li><b>" + esc(t("total")) + "</b><b>" + money(total()) + "</b></li></ul>" +
         (total() > 0 ? '<p class="hint">' + esc(t("payWith")) + '</p><div class="methods"><span>' + esc(t("m.card")) + "</span><span>PSE</span><span>Nequi</span><span>Bancolombia</span><span>Daviplata</span></div>" +
@@ -383,9 +388,9 @@
         esc(total() > 0 ? t("pay", { p: money(total()) }) : t("confirm")) + "</button>";
     } else {
       html += '<div class="done-ic">' + IC.check + '</div><h2 id="sheetTitle">' + esc(t("p4.title")) + "</h2>" +
-        '<p style="color:var(--ink-2);margin:-6px 0 18px">' + esc(t("p4.text", { email: b.f.email })) + "</p>" + summaryHTML(s, b) +
+        '<p style="color:var(--ink-2);margin:-6px 0 18px">' + esc(t("p4.text", { email: b.f.email })) + "</p>" + summaryHTML(s) +
         '<p class="ref">' + esc(t("ref")) + " <b>" + esc(b.ref) + "</b></p>" +
-        '<div class="bring"><h3>' + esc(t("bring")) + "</h3><ul><li>" + esc(t("b1")) + "</li><li>" + esc(t("b2")) + "</li>" + (b.spa ? "<li>" + esc(t("b3")) + "</li>" : "") + "<li>" + esc(t("b4")) + "</li></ul></div>" +
+        '<div class="bring"><h3>' + esc(t("bring")) + "</h3><ul><li>" + esc(t("b1")) + "</li><li>" + esc(t("b2")) + "</li>" + "<li>" + esc(t("b3")) + "</li>" + "<li>" + esc(t("b4")) + "</li></ul></div>" +
         '<div class="done-actions"><button type="button" class="btn btn-primary" id="icsBtn">' + IC.cal + esc(t("ics")) + '</button><a class="btn btn-ghost" href="/location">' + esc(t("getHere")) + "</a></div>";
       f = '<button type="button" class="btn btn-ghost btn-wide" id="doneBtn">' + esc(t("done")) + "</button>";
     }
@@ -447,9 +452,9 @@
   function downloadICS() {
     var b = state.b, s = find(b.id) || sessions(0).concat(sessions(1)).filter(function (x) { return x.id === b.id; })[0];
     function z(d) { return new Date(d.getTime() + TZ_MS).toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, ""); }
-    var end = new Date(s.start.getTime() + (b.spa ? 2 : 1) * HOUR);
-    var title = t("c." + s.type) + (b.spa ? " + Spa" : "") + " · Element Health Club";
-    var desc = t("ics.desc") + (b.spa ? " " + t("ics.spa") : "") + " " + t("ref") + ": " + b.ref;
+    var end = new Date(s.start.getTime() + HOUR);   /* the calendar holds the class hour only; the spa is optional */
+    var title = t("c." + s.type) + " · Element Health Club";
+    var desc = t("ics.desc") + " " + t("ics.spa", { e: until(s.h) }) + " " + t("ref") + ": " + b.ref;
     var ics = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Element Health Club//Schedule//ES", "CALSCALE:GREGORIAN", "BEGIN:VEVENT",
       "UID:" + b.ref + "@elementhealthclub.com", "DTSTAMP:" + z(new Date(Date.now() - TZ_MS)), "DTSTART:" + z(s.start), "DTEND:" + z(end),
       "SUMMARY:" + title.replace(/[,;]/g, "\\$&"), "DESCRIPTION:" + desc.replace(/[,;]/g, "\\$&"), "LOCATION:Element Health Club\\, Laureles\\, Medellín",
@@ -487,9 +492,6 @@
       state.b.method = el.getAttribute("data-m");
       $("simMethods").querySelectorAll("button").forEach(function (x) { x.setAttribute("aria-pressed", String(x === el)); });
     }
-  });
-  document.addEventListener("change", function (ev) {
-    if (ev.target.id === "spaSw" && state.b) { state.b.spa = ev.target.checked; renderSheet(); $("spaSw").focus(); }
   });
   document.addEventListener("keydown", function (ev) {
     if (ev.key === "Enter" && ev.target.id === "promoIn") { ev.preventDefault(); $("promoApply").click(); }

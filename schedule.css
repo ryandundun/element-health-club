@@ -37,17 +37,27 @@
 .rs-cold .rs-icon { color: #6FB2D3; }
 .rs b { font-family: var(--display); font-weight: 400; font-size: 20px; line-height: 1.15; }
 .rs span:last-child { font-size: 13.5px; color: #B9B0A4; }
+.ritual-flow { position: relative; padding-top: 44px; }
+.rs-free { position: absolute; top: 0; right: 0; left: calc((100% - 28px) / 3 + 14px); display: flex; justify-content: center; margin: 0; }
+.rs-free span { font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: #8FC6E0; border: 1px solid rgba(111,178,211,.5); border-radius: 999px; padding: 4px 10px; background: #1A1714; position: relative; z-index: 1; }
+.rs-free::after { content: ""; position: absolute; left: 25%; right: 25%; top: 13px; height: 22px; border: 1.5px solid rgba(111,178,211,.45); border-bottom: 0; border-radius: 10px 10px 0 0; }
 @media (max-width: 860px) {
   .ritual { grid-template-columns: 1fr; padding: 32px 24px; gap: 28px; border-radius: 22px; }
 }
 @media (max-width: 480px) {
   .ritual-steps { gap: 6px; }
+  .rs-free { left: calc((100% - 12px) / 3 + 6px); }
+  .rs-free span { font-size: 10px; letter-spacing: .08em; padding: 3px 8px; }
   .rs b { font-size: 17px; }
   .rs span:last-child { font-size: 12.5px; }
 }
 
 /* ---------- toolbar ---------- */
 .sch { padding: 28px 0 72px; scroll-margin-top: 72px; }
+.offer { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; margin: 0 0 22px; padding: 12px 16px; border-radius: 14px; background: var(--brand-soft); border: 1px solid color-mix(in srgb, var(--brand) 35%, transparent); font-size: 15px; color: var(--ink-2); }
+.offer-tag { font-size: 11px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--brand-ink); background: var(--brand); padding: 4px 10px; border-radius: 999px; }
+.offer s { color: var(--muted); margin-right: 2px; }
+.offer b { color: var(--ink); font-size: 17px; }
 .sch-bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px 24px; margin-bottom: 22px; }
 .sch-week { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
 .sch-range { font-size: 14px; font-weight: 700; color: var(--muted); }
@@ -89,7 +99,7 @@
 .daylist h3 { font-family: var(--sans); font-size: 12px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); margin: 26px 0 12px; }
 .daylist h3:first-child { margin-top: 0; }
 .daylist .empty { color: var(--muted); font-size: 15px; padding: 18px 0; }
-.cls { display: grid; grid-template-columns: 64px 1fr; gap: 12px; margin-bottom: 12px; }
+.cls { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 12px; margin-bottom: 12px; }
 .cls-time { padding-top: 16px; }
 .cls-time b { display: block; font-family: var(--display); font-weight: 400; font-size: 22px; line-height: 1; }
 .cls-time span { display: block; font-size: 12px; font-weight: 700; color: var(--muted); margin-top: 5px; }
@@ -107,6 +117,7 @@
 .cls-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 12px; }
 .price { font-weight: 800; font-size: 15px; }
 .price small { font-weight: 600; color: var(--muted); font-size: 12.5px; margin-left: 4px; }
+.price s { display: block; font-weight: 600; color: var(--muted); font-size: 13px; line-height: 1.2; }
 .btn-sm { padding: 10px 18px; font-size: 14px; }
 .btn[disabled] { opacity: .45; cursor: not-allowed; transform: none; }
 .state { font-size: 13.5px; font-weight: 800; letter-spacing: .02em; color: var(--muted); }
@@ -208,7 +219,7 @@ html:has(dialog[open]) { overflow: hidden; }
 .sheet-foot { border-top: 1px solid var(--line); padding: 14px 22px calc(14px + env(safe-area-inset-bottom)); display: flex; align-items: center; justify-content: space-between; gap: 14px; background: var(--surface); }
 .sheet-foot .tot small { display: block; font-size: 11.5px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
 .sheet-foot .tot b { font-size: 20px; font-weight: 800; }
-.sheet-foot .tot s { color: var(--muted); font-weight: 600; font-size: 14px; margin-left: 6px; }
+.sheet-foot .tot s { color: var(--muted); font-weight: 600; font-size: 14px; margin-left: 8px; }
 .sheet-foot .btn { flex: none; }
 .sheet-foot .btn-wide { flex: 1; }
 .link-btn { appearance: none; border: 0; background: none; padding: 0; font: 700 14px var(--sans); color: var(--ink-2); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
@@ -219,18 +230,11 @@ html:has(dialog[open]) { overflow: hidden; }
 .tl { list-style: none; margin: 16px 0 0; padding: 0 0 0 18px; border-left: 2px dashed var(--line-strong); display: grid; gap: 14px; }
 .tl li { position: relative; font-size: 14.5px; color: var(--ink-2); }
 .tl li::before { content: ""; position: absolute; left: -25px; top: 5px; width: 12px; height: 12px; border-radius: 50%; background: var(--el); box-shadow: 0 0 0 3px var(--surface); }
-.tl li.spa::before { background: var(--water); }
-.tl li.off { opacity: .45; }
+.tl li.spa::before { background: var(--surface); border: 2.5px solid var(--water); width: 8px; height: 8px; }
 .tl b { display: block; color: var(--ink); font-size: 15px; }
 
-.switch-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 16px; padding: 16px 18px; border-radius: 16px; background: linear-gradient(90deg, var(--clay-soft), var(--water-soft)); cursor: pointer; }
-.switch-row b { display: block; font-size: 15.5px; }
-.switch-row .sw-sub { display: block; font-size: 13.5px; color: var(--ink-2); margin-top: 2px; }
-.switch { appearance: none; flex: none; width: 50px; height: 30px; border-radius: 999px; background: var(--line-strong); position: relative; cursor: pointer; transition: background .2s; margin: 0; }
-.switch::after { content: ""; position: absolute; top: 3px; left: 3px; width: 24px; height: 24px; border-radius: 50%; background: #fff; transition: transform .2s; box-shadow: 0 1px 3px rgba(0,0,0,.25); }
-.switch:checked { background: var(--forest); }
-.switch:checked::after { transform: translateX(20px); }
-.switch:focus-visible { outline: 2.5px solid var(--brand); outline-offset: 2px; }
+.spa-note { display: flex; gap: 10px; align-items: flex-start; margin-top: 14px; padding: 14px 16px; border-radius: 14px; background: linear-gradient(90deg, var(--clay-soft), var(--water-soft)); font-size: 14.5px; color: var(--ink-2); }
+.spa-note svg { flex: none; width: 18px; height: 18px; color: var(--water); margin-top: 2px; }
 
 .promo { margin-top: 18px; }
 .promo-row { display: flex; gap: 8px; margin-top: 10px; }

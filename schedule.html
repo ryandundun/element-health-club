@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Class schedule · Element Health Club</title>
-<meta name="description" content="See this week's HIIT, trampoline and mat pilates classes in Laureles, Medellín. Every class includes an hour of sauna and cold plunge. Book and pay online.">
+<meta name="description" content="See this week's HIIT, trampoline and mat pilates classes in Laureles, Medellín. Free, optional sauna and cold plunge after every class. Book and pay online.">
 <!-- design mockup: keep out of search results until the real booking system is live -->
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -50,7 +50,7 @@
 </header>
 
 <div class="mock-bar" role="note">
-  <div class="wrap"><span class="mock-pill" data-s="mock.pill">Mockup</span> <span data-s="mock.text">Classes, instructors, prices and spots are placeholders, and no real payment is taken.</span></div>
+  <div class="wrap"><span class="mock-pill" data-s="mock.pill">Mockup</span> <span data-s="mock.text">The spots shown are sample data, and no real payment is taken.</span></div>
 </div>
 
 <main>
@@ -61,34 +61,37 @@
     <div class="section-head">
       <div>
         <span class="eyebrow" data-s="hero.eyebrow">Class schedule</span>
-        <h1 data-s-html="hero.title">Move for an hour. <em>Recover for another.</em></h1>
+        <h1 data-s-html="hero.title">Move for an hour. <em>Stay for the spa if you like.</em></h1>
       </div>
-      <p class="lead" data-s="hero.lead">Every class comes with an hour in the sauna and cold plunge afterwards, included in the price. Pick a time, reserve your spot and pay in under a minute.</p>
+      <p class="lead" data-s="hero.lead">Every class is one hour. Afterwards, the saunas and cold plunge are yours for up to an hour, free and completely optional. Pick a time, reserve your spot and pay in under a minute.</p>
     </div>
 
     <div class="ritual">
       <div class="ritual-copy">
-        <span class="ritual-kicker" data-s="ritual.kicker">Class + Spa</span>
-        <h2 data-s="ritual.title">Two hours, one price</h2>
-        <p data-s="ritual.text">Train for an hour, then stay for an hour of sauna and cold plunge. It's optional, and it's always included.</p>
+        <span class="ritual-kicker" data-s="ritual.kicker">Free with every class</span>
+        <h2 data-s="ritual.title">The spa is on the house</h2>
+        <p data-s="ritual.text">After class, stay up to an hour in the saunas and cold plunge at no extra charge. Use one, two or all three, come and go as you like, or head straight out. Your class is still just one hour.</p>
       </div>
+      <div class="ritual-flow">
+      <p class="rs-free"><span data-s="ritual.free">Free · optional</span></p>
       <ol class="ritual-steps">
         <li class="rs rs-move">
           <span class="rs-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M5 20l3-9 4 5 3-7 4 11"/></svg></span>
-          <b data-s="ritual.s1">1 hour class</b>
-          <span data-s="ritual.s1b">HIIT, trampoline or mat pilates</span>
+          <b data-s="ritual.s1">Your class</b>
+          <span data-s="ritual.s1b">One hour: HIIT, trampoline or mat pilates</span>
         </li>
         <li class="rs rs-heat">
           <span class="rs-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c4 0 7-3 7-7 0-3-2-5-3-7-1 2-2 3-3 3 0-3-1-6-4-8 0 4-5 6-5 12a7 7 0 0 0 8 7z"/></svg></span>
-          <b data-s="ritual.s2">Sauna</b>
-          <span data-s="ritual.s2b">Dry heat up to 85 °C</span>
+          <b data-s="ritual.s2">Saunas</b>
+          <span data-s="ritual.s2b">Finnish and infrared</span>
         </li>
         <li class="rs rs-cold">
           <span class="rs-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c3 4 6 7.3 6 11a6 6 0 0 1-12 0c0-3.7 3-7 6-11z"/></svg></span>
           <b data-s="ritual.s3">Cold plunge</b>
-          <span data-s="ritual.s3b">Guided, 4 to 8 °C</span>
+          <span data-s="ritual.s3b">If you're up for it</span>
         </li>
       </ol>
+      </div>
     </div>
   </div>
 </section>
@@ -96,6 +99,8 @@
 <!-- ============ SCHEDULE ============ -->
 <section id="horario" class="sch">
   <div class="wrap">
+    <p class="offer" id="offer"></p>
+
     <div class="sch-bar">
       <div class="sch-week">
         <div class="seg" role="group" data-s-label="week.label" aria-label="Week">
@@ -127,14 +132,14 @@
         <h2 data-s="how.title">Three taps and you're in</h2>
       </div>
       <ol class="how-steps">
-        <li><b data-s="how.s1">Pick a class</b><span data-s="how.s1b">Choose a day and time. Every class shows the spots left and the spa hour that follows.</span></li>
+        <li><b data-s="how.s1">Pick a class</b><span data-s="how.s1b">Choose a day and time. Every class shows the spots left and the free spa time after it.</span></li>
         <li><b data-s="how.s2">Reserve your spot</b><span data-s="how.s2b">Add your name, WhatsApp and email. No account or password needed.</span></li>
         <li><b data-s="how.s3">Pay and you're in</b><span data-s="how.s3b">Pay by card, PSE, Nequi, Bancolombia or Daviplata. Your confirmation arrives straight away.</span></li>
       </ol>
     </div>
     <ul class="know">
       <li><b data-s="know.c">Cancellations</b><span data-s="know.cb">Cancel at least 12 hours before your class and we'll give you a class credit.</span></li>
-      <li><b data-s="know.s">The spa hour</b><span data-s="know.sb">Optional, and always included. Swimwear on, phone off.</span></li>
+      <li><b data-s="know.s">The spa</b><span data-s="know.sb">Free after every class, and completely optional. Stay five minutes or the full hour.</span></li>
       <li><b data-s="know.h">Hours</b><span data-s="know.hb">Monday to Saturday. Closed Sundays for private events.</span></li>
     </ul>
   </div>
