@@ -1,8 +1,20 @@
-/* Element Health Club: class schedule and booking flow (design mockup).
-   Everything here is simulated in the browser: sessions, spots, prices and payment.
-   In the real build, sessions and spots come from the server and payment opens Wompi's checkout. */
+/* Element Health Club: class schedule and booking.
+   Until online payment is switched on (PAYMENTS_LIVE), a booking ends in a pre-filled WhatsApp message to the club.
+   Add ?demo=1 to the URL to preview the full pay-online flow with sample availability and a simulated checkout. */
 (function () {
   "use strict";
+
+  /* ---------- launch settings ---------- */
+  var OPENING = Date.UTC(2026, 11, 1);        /* Tuesday 1 December 2026: first day of classes */
+  var FOUNDING_END = Date.UTC(2027, 0, 1);    /* the founding price applies to classes before this date */
+  var PRICE_REG = 60000;                      /* COP, regular price per class */
+  var PRICE_FOUNDING = 40000;                 /* COP, December founding price */
+  var CAP = 16;                               /* spots per class */
+  var LAST = 3;                               /* spot counts are never shown; "Last spots" appears at this many or fewer */
+  var WA_NUMBER = "573106508588";             /* same number as site.js */
+  var PAYMENTS_LIVE = false;                  /* true once Wompi checkout is connected (see README, "Online payments") */
+  var DEMO = /[?&]demo=1(&|$)/.test(location.search);
+  var PAY = PAYMENTS_LIVE || DEMO;            /* show the pay-online flow */
 
   /* ---------- copy ---------- */
   var S = {
@@ -10,7 +22,6 @@
       "meta.title": "Class schedule · Element Health Club",
       "meta.description": "See this week's HIIT, trampoline and mat pilates classes in Laureles, Medellín. Free, optional sauna and cold plunge after every class. Book and pay online.",
       "nav.schedule": "Schedule", "nav.cta": "Book a class",
-      "mock.pill": "Mockup", "mock.text": "Bookings are simulated, and no real payment is taken.",
       "hero.eyebrow": "Class schedule",
       "hero.title": "Move for an hour. <em>Stay for the spa if you like.</em>",
       "hero.lead": "Every class is one hour. Afterwards, the saunas and cold plunge are yours for up to an hour, free and completely optional. Pick a time, reserve your spot and pay in under a minute.",
@@ -40,7 +51,7 @@
       "close": "Close", "step.1": "Class", "step.2": "Details", "step.3": "Payment",
       "p1.title": "Your class", "spa.tl": "Free spa, optional: saunas and cold plunge", "spa.until": "After class, until {e}",
       "spa.note": "No need to decide now. Stay five minutes or the full hour, or head straight out after class.",
-            "promo.q": "Have a code?", "promo.ph": "Code", "promo.apply": "Apply", "promo.ok": "First class free applied.",
+      "promo.q": "Have a code?", "promo.ph": "Code", "promo.apply": "Apply", "promo.ok": "First class free applied.",
       "promo.bad": "That code isn't valid.", "promo.hint": "Mockup: try PRIMERA",
       "total": "Total", "continue": "Continue", "back": "Back", "toPay": "Continue to payment",
       "expired": "Your hold ran out, so the spot was released. Check the class and try again.",
@@ -63,13 +74,24 @@
       "ref": "Booking reference", "bring": "What to bring",
       "b1": "Training clothes and shoes", "b2": "A water bottle", "b3": "Swimwear, if you'd like to stay for the spa", "b4": "Arrive 10 minutes early",
       "ics": "Add to calendar", "getHere": "How to get here", "done": "Done",
-      "ics.desc": "Class at Element Health Club, Laureles, Medellín.", "ics.spa": "Free spa after class (optional), until {e}."
+      "ics.desc": "Class at Element Health Club, Laureles, Medellín.", "ics.spa": "Free spa after class (optional), until {e}.",
+      "meta.description@pre": "See this week's HIIT, trampoline and mat pilates classes in Laureles, Medellín. Free, optional sauna and cold plunge after every class. Book online.",
+      "hero.lead@pre": "Every class is one hour. Afterwards, the saunas and cold plunge are yours for up to an hour, free and completely optional. Pick a time and reserve your spot in under a minute.",
+      "how.s3@pre": "Confirm on WhatsApp", "how.s3b@pre": "Send us your booking in one tap. We'll confirm your spot and send you a secure payment link.",
+      "step.3@pre": "Confirm", "toPay@pre": "Continue", "p3.title@pre": "Confirm your spot",
+      "pre.note": "Online payment opens soon. For now, send us your booking on WhatsApp: we'll confirm your spot and send you a secure payment link.",
+      "pre.btn": "Send on WhatsApp", "pre.again": "Open WhatsApp again",
+      "p4.title@pre": "Almost there", "p4.text@pre": "Send the WhatsApp message to finish. We'll reply to confirm your spot and send your payment link.",
+      "week.open": "Opening week", "week.second": "Second week", "opening": "Classes start {d}.",
+      "mock.pill": "Demo", "mock.text": "Availability and payment on this page are simulated.",
+      "wa.hi": "Hi! I'd like to book a class at Element:", "wa.class": "Class", "wa.date": "Date", "wa.price": "Price", "wa.name": "Name",
+      "wa.email": "Email", "wa.first": "First time at Element", "wa.yes": "Yes", "wa.no": "No",
+      "wa.waiver": "I accept the health waiver and the cancellation policy."
     },
     es: {
       "meta.title": "Horario de clases · Element Health Club",
       "meta.description": "Consulta las clases de HIIT, trampolín y pilates en colchoneta de esta semana en Laureles, Medellín. Sauna y cold plunge gratis y opcionales después de cada clase. Reserva y paga en línea.",
       "nav.schedule": "Horario", "nav.cta": "Reserva tu clase",
-      "mock.pill": "Maqueta", "mock.text": "Las reservas son simuladas y no se cobra ningún pago real.",
       "hero.eyebrow": "Horario de clases",
       "hero.title": "Una hora para moverte. <em>Y el spa, si te provoca.</em>",
       "hero.lead": "Cada clase dura una hora. Después, los saunas y el cold plunge son tuyos hasta por una hora, gratis y totalmente opcional. Elige un horario, reserva tu cupo y paga en menos de un minuto.",
@@ -99,7 +121,7 @@
       "close": "Cerrar", "step.1": "Clase", "step.2": "Datos", "step.3": "Pago",
       "p1.title": "Tu clase", "spa.tl": "Spa gratis y opcional: saunas y cold plunge", "spa.until": "Después de clase, hasta las {e}",
       "spa.note": "No tienes que decidir ahora. Quédate cinco minutos o la hora completa, o vete directo después de clase.",
-            "promo.q": "¿Tienes un código?", "promo.ph": "Código", "promo.apply": "Aplicar", "promo.ok": "Primera clase gratis aplicada.",
+      "promo.q": "¿Tienes un código?", "promo.ph": "Código", "promo.apply": "Aplicar", "promo.ok": "Primera clase gratis aplicada.",
       "promo.bad": "Ese código no es válido.", "promo.hint": "Maqueta: prueba con PRIMERA",
       "total": "Total", "continue": "Continuar", "back": "Atrás", "toPay": "Continuar al pago",
       "expired": "Se acabó el tiempo de reserva y el cupo se liberó. Revisa la clase e inténtalo de nuevo.",
@@ -122,24 +144,33 @@
       "ref": "Código de reserva", "bring": "Qué traer",
       "b1": "Ropa y zapatos deportivos", "b2": "Una botella de agua", "b3": "Vestido de baño, si quieres quedarte al spa", "b4": "Llega 10 minutos antes",
       "ics": "Agregar al calendario", "getHere": "Cómo llegar", "done": "Listo",
-      "ics.desc": "Clase en Element Health Club, Laureles, Medellín.", "ics.spa": "Spa gratis después de clase (opcional), hasta las {e}."
+      "ics.desc": "Clase en Element Health Club, Laureles, Medellín.", "ics.spa": "Spa gratis después de clase (opcional), hasta las {e}.",
+      "meta.description@pre": "Consulta las clases de HIIT, trampolín y pilates en colchoneta de esta semana en Laureles, Medellín. Sauna y cold plunge gratis y opcionales después de cada clase. Reserva en línea.",
+      "hero.lead@pre": "Cada clase dura una hora. Después, los saunas y el cold plunge son tuyos hasta por una hora, gratis y totalmente opcional. Elige un horario y reserva tu cupo en menos de un minuto.",
+      "how.s3@pre": "Confirma por WhatsApp", "how.s3b@pre": "Envíanos tu reserva con un toque. Te confirmamos el cupo y te enviamos un link de pago seguro.",
+      "step.3@pre": "Confirmar", "toPay@pre": "Continuar", "p3.title@pre": "Confirma tu cupo",
+      "pre.note": "El pago en línea abre muy pronto. Por ahora, envíanos tu reserva por WhatsApp: te confirmamos el cupo y te enviamos un link de pago seguro.",
+      "pre.btn": "Enviar por WhatsApp", "pre.again": "Abrir WhatsApp de nuevo",
+      "p4.title@pre": "¡Ya casi!", "p4.text@pre": "Envía el mensaje de WhatsApp para terminar. Te respondemos para confirmar tu cupo y enviarte el link de pago.",
+      "week.open": "Semana de apertura", "week.second": "Segunda semana", "opening": "Las clases empiezan el {d}.",
+      "mock.pill": "Demo", "mock.text": "La disponibilidad y el pago en esta página son simulados.",
+      "wa.hi": "¡Hola! Quiero reservar una clase en Element:", "wa.class": "Clase", "wa.date": "Fecha", "wa.price": "Precio", "wa.name": "Nombre",
+      "wa.email": "Correo", "wa.first": "Primera vez en Element", "wa.yes": "Sí", "wa.no": "No",
+      "wa.waiver": "Acepto el consentimiento de salud y la política de cancelación."
     }
   };
   function L() { return document.documentElement.lang === "es" ? "es" : "en"; }
+  /* keys ending in "@pre" replace their plain version until online payment is switched on */
   function t(k, v) {
-    var s = S[L()][k];
+    var d = S[L()];
+    if (!PAY && (d[k + "@pre"] != null || S.en[k + "@pre"] != null)) k += "@pre";
+    var s = d[k];
     if (s == null) s = S.en[k] != null ? S.en[k] : k;
     return v ? s.replace(/\{(\w+)\}/g, function (m, x) { return v[x] != null ? v[x] : m; }) : s;
   }
   function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
 
-  /* ---------- placeholder data for the mockup ---------- */
-  var PRICE_REG = 60000;          /* COP, regular price per class */
-  var PRICE = 40000;              /* COP, December founding price */
-  var CAP = 16;                   /* spots per class */
-  var LAST = 3;                   /* spot counts are never shown; "Last spots" appears at this many or fewer */
-  var HOLD_MS = 15 * 60 * 1000;   /* spot held while paying */
-  var PROMO = "PRIMERA";
+  /* ---------- classes ---------- */
   var SLOTS = [6, 7, 8, 17, 18, 19];
   var TYPES = {
     hiit: { el: "fire", who: ["Juan Pablo"] },
@@ -151,23 +182,34 @@
   var B = ["tramp", "pil", "hiit", "pil", "tramp", "hiit"];
   var C = ["pil", "hiit", "tramp", "hiit", "pil", "tramp"];
   var ROTA = [A, B, C, A, B, C];
-  var POPULAR = { 6: 7, 7: 6, 8: 3, 17: 6, 18: 9, 19: 4 };
+  var HOLD_MS = 15 * 60 * 1000;   /* spot held while paying online */
+  var PROMO = "PRIMERA";          /* demo-only code */
+  var POPULAR = { 6: 7, 7: 6, 8: 3, 17: 6, 18: 9, 19: 4 };   /* demo-only sample bookings */
 
   /* ---------- time: everything is Medellín wall-clock time (UTC-5, no daylight saving) ---------- */
   var DAY = 864e5, HOUR = 36e5, TZ_MS = 5 * HOUR;
   function nowBog() {
-    var q = new URLSearchParams(location.search).get("now");   /* e.g. ?now=2026-11-23T07:30 for testing */
+    var q = new URLSearchParams(location.search).get("now");   /* e.g. ?now=2026-12-02T07:30 to preview a date */
     if (q) { var d = new Date(q + "Z"); if (!isNaN(d)) return d; }
     return new Date(Date.now() - TZ_MS);
   }
   var NOW = nowBog();
   function dayStart(d) { return new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate())); }
-  function monday(w) {
+  var OPEN_MON = OPENING - ((new Date(OPENING).getUTCDay() + 6) % 7) * DAY;   /* Monday of the opening week */
+  function currentMonday() {
     var d = dayStart(NOW), dow = d.getUTCDay();
-    return new Date(d.getTime() + ((dow === 0 ? 1 : 1 - dow) + 7 * w) * DAY);   /* Sunday shows the coming week */
+    return d.getTime() + (dow === 0 ? 1 : 1 - dow) * DAY;   /* on Sunday the coming week is shown */
+  }
+  function preOpening() { return currentMonday() < OPEN_MON; }
+  function monday(w) { return new Date(Math.max(currentMonday(), OPEN_MON) + 7 * w * DAY); }
+  function weekDows(w) {   /* Monday = 0 … Saturday = 5, skipping days before opening */
+    var mon = monday(w).getTime(), out = [];
+    for (var i = 0; i < 6; i++) if (mon + i * DAY >= OPENING) out.push(i);
+    return out;
   }
   function ymd(d) { return d.toISOString().slice(0, 10); }
   function fmt(d, o) { o.timeZone = "UTC"; return new Intl.DateTimeFormat(L() === "es" ? "es-CO" : "en-US", o).format(d); }
+  function longDate(d) { var s = fmt(d, { weekday: "long", day: "numeric", month: "long" }); return L() === "es" ? s.replace(",", "") : s; }
   function cap1(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
   function hm(h) { return (((h + 11) % 12) + 1) + ":00"; }
   function ap(h) { var pm = h >= 12; return L() === "es" ? (pm ? "p. m." : "a. m.") : (pm ? "pm" : "am"); }
@@ -175,23 +217,23 @@
   function until(h) { return hm(h + 2) + " " + ap(h + 2); }   /* the free spa time runs until 2 hours after class start */
   function money(n) { return L() === "es" ? "$" + n.toLocaleString("es-CO") : "$" + n.toLocaleString("en-US"); }
   function hash(s) { var h = 2166136261; for (var i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; }
+  function priceOf(s) { return s.day.getTime() < FOUNDING_END ? PRICE_FOUNDING : PRICE_REG; }
 
   var state = { week: 0, day: null, filter: "all", mine: {}, b: null, trigger: null };
 
   function sessions(w) {
     var mon = monday(w), out = [];
-    for (var i = 0; i < 6; i++) {
+    weekDows(w).forEach(function (i) {
       var day = new Date(mon.getTime() + i * DAY);
       SLOTS.forEach(function (h, j) {
-        var id = ymd(day) + "-" + h, type = ROTA[i][j];
-        var base = Math.min(CAP, POPULAR[h] + hash(id) % 7);
-        var mine = !!state.mine[id];
-        var taken = Math.min(CAP, base + (mine ? 1 : 0));
+        var id = ymd(day) + "-" + h, type = ROTA[i][j], mine = !!state.mine[id];
+        /* real availability will come from the booking server; until then every class shows as open (the demo uses sample numbers) */
+        var taken = DEMO ? Math.min(CAP, Math.min(CAP, POPULAR[h] + hash(id) % 7) + (mine ? 1 : 0)) : 0;
         var start = new Date(day.getTime() + h * HOUR);
         out.push({ id: id, day: day, di: i, h: h, type: type, el: TYPES[type].el, who: TYPES[type].who[(i + j) % TYPES[type].who.length],
                    start: start, taken: taken, left: CAP - taken, mine: mine, past: start <= NOW });
       });
-    }
+    });
     return out;
   }
   function find(id) {
@@ -205,7 +247,8 @@
     clock: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
     shield: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>',
     check: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>',
-    cal: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>'
+    cal: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>',
+    wa: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1.1 2.7c.1.2 1.9 2.8 4.5 4 1.7.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2l-.5-.3z"/></svg>'
   };
 
   /* ---------- static text ---------- */
@@ -219,7 +262,7 @@
 
   /* ---------- schedule ---------- */
   var $ = function (id) { return document.getElementById(id); };
-  /* availability is shown only when it helps: nearly full or full, never as a count */
+  /* availability is shown only when it helps (nearly full or full), never as a count */
   function isLast(s) { return !s.past && !s.mine && s.left > 0 && s.left <= LAST; }
   function statusText(s) {
     if (s.past) return t("ended");
@@ -230,32 +273,50 @@
   function matches(s) { return state.filter === "all" || state.filter === s.type; }
 
   function renderBar() {
-    var mon = monday(state.week), sat = new Date(mon.getTime() + 5 * DAY);
-    $("weekRange").textContent = (fmt(mon, { day: "numeric", month: "short" }) + " – " + fmt(sat, { day: "numeric", month: "short" })).replace(/\./g, "");
-    document.querySelectorAll("[data-week]").forEach(function (b) { b.setAttribute("aria-pressed", String(+b.getAttribute("data-week") === state.week)); });
+    var mon = monday(state.week), sat = new Date(mon.getTime() + 5 * DAY), dows = weekDows(state.week);
+    var first = new Date(mon.getTime() + dows[0] * DAY);
+    $("weekRange").textContent = (fmt(first, { day: "numeric", month: "short" }) + " – " + fmt(sat, { day: "numeric", month: "short" })).replace(/\./g, "");
+    var pre = preOpening();
+    document.querySelectorAll("[data-week]").forEach(function (b) {
+      var w = +b.getAttribute("data-week");
+      b.textContent = t(pre ? (w ? "week.second" : "week.open") : (w ? "week.next" : "week.this"));
+      b.setAttribute("aria-pressed", String(w === state.week));
+    });
     var chips = '<button type="button" class="chip" data-f="all" aria-pressed="' + (state.filter === "all") + '"><i></i>' + esc(t("filter.all")) + "</button>";
     Object.keys(TYPES).forEach(function (k) {
       chips += '<button type="button" class="chip el-' + TYPES[k].el + '" data-f="' + k + '" aria-pressed="' + (state.filter === k) + '"><i></i>' + esc(t("c." + k)) + "</button>";
     });
     $("chips").innerHTML = chips;
-    $("offer").innerHTML = '<span class="offer-tag">' + esc(t("offer.tag")) + "</span><span><s>" + money(PRICE_REG) + "</s> <b>" + money(PRICE) + "</b> " + esc(t("offer.post")) + "</span>";
+    var founding = first.getTime() < FOUNDING_END, offer = $("offer");
+    offer.hidden = !founding && !pre;
+    offer.innerHTML = (founding ? '<span class="offer-tag">' + esc(t("offer.tag")) + "</span><span><s>" + money(PRICE_REG) + "</s> <b>" + money(PRICE_FOUNDING) + "</b> " + esc(t("offer.post")) + "</span>" : "") +
+      (pre ? '<span class="offer-open">' + esc(t("opening", { d: longDate(new Date(OPENING)) })) + "</span>" : "");
   }
 
   function defaultDay() {
-    if (state.week !== 0) return 0;
-    var i = Math.round((dayStart(NOW) - monday(0)) / DAY);
-    return i >= 0 && i < 6 ? i : 0;
+    var dows = weekDows(state.week);
+    if (state.week === 0) {
+      var i = Math.round((dayStart(NOW) - monday(0)) / DAY);
+      if (dows.indexOf(i) >= 0) return i;
+    }
+    return dows[0];
   }
 
   function renderDays() {
-    var mon = monday(state.week), today = ymd(dayStart(NOW)), html = "";
-    for (var i = 0; i < 6; i++) {
+    var mon = monday(state.week), today = ymd(dayStart(NOW)), dows = weekDows(state.week), html = "";
+    dows.forEach(function (i) {
       var d = new Date(mon.getTime() + i * DAY);
       html += '<button type="button" class="day' + (ymd(d) === today ? " is-today" : "") + '" data-day="' + i + '" aria-pressed="' + (i === state.day) +
-        '" aria-label="' + esc(cap1(fmt(d, { weekday: "long", day: "numeric", month: "long" }))) + '"><small>' + esc(fmt(d, { weekday: "short" }).replace(".", "")) +
+        '" aria-label="' + esc(cap1(longDate(d))) + '"><small>' + esc(fmt(d, { weekday: "short" }).replace(".", "")) +
         "</small><b>" + d.getUTCDate() + "</b></button>";
-    }
+    });
+    $("days").style.gridTemplateColumns = "repeat(" + dows.length + ", 1fr)";
     $("days").innerHTML = html;
+  }
+
+  function priceHTML(s) {
+    var p = priceOf(s);
+    return '<span class="price">' + (p < PRICE_REG ? "<s>" + money(PRICE_REG) + "</s>" : "") + money(p) + "<small>COP</small></span>";
   }
 
   function cardHTML(s) {
@@ -268,7 +329,7 @@
       '<div class="cls-card"><div class="cls-top"><h4>' + esc(t("c." + s.type)) + '</h4><span class="el-tag">' + esc(t("e." + s.el)) + "</span></div>" +
       '<p class="cls-meta">' + esc(t("with", { name: s.who })) + (isLast(s) ? ' · <span class="low">' + esc(t("last")) + "</span>" : "") + "</p>" +
       '<div class="spa-band">' + IC.drop + "<span>" + esc(t("spaBand", { e: until(s.h) })) + "</span></div>" +
-      '<div class="cls-foot"><span class="price"><s>' + money(PRICE_REG) + "</s>" + money(PRICE) + "<small>COP</small></span>" + action + "</div></div></article>";
+      '<div class="cls-foot">' + priceHTML(s) + action + "</div></div></article>";
   }
 
   function renderList() {
@@ -281,34 +342,34 @@
   }
 
   function cellHTML(s) {
-    var dis = s.past || s.mine || s.left <= 0;
-    var label = t("c." + s.type) + ", " + cap1(fmt(s.day, { weekday: "long", day: "numeric", month: "long" })) + ", " + hm(s.h) + " " + ap(s.h) + ", " +
-      t("with", { name: s.who }) + (statusText(s) ? ", " + statusText(s).replace("✓ ", "") : "");
+    var dis = s.past || s.mine || s.left <= 0, st = statusText(s);
+    var label = t("c." + s.type) + ", " + cap1(longDate(s.day)) + ", " + hm(s.h) + " " + ap(s.h) + ", " + t("with", { name: s.who }) + (st ? ", " + st.replace("✓ ", "") : "");
     var cls = "cell el-" + s.el + (s.left <= 0 && !s.mine ? " is-full" : "") + (s.mine ? " is-booked" : "") + (matches(s) ? "" : " is-dim");
     return '<button type="button" class="' + cls + '" data-book="' + s.id + '"' + (dis ? " disabled" : "") + ' aria-label="' + esc(label) + '">' +
       '<span class="el-tag">' + esc(t("e." + s.el)) + '</span><span class="nm">' + esc(t("c." + s.type)) + '</span><span class="who">' + esc(s.who) + "</span>" +
-      '<span class="bot"><span class="spots' + (isLast(s) ? " low" : "") + '">' + esc(statusText(s)) + '</span><span class="spa-mini">' + esc(t("spaMini")) + "</span></span></button>";
+      '<span class="bot"><span class="spots' + (isLast(s) ? " low" : "") + '">' + esc(st) + '</span><span class="spa-mini">' + esc(t("spaMini")) + "</span></span></button>";
   }
 
   function renderGrid() {
-    var list = sessions(state.week), mon = monday(state.week), today = ymd(dayStart(NOW));
+    var list = sessions(state.week), mon = monday(state.week), today = ymd(dayStart(NOW)), dows = weekDows(state.week);
     var html = '<div class="wk-corner"></div>';
-    for (var i = 0; i < 6; i++) {
+    dows.forEach(function (i) {
       var d = new Date(mon.getTime() + i * DAY), isT = ymd(d) === today;
       html += '<div class="wk-head' + (isT ? " is-today" : "") + '"><small>' + esc(isT ? t("today") : fmt(d, { weekday: "short" }).replace(".", "")) + "</small><b>" +
         esc(fmt(d, { day: "numeric", month: "short" }).replace(".", "")) + "</b></div>";
-    }
+    });
     SLOTS.forEach(function (h) {
       if (h === 6) html += '<div class="wk-sep">' + esc(t("morning")) + "</div>";
       if (h === 17) html += '<div class="wk-sep">' + esc(t("evening")) + "</div>";
       html += '<div class="wk-time"><b>' + hm(h) + "</b><span>" + ap(h) + "</span></div>";
-      for (var i = 0; i < 6; i++) html += cellHTML(list.filter(function (s) { return s.di === i && s.h === h; })[0]);
+      dows.forEach(function (i) { html += cellHTML(list.filter(function (s) { return s.di === i && s.h === h; })[0]); });
     });
+    $("weekGrid").style.gridTemplateColumns = "74px repeat(" + dows.length + ", minmax(0, 1fr))";
     $("weekGrid").innerHTML = html;
   }
 
   function renderAll() {
-    if (state.day == null) state.day = defaultDay();
+    if (state.day == null || weekDows(state.week).indexOf(state.day) < 0) state.day = defaultDay();
     renderBar(); renderDays(); renderList(); renderGrid();
   }
 
@@ -325,17 +386,39 @@
     sheet.showModal();
     clearInterval(timer); timer = setInterval(tick, 1000);
   }
-  function total() { return state.b.promo ? 0 : PRICE; }
+  function total(s) { return state.b.promo ? 0 : priceOf(s); }
   function summaryHTML(s) {
     return '<div class="sum el-' + s.el + '"><span class="el-tag">' + esc(t("e." + s.el)) + "</span><h3>" + esc(t("c." + s.type)) + "</h3>" +
-      "<p>" + esc(cap1(fmt(s.day, { weekday: "long", day: "numeric", month: "long" }))) + " · " + esc(t("with", { name: s.who })) + "</p>" +
+      "<p>" + esc(cap1(longDate(s.day))) + " · " + esc(t("with", { name: s.who })) + "</p>" +
       '<ol class="tl"><li><b>' + range(s.h, s.h + 1) + "</b>" + esc(t("c." + s.type)) + "</li>" +
       '<li class="spa"><b>' + esc(t("spa.until", { e: until(s.h) })) + "</b>" + esc(t("spa.tl")) + "</li></ol></div>";
   }
-  function totHTML() {
-    return '<div class="tot"><small>' + esc(t("total")) + "</small><b>" + money(total()) + "</b><s>" + money(PRICE_REG) + "</s></div>";
+  function totHTML(s) {
+    return '<div class="tot"><small>' + esc(t("total")) + "</small><b>" + money(total(s)) + "</b>" + (total(s) < PRICE_REG ? "<s>" + money(PRICE_REG) + "</s>" : "") + "</div>";
   }
-  function mmss(ms) { var s = Math.max(0, Math.ceil(ms / 1000)); return Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0"); }
+  function linesHTML(s, b) {
+    var p = priceOf(s);
+    return '<ul class="lines"><li><span>' + esc(t("c." + s.type)) + "<br><small>" + esc(cap1(fmt(s.day, { weekday: "short", day: "numeric", month: "short" }))) + ", " + hm(s.h) + " " + ap(s.h) + "</small></span><b>" + money(PRICE_REG) + "</b></li>" +
+      (p < PRICE_REG ? "<li><span>" + esc(t("l.found")) + "</span><b>−" + money(PRICE_REG - p) + "</b></li>" : "") +
+      "<li><span>" + esc(t("l.spa")) + "</span><b>" + esc(t("l.free")) + "</b></li>" +
+      (b.promo ? "<li><span>" + esc(t("l.code", { c: PROMO })) + "</span><b>−" + money(p) + "</b></li>" : "") +
+      "<li><b>" + esc(t("total")) + "</b><b>" + money(total(s)) + "</b></li></ul>";
+  }
+  function mmss(ms) { var x = Math.max(0, Math.ceil(ms / 1000)); return Math.floor(x / 60) + ":" + String(x % 60).padStart(2, "0"); }
+
+  /* the booking request sent by WhatsApp while online payment is not switched on */
+  function waURL(s, b) {
+    var lines = [t("wa.hi"),
+      "• " + t("wa.class") + ": " + t("c." + s.type) + " " + t("with", { name: s.who }),
+      "• " + t("wa.date") + ": " + cap1(longDate(s.day)) + ", " + hm(s.h) + " " + ap(s.h),
+      "• " + t("wa.price") + ": " + money(priceOf(s)) + " COP",
+      "• " + t("wa.name") + ": " + b.f.name,
+      "• WhatsApp: " + b.f.wa,
+      "• " + t("wa.email") + ": " + b.f.email,
+      "• " + t("wa.first") + ": " + (b.f.first ? t("wa.yes") : t("wa.no")),
+      "", t("wa.waiver")];
+    return "https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(lines.join("\n"));
+  }
 
   function renderSheet() {
     var b = state.b, s = find(b.id) || {}, html = "", f = "";
@@ -346,20 +429,22 @@
     if (b.step === 1) {
       if (b.expired) html += '<p class="alert" role="alert">' + esc(t("expired")) + "</p>";
       html += '<h2 id="sheetTitle">' + esc(t("p1.title")) + "</h2>" + summaryHTML(s) +
-        '<p class="spa-note">' + IC.drop + "<span>" + esc(t("spa.note")) + "</span></p>" +
-        '<div class="promo"><button type="button" class="link-btn" id="promoToggle" aria-expanded="' + b.showPromo + '">' + esc(t("promo.q")) + "</button>" +
-        (b.showPromo ? '<div class="promo-row"><input type="text" id="promoIn" autocomplete="off" aria-label="' + esc(t("promo.ph")) + '" placeholder="' + esc(t("promo.ph")) + '" value="' + (b.promo ? PROMO : "") + '">' +
-          '<button type="button" class="btn btn-ghost btn-sm" id="promoApply">' + esc(t("promo.apply")) + "</button></div>" +
-          (b.promoMsg ? '<p class="msg ' + (b.promo ? "ok" : "bad") + '" role="status">' + esc(t(b.promoMsg)) + "</p>" : "") +
-          '<p class="hint">' + esc(t("promo.hint")) + "</p>" : "") + "</div>";
-      f = totHTML() + '<button type="button" class="btn btn-primary" data-go="2">' + esc(t("continue")) + "</button>";
+        '<p class="spa-note">' + IC.drop + "<span>" + esc(t("spa.note")) + "</span></p>";
+      if (DEMO) {
+        html += '<div class="promo"><button type="button" class="link-btn" id="promoToggle" aria-expanded="' + b.showPromo + '">' + esc(t("promo.q")) + "</button>" +
+          (b.showPromo ? '<div class="promo-row"><input type="text" id="promoIn" autocomplete="off" aria-label="' + esc(t("promo.ph")) + '" placeholder="' + esc(t("promo.ph")) + '" value="' + (b.promo ? PROMO : "") + '">' +
+            '<button type="button" class="btn btn-ghost btn-sm" id="promoApply">' + esc(t("promo.apply")) + "</button></div>" +
+            (b.promoMsg ? '<p class="msg ' + (b.promo ? "ok" : "bad") + '" role="status">' + esc(t(b.promoMsg)) + "</p>" : "") +
+            '<p class="hint">' + esc(t("promo.hint")) + "</p>" : "") + "</div>";
+      }
+      f = totHTML(s) + '<button type="button" class="btn btn-primary" data-go="2">' + esc(t("continue")) + "</button>";
     } else if (b.step === 2) {
       var e = b.errs;
-      function field(id, key, type, val, ac, extra) {
+      var field = function (id, key, type, val, ac, extra) {
         return '<div class="field"><label for="' + id + '">' + esc(t(key)) + '</label><input type="' + type + '" id="' + id + '" autocomplete="' + ac + '" value="' + esc(val) + '"' +
           (e[id] ? ' aria-invalid="true" aria-describedby="' + id + 'E"' : "") + (extra || "") + ">" +
           (e[id] ? '<span class="err" id="' + id + 'E">' + esc(t(e[id])) + "</span>" : "") + "</div>";
-      }
+      };
       html += '<h2 id="sheetTitle">' + esc(t("p2.title")) + "</h2>" +
         field("fName", "f.name", "text", b.f.name, "name") +
         field("fWa", "f.wa", "tel", b.f.wa, "tel", ' inputmode="tel" placeholder="300 123 4567"') +
@@ -371,24 +456,30 @@
         '<button type="button" class="link-btn" id="polToggle" aria-expanded="' + b.showPolicy + '" style="margin:0 0 12px 32px">' + esc(t("f.read")) + "</button>" +
         (b.showPolicy ? '<p class="policy">' + esc(t("policy")) + "</p>" : "");
       f = '<button type="button" class="link-btn" data-go="1">' + esc(t("back")) + '</button><button type="button" class="btn btn-primary" data-go="3">' + esc(t("toPay")) + "</button>";
+    } else if (b.step === 3 && !PAY) {
+      html += '<h2 id="sheetTitle">' + esc(t("p3.title")) + "</h2>" + linesHTML(s, b) +
+        '<p class="pre-note">' + IC.wa + "<span>" + esc(t("pre.note")) + "</span></p>";
+      f = '<button type="button" class="link-btn" data-go="2">' + esc(t("back")) + '</button><a class="btn btn-primary btn-wide" id="waBook" href="' + esc(waURL(s, b)) +
+        '" target="_blank" rel="noopener">' + IC.wa + esc(t("pre.btn")) + "</a>";
     } else if (b.step === 3) {
       html += '<p class="hold">' + IC.clock + "<span>" + esc(t("hold")) + ' <b id="holdT">' + mmss(b.holdEnd - Date.now()) + "</b></span></p>" +
         (b.declined ? '<p class="alert" role="alert">' + esc(t("declined")) + "</p>" : "") +
-        '<h2 id="sheetTitle">' + esc(t("p3.title")) + "</h2>" +
-        '<ul class="lines"><li><span>' + esc(t("c." + s.type)) + "<br><small>" + esc(cap1(fmt(s.day, { weekday: "short", day: "numeric", month: "short" }))) + ", " + hm(s.h) + " " + ap(s.h) + "</small></span><b>" + money(PRICE_REG) + "</b></li>" +
-        "<li><span>" + esc(t("l.found")) + "</span><b>−" + money(PRICE_REG - PRICE) + "</b></li>" +
-        "<li><span>" + esc(t("l.spa")) + "</span><b>" + esc(t("l.free")) + "</b></li>" +
-        (b.promo ? "<li><span>" + esc(t("l.code", { c: PROMO })) + "</span><b>−" + money(PRICE) + "</b></li>" : "") +
-        "<li><b>" + esc(t("total")) + "</b><b>" + money(total()) + "</b></li></ul>" +
-        (total() > 0 ? '<p class="hint">' + esc(t("payWith")) + '</p><div class="methods"><span>' + esc(t("m.card")) + "</span><span>PSE</span><span>Nequi</span><span>Bancolombia</span><span>Daviplata</span></div>" +
+        '<h2 id="sheetTitle">' + esc(t("p3.title")) + "</h2>" + linesHTML(s, b) +
+        (total(s) > 0 ? '<p class="hint">' + esc(t("payWith")) + '</p><div class="methods"><span>' + esc(t("m.card")) + "</span><span>PSE</span><span>Nequi</span><span>Bancolombia</span><span>Daviplata</span></div>" +
           '<p class="secure">' + IC.shield + "<span>" + esc(t("secure")) + "</span></p>" : "");
       f = '<button type="button" class="link-btn" data-go="2">' + esc(t("back")) + '</button><button type="button" class="btn btn-primary btn-wide" id="payBtn">' +
-        esc(total() > 0 ? t("pay", { p: money(total()) }) : t("confirm")) + "</button>";
+        esc(total(s) > 0 ? t("pay", { p: money(total(s)) }) : t("confirm")) + "</button>";
+    } else if (!PAY) {
+      html += '<div class="done-ic wa-ic">' + IC.wa + '</div><h2 id="sheetTitle">' + esc(t("p4.title")) + "</h2>" +
+        '<p style="color:var(--ink-2);margin:-6px 0 18px">' + esc(t("p4.text")) + "</p>" + summaryHTML(s) +
+        '<div class="bring"><h3>' + esc(t("bring")) + "</h3><ul><li>" + esc(t("b1")) + "</li><li>" + esc(t("b2")) + "</li><li>" + esc(t("b3")) + "</li><li>" + esc(t("b4")) + "</li></ul></div>" +
+        '<div class="done-actions"><a class="btn btn-primary" href="' + esc(waURL(s, b)) + '" target="_blank" rel="noopener">' + IC.wa + esc(t("pre.again")) + '</a><a class="btn btn-ghost" href="/location">' + esc(t("getHere")) + "</a></div>";
+      f = '<button type="button" class="btn btn-ghost btn-wide" id="doneBtn">' + esc(t("done")) + "</button>";
     } else {
       html += '<div class="done-ic">' + IC.check + '</div><h2 id="sheetTitle">' + esc(t("p4.title")) + "</h2>" +
         '<p style="color:var(--ink-2);margin:-6px 0 18px">' + esc(t("p4.text", { email: b.f.email })) + "</p>" + summaryHTML(s) +
         '<p class="ref">' + esc(t("ref")) + " <b>" + esc(b.ref) + "</b></p>" +
-        '<div class="bring"><h3>' + esc(t("bring")) + "</h3><ul><li>" + esc(t("b1")) + "</li><li>" + esc(t("b2")) + "</li>" + "<li>" + esc(t("b3")) + "</li>" + "<li>" + esc(t("b4")) + "</li></ul></div>" +
+        '<div class="bring"><h3>' + esc(t("bring")) + "</h3><ul><li>" + esc(t("b1")) + "</li><li>" + esc(t("b2")) + "</li><li>" + esc(t("b3")) + "</li><li>" + esc(t("b4")) + "</li></ul></div>" +
         '<div class="done-actions"><button type="button" class="btn btn-primary" id="icsBtn">' + IC.cal + esc(t("ics")) + '</button><a class="btn btn-ghost" href="/location">' + esc(t("getHere")) + "</a></div>";
       f = '<button type="button" class="btn btn-ghost btn-wide" id="doneBtn">' + esc(t("done")) + "</button>";
     }
@@ -412,6 +503,7 @@
     b.errs = e;
     return !Object.keys(e).length;
   }
+  function focusTitle() { var h = $("sheetTitle"); if (h) { h.setAttribute("tabindex", "-1"); h.focus(); } }
   function go(n) {
     var b = state.b;
     readForm();
@@ -421,10 +513,9 @@
       return;
     }
     if (n === 2) b.expired = false;
-    if (n === 3 && (!b.holdEnd || b.holdEnd <= Date.now())) b.holdEnd = Date.now() + HOLD_MS;   /* the spot is held from here */
+    if (n === 3 && PAY && (!b.holdEnd || b.holdEnd <= Date.now())) b.holdEnd = Date.now() + HOLD_MS;   /* the spot is held from here */
     b.step = n; b.declined = false;
-    renderSheet();
-    var h = $("sheetTitle"); if (h) { h.setAttribute("tabindex", "-1"); h.focus(); }
+    renderSheet(); focusTitle();
   }
   function tick() {
     var b = state.b; if (!b || !b.holdEnd || b.step === 4) return;
@@ -437,8 +528,12 @@
     state.mine[b.id] = true;
     b.ref = "EHC-" + Math.random().toString(36).slice(2, 8).toUpperCase();
     b.step = 4; b.holdEnd = 0;
-    renderSheet(); renderAll();
-    var h = $("sheetTitle"); if (h) { h.setAttribute("tabindex", "-1"); h.focus(); }
+    renderSheet(); renderAll(); focusTitle();
+  }
+  /* Online payment. The demo opens a simulated checkout. For the live version, this asks the server for a signed
+     Wompi reference (see README, "Online payments") and opens Wompi's checkout; it runs only when PAYMENTS_LIVE is true. */
+  function startPayment() {
+    if (DEMO) { openSim(); return; }
   }
   function openSim() {
     var ms = [["card", t("m.card")], ["pse", "PSE"], ["nequi", "Nequi"], ["bancolombia", "Bancolombia"], ["daviplata", "Daviplata"]];
@@ -448,7 +543,7 @@
     sim.showModal();
   }
   function downloadICS() {
-    var b = state.b, s = find(b.id) || sessions(0).concat(sessions(1)).filter(function (x) { return x.id === b.id; })[0];
+    var b = state.b, s = find(b.id);
     function z(d) { return new Date(d.getTime() + TZ_MS).toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, ""); }
     var end = new Date(s.start.getTime() + HOUR);   /* the calendar holds the class hour only; the spa is optional */
     var title = t("c." + s.type) + " · Element Health Club";
@@ -475,12 +570,14 @@
     if (el.hasAttribute("data-go")) { go(+el.getAttribute("data-go")); return; }
     switch (el.id) {
       case "sheetClose": case "doneBtn": sheet.close(); break;
+      case "waBook":   /* WhatsApp opens in a new tab; the panel moves on to the "almost there" step */
+        setTimeout(function () { if (state.b) { state.b.step = 4; renderSheet(); focusTitle(); } }, 300); break;
       case "promoToggle": state.b.showPromo = !state.b.showPromo; renderSheet(); var pi = $("promoIn"); if (pi) pi.focus(); break;
       case "promoApply":
         var ok = $("promoIn").value.trim().toUpperCase() === PROMO;
         state.b.promo = ok; state.b.promoMsg = ok ? "promo.ok" : "promo.bad"; renderSheet(); break;
       case "polToggle": readForm(); state.b.showPolicy = !state.b.showPolicy; renderSheet(); $("polToggle").focus(); break;
-      case "payBtn": if (total() > 0) openSim(); else confirmBooking(); break;
+      case "payBtn": if (total(find(state.b.id)) > 0) startPayment(); else confirmBooking(); break;
       case "icsBtn": downloadICS(); break;
       case "simOk": sim.close(); confirmBooking(); break;
       case "simNo": sim.close(); state.b.declined = true; renderSheet(); break;
@@ -508,6 +605,7 @@
   new MutationObserver(function () { applyStatic(); renderAll(); if (state.b) renderSheet(); })
     .observe(document.documentElement, { attributes: true, attributeFilter: ["lang"] });
 
+  if (DEMO) { var mb = $("mockBar"); if (mb) mb.hidden = false; }
   applyStatic();
   renderAll();
 })();

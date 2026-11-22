@@ -28,7 +28,8 @@
       "nav.day": "A day here",
       "nav.memberships": "Memberships",
       "nav.location": "Location",
-      "nav.cta": "Book a visit",
+      "nav.schedule": "Schedule",
+      "nav.cta": "Book a class",
 
       "hero.eyebrow": "Opening soon in Laureles, Medellín",
       "hero.title": "Where the body <em>finds its balance</em>",
@@ -134,7 +135,8 @@
       "nav.day": "Un día aquí",
       "nav.memberships": "Membresías",
       "nav.location": "Ubicación",
-      "nav.cta": "Reserva una visita",
+      "nav.schedule": "Horario",
+      "nav.cta": "Reserva tu clase",
 
       "hero.eyebrow": "Próximamente en Laureles, Medellín",
       "hero.title": "Donde el cuerpo <em>encuentra su equilibrio</em>",

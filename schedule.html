@@ -4,12 +4,21 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Class schedule · Element Health Club</title>
-<meta name="description" content="See this week's HIIT, trampoline and mat pilates classes in Laureles, Medellín. Free, optional sauna and cold plunge after every class. Book and pay online.">
-<!-- design mockup: keep out of search results until the real booking system is live -->
-<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="See this week's HIIT, trampoline and mat pilates classes in Laureles, Medellín. Free, optional sauna and cold plunge after every class. Book online.">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <meta name="theme-color" content="#F6F3EC" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#121010" media="(prefers-color-scheme: dark)">
+<link rel="canonical" href="https://elementhealthclub.com/schedule">
+<meta property="og:url" content="https://elementhealthclub.com/schedule">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Element Health Club">
+<meta property="og:title" content="Class schedule · Element Health Club">
+<meta property="og:description" content="HIIT, trampoline and mat pilates in Laureles, Medellín, with free, optional sauna and cold plunge after every class. Book online.">
+<meta property="og:image" content="https://elementhealthclub.com/assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://elementhealthclub.com/assets/og.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=Manrope:wght@400;500;600;700;800&family=Cinzel:wght@500;600&display=swap">
@@ -31,7 +40,8 @@
     <ul class="nav-links">
       <li><a href="/elements" data-i18n="nav.elements">The elements</a></li>
       <li><a href="/experiences" data-i18n="nav.experiences">Experiences</a></li>
-      <li><a href="/schedule" aria-current="page" data-s="nav.schedule">Schedule</a></li>
+      <li><a href="/schedule" aria-current="page" data-i18n="nav.schedule">Schedule</a></li>
+      <li><a href="/a-day-here" data-i18n="nav.day">A day here</a></li>
       <li><a href="/memberships" data-i18n="nav.memberships">Memberships</a></li>
       <li><a href="/location" data-i18n="nav.location">Location</a></li>
     </ul>
@@ -41,7 +51,7 @@
         <button type="button" data-lang="en" aria-pressed="true">EN</button>
         <button type="button" data-lang="es" aria-pressed="false">ES</button>
       </div>
-      <a href="#horario" class="btn btn-primary" data-s="nav.cta">Book a class</a>
+      <a href="#horario" class="btn btn-primary" data-i18n="nav.cta">Book a class</a>
       <button class="menu-btn" type="button" aria-label="Menu" aria-expanded="false" id="menuBtn">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
       </button>
@@ -49,8 +59,8 @@
   </div>
 </header>
 
-<div class="mock-bar" role="note">
-  <div class="wrap"><span class="mock-pill" data-s="mock.pill">Mockup</span> <span data-s="mock.text">Bookings are simulated, and no real payment is taken.</span></div>
+<div class="mock-bar" id="mockBar" role="note" hidden>
+  <div class="wrap"><span class="mock-pill" data-s="mock.pill">Demo</span> <span data-s="mock.text">Availability and payment on this page are simulated.</span></div>
 </div>
 
 <main>
@@ -63,7 +73,7 @@
         <span class="eyebrow" data-s="hero.eyebrow">Class schedule</span>
         <h1 data-s-html="hero.title">Move for an hour. <em>Stay for the spa if you like.</em></h1>
       </div>
-      <p class="lead" data-s="hero.lead">Every class is one hour. Afterwards, the saunas and cold plunge are yours for up to an hour, free and completely optional. Pick a time, reserve your spot and pay in under a minute.</p>
+      <p class="lead" data-s="hero.lead">Every class is one hour. Afterwards, the saunas and cold plunge are yours for up to an hour, free and completely optional. Pick a time and reserve your spot in under a minute.</p>
     </div>
 
     <div class="ritual">
@@ -99,13 +109,13 @@
 <!-- ============ SCHEDULE ============ -->
 <section id="horario" class="sch">
   <div class="wrap">
-    <p class="offer" id="offer"></p>
+    <p class="offer" id="offer" hidden></p>
 
     <div class="sch-bar">
       <div class="sch-week">
         <div class="seg" role="group" data-s-label="week.label" aria-label="Week">
-          <button type="button" data-week="0" aria-pressed="true" data-s="week.this">This week</button>
-          <button type="button" data-week="1" aria-pressed="false" data-s="week.next">Next week</button>
+          <button type="button" data-week="0" aria-pressed="true">This week</button>
+          <button type="button" data-week="1" aria-pressed="false">Next week</button>
         </div>
         <span class="sch-range" id="weekRange"></span>
       </div>
@@ -134,7 +144,7 @@
       <ol class="how-steps">
         <li><b data-s="how.s1">Pick a class</b><span data-s="how.s1b">Choose a day and time. Every class shows who's teaching and the free spa time after it.</span></li>
         <li><b data-s="how.s2">Reserve your spot</b><span data-s="how.s2b">Add your name, WhatsApp and email. No account or password needed.</span></li>
-        <li><b data-s="how.s3">Pay and you're in</b><span data-s="how.s3b">Pay by card, PSE, Nequi, Bancolombia or Daviplata. Your confirmation arrives straight away.</span></li>
+        <li><b data-s="how.s3">Confirm on WhatsApp</b><span data-s="how.s3b">Send us your booking in one tap. We'll confirm your spot and send you a secure payment link.</span></li>
       </ol>
     </div>
     <ul class="know">
@@ -186,7 +196,7 @@
     <ol class="steps" id="steps">
       <li data-step="1"><span>1</span> <em data-s="step.1">Class</em></li>
       <li data-step="2"><span>2</span> <em data-s="step.2">Details</em></li>
-      <li data-step="3"><span>3</span> <em data-s="step.3">Payment</em></li>
+      <li data-step="3"><span>3</span> <em data-s="step.3">Confirm</em></li>
     </ol>
     <button type="button" class="x" id="sheetClose" data-s-label="close" aria-label="Close">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>

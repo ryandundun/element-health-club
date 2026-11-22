@@ -150,9 +150,14 @@
   .menu-btn { display: none; appearance: none; background: transparent; border: 1px solid var(--line-strong); border-radius: 12px; width: 42px; height: 42px; align-items: center; justify-content: center; cursor: pointer; color: var(--ink); }
   .menu-btn svg { width: 20px; height: 20px; }
   @media (max-width: 480px) { .brand-name small { display: none; } .brand-name { font-size: 17px; } }
-  @media (max-width: 900px) {
+  /* the nav has six links: give it a little more width than the page content, and switch to the menu sooner */
+  .nav-inner { width: min(1240px, 100% - 32px); }
+  .nav-links a { white-space: nowrap; font-size: 14px; }
+  @media (max-width: 1400px) { .nav-inner { gap: 18px; } .nav-links { gap: 20px; } }
+  @media (max-width: 640px) { .nav .btn-primary { display: none; } }
+  @media (max-width: 360px) { .brand-name { font-size: 15px; letter-spacing: .18em; } .brand-mark { flex-basis: 28px; width: 28px; height: 28px; } .lang button { padding: 7px 9px; } .nav-right { gap: 8px; } }
+  @media (max-width: 1240px) {
     .nav-links { display: none; }
-    .nav .btn-primary { display: none; }
     .menu-btn { display: inline-flex; }
     .nav.open .nav-links {
       display: flex; flex-direction: column; align-items: flex-start; gap: 4px;
