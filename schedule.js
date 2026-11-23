@@ -47,7 +47,7 @@
       "how.s3": "Pay and you're in", "how.s3b": "Pay by card, PSE, Nequi, Bancolombia or Daviplata. Your confirmation arrives straight away.",
       "know.c": "Cancellations", "know.cb": "Cancel at least 12 hours before your class and we'll give you a class credit.",
       "know.s": "The spa", "know.sb": "Free after every class, and completely optional. Stay five minutes or the full hour.",
-      "know.h": "Hours", "know.hb": "Monday to Saturday, 6:00 to 21:00. Closed on Sundays.",
+      "know.h": "Hours", "know.hb": "Monday to Friday, 6:00 to 21:00. Saturday, 8:00 to 20:00. Closed on Sundays.",
       "close": "Close", "step.1": "Class", "step.2": "Details", "step.3": "Payment",
       "p1.title": "Your class", "spa.tl": "Free spa, optional: saunas and cold plunge", "spa.until": "After class, until {e}",
       "spa.note": "No need to decide now. Stay five minutes or the full hour, or head straight out after class.",
@@ -117,7 +117,7 @@
       "how.s3": "Paga y listo", "how.s3b": "Paga con tarjeta, PSE, Nequi, Bancolombia o Daviplata. La confirmación te llega al instante.",
       "know.c": "Cancelaciones", "know.cb": "Cancela con al menos 12 horas de anticipación y te damos un crédito de clase.",
       "know.s": "El spa", "know.sb": "Gratis después de cada clase y totalmente opcional. Quédate cinco minutos o la hora completa.",
-      "know.h": "Horario", "know.hb": "De lunes a sábado, de 6:00 a 21:00. Los domingos cerramos.",
+      "know.h": "Horario", "know.hb": "De lunes a viernes, de 6:00 a 21:00. Sábados, de 8:00 a 20:00. Los domingos cerramos.",
       "close": "Cerrar", "step.1": "Clase", "step.2": "Datos", "step.3": "Pago",
       "p1.title": "Tu clase", "spa.tl": "Spa gratis y opcional: saunas y cold plunge", "spa.until": "Después de clase, hasta las {e}",
       "spa.note": "No tienes que decidir ahora. Quédate cinco minutos o la hora completa, o vete directo después de clase.",
@@ -171,18 +171,22 @@
   function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
 
   /* ---------- classes ---------- */
-  var SLOTS = [6, 7, 8, 17, 18, 19];
   var TYPES = {
     hiit: { el: "fire", who: ["Juan Pablo"] },
     tramp: { el: "air", who: ["Stefi", "Diana"] },
     pil: { el: "earth", who: ["Camila"] }
   };
-  /* weekly rotation: Mon & Thu = A, Tue & Fri = B, Wed & Sat = C (one entry per slot above; null = no class).
-     Evening pilates is paused for now: put "pil" back in the nulls to bring it back. */
-  var A = ["hiit", "tramp", "pil", "tramp", "hiit", null];
-  var B = ["tramp", "pil", "hiit", null, "tramp", "hiit"];
-  var C = ["pil", "hiit", "tramp", "hiit", null, "tramp"];
-  var ROTA = [A, B, C, A, B, C];
+  /* weekday rotation, by start hour: Mon & Thu = A, Tue & Fri = B, Wed = C.
+     Evening pilates is paused for now (A 19:00, B 17:00, C 18:00 were pilates). */
+  var A = { 6: "hiit", 7: "tramp", 8: "pil", 17: "tramp", 18: "hiit" };
+  var B = { 6: "tramp", 7: "pil", 8: "hiit", 18: "tramp", 19: "hiit" };
+  var C = { 6: "pil", 7: "hiit", 8: "tramp", 17: "hiit", 19: "tramp" };
+  var ROTA = [A, B, C, A, B];
+  var ROW = { 6: 0, 7: 1, 8: 2, 17: 3, 18: 4, 19: 5 };   /* keeps the weekday trampoline split between Stefi and Diana (5 each) */
+  /* Saturday: three morning classes. The order rotates every week so each class gets each time,
+     and the trampoline class alternates between Stefi and Diana. */
+  var SAT_HOURS = [8, 9, 10];
+  var SAT_ORDERS = [["pil", "hiit", "tramp"], ["hiit", "tramp", "pil"], ["tramp", "pil", "hiit"]];
   /* one-off changes for a specific date: { "YYYY-MM-DD": { hour: class or null } } */
   var OVERRIDES = {
     "2026-12-03": { 6: "pil", 8: "hiit" },   /* Camila can't do Thursday 8am in the first two weeks: pilates and HIIT swap */
@@ -190,7 +194,7 @@
   };
   var HOLD_MS = 15 * 60 * 1000;   /* spot held while paying online */
   var PROMO = "PRIMERA";          /* demo-only code */
-  var POPULAR = { 6: 7, 7: 6, 8: 3, 17: 6, 18: 9, 19: 4 };   /* demo-only sample bookings */
+  var POPULAR = { 6: 7, 7: 6, 8: 5, 9: 9, 10: 7, 17: 6, 18: 9, 19: 4 };   /* demo-only sample bookings */
 
   /* ---------- time: everything is Medellín wall-clock time (UTC-5, no daylight saving) ---------- */
   var DAY = 864e5, HOUR = 36e5, TZ_MS = 5 * HOUR;
@@ -223,6 +227,21 @@
   function until(h) { return hm(h + 2) + " " + ap(h + 2); }   /* the free spa time runs until 2 hours after class start */
   function money(n) { return L() === "es" ? "$" + n.toLocaleString("es-CO") : "$" + n.toLocaleString("en-US"); }
   function hash(s) { var h = 2166136261; for (var i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; }
+  var FIRST_SAT = OPENING + ((6 - new Date(OPENING).getUTCDay() + 7) % 7) * DAY;   /* first Saturday with classes */
+  function saturdayNumber(day) { return Math.round((day.getTime() - FIRST_SAT) / (7 * DAY)); }
+  function mod(a, n) { return ((a % n) + n) % n; }
+  /* the classes on a given day: { hour: { type, who } } */
+  function dayPlan(day, i) {
+    var plan = {}, ov = OVERRIDES[ymd(day)] || {}, h;
+    if (i === 5) {
+      var k = saturdayNumber(day), order = SAT_ORDERS[mod(k, 3)];
+      SAT_HOURS.forEach(function (hr, j) { plan[hr] = { type: order[j], who: order[j] === "tramp" ? TYPES.tramp.who[mod(k + 1, 2)] : TYPES[order[j]].who[0] }; });   /* Diana first: the opening week has no Monday, which is hers */
+    } else {
+      for (h in ROTA[i]) { var ty = ROTA[i][h]; plan[h] = { type: ty, who: TYPES[ty].who[(i + ROW[h]) % TYPES[ty].who.length] }; }
+    }
+    for (h in ov) { if (ov[h]) plan[h] = { type: ov[h], who: TYPES[ov[h]].who[0] }; else delete plan[h]; }
+    return plan;
+  }
   function priceOf(s) { return s.day.getTime() < FOUNDING_END ? PRICE_FOUNDING : PRICE_REG; }
 
   var state = { week: 0, day: null, filter: "all", mine: {}, b: null, trigger: null };
@@ -231,14 +250,13 @@
     var mon = monday(w), out = [];
     weekDows(w).forEach(function (i) {
       var day = new Date(mon.getTime() + i * DAY);
-      SLOTS.forEach(function (h, j) {
-        var id = ymd(day) + "-" + h, ov = OVERRIDES[ymd(day)] || {};
-        var type = Object.prototype.hasOwnProperty.call(ov, h) ? ov[h] : ROTA[i][j], mine = !!state.mine[id];
-        if (!type) return;
+      var plan = dayPlan(day, i);
+      Object.keys(plan).map(Number).sort(function (a, b) { return a - b; }).forEach(function (h) {
+        var id = ymd(day) + "-" + h, type = plan[h].type, mine = !!state.mine[id];
         /* real availability will come from the booking server; until then every class shows as open (the demo uses sample numbers) */
         var taken = DEMO ? Math.min(CAP, Math.min(CAP, POPULAR[h] + hash(id) % 7) + (mine ? 1 : 0)) : 0;
         var start = new Date(day.getTime() + h * HOUR);
-        out.push({ id: id, day: day, di: i, h: h, type: type, el: TYPES[type].el, who: TYPES[type].who[(i + j) % TYPES[type].who.length],
+        out.push({ id: id, day: day, di: i, h: h, type: type, el: TYPES[type].el, who: plan[h].who,
                    start: start, taken: taken, left: CAP - taken, mine: mine, past: start <= NOW });
       });
     });
@@ -366,9 +384,10 @@
       html += '<div class="wk-head' + (isT ? " is-today" : "") + '"><small>' + esc(isT ? t("today") : fmt(d, { weekday: "short" }).replace(".", "")) + "</small><b>" +
         esc(fmt(d, { day: "numeric", month: "short" }).replace(".", "")) + "</b></div>";
     });
-    SLOTS.forEach(function (h) {
-      if (h === 6) html += '<div class="wk-sep">' + esc(t("morning")) + "</div>";
-      if (h === 17) html += '<div class="wk-sep">' + esc(t("evening")) + "</div>";
+    var hours = list.map(function (s) { return s.h; }).filter(function (h, k, a) { return a.indexOf(h) === k; }).sort(function (a, b) { return a - b; });
+    hours.forEach(function (h, k) {
+      if (k === 0 && h < 12) html += '<div class="wk-sep">' + esc(t("morning")) + "</div>";
+      if (h >= 12 && (k === 0 || hours[k - 1] < 12)) html += '<div class="wk-sep">' + esc(t("evening")) + "</div>";
       html += '<div class="wk-time"><b>' + hm(h) + "</b><span>" + ap(h) + "</span></div>";
       dows.forEach(function (i) {
         var s = list.filter(function (x) { return x.di === i && x.h === h; })[0];

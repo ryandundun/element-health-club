@@ -162,7 +162,7 @@
 .cell.is-full { background: repeating-linear-gradient(135deg, var(--surface), var(--surface) 8px, var(--bg-2) 8px, var(--bg-2) 16px); }
 .cell.is-booked { border-color: var(--forest); border-top-color: var(--forest); box-shadow: inset 0 0 0 1px var(--forest); }
 .is-dim { opacity: .22; }
-.cell-empty { min-height: 112px; border-radius: 14px; border: 1px dashed var(--line); }
+.cell-empty { min-height: 112px; }
 .cell.is-dim:hover { transform: none; box-shadow: none; }
 
 
