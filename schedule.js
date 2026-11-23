@@ -183,6 +183,11 @@
   var B = ["tramp", "pil", "hiit", null, "tramp", "hiit"];
   var C = ["pil", "hiit", "tramp", "hiit", null, "tramp"];
   var ROTA = [A, B, C, A, B, C];
+  /* one-off changes for a specific date: { "YYYY-MM-DD": { hour: class or null } } */
+  var OVERRIDES = {
+    "2026-12-03": { 6: "pil", 8: "hiit" },   /* Camila can't do Thursday 8am in the first two weeks: pilates and HIIT swap */
+    "2026-12-10": { 6: "pil", 8: "hiit" }
+  };
   var HOLD_MS = 15 * 60 * 1000;   /* spot held while paying online */
   var PROMO = "PRIMERA";          /* demo-only code */
   var POPULAR = { 6: 7, 7: 6, 8: 3, 17: 6, 18: 9, 19: 4 };   /* demo-only sample bookings */
@@ -227,7 +232,8 @@
     weekDows(w).forEach(function (i) {
       var day = new Date(mon.getTime() + i * DAY);
       SLOTS.forEach(function (h, j) {
-        var id = ymd(day) + "-" + h, type = ROTA[i][j], mine = !!state.mine[id];
+        var id = ymd(day) + "-" + h, ov = OVERRIDES[ymd(day)] || {};
+        var type = Object.prototype.hasOwnProperty.call(ov, h) ? ov[h] : ROTA[i][j], mine = !!state.mine[id];
         if (!type) return;
         /* real availability will come from the booking server; until then every class shows as open (the demo uses sample numbers) */
         var taken = DEMO ? Math.min(CAP, Math.min(CAP, POPULAR[h] + hash(id) % 7) + (mine ? 1 : 0)) : 0;

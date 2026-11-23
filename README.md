@@ -45,7 +45,7 @@ The blog is written in Spanish and organized as SEO "silos": one pillar page per
 - `OPENING`: first day of classes (Tuesday 1 December 2026). Days before it are not shown.
 - `PRICE_REG` and `PRICE_FOUNDING`: regular price ($60.000) and founding price ($40.000), which applies to classes before `FOUNDING_END` (1 January 2027).
 - `CAP`: spots per class (16). Spot counts are never shown; "Last spots" and "Full" appear only once real availability is connected.
-- `SLOTS`, `TYPES` and `ROTA`: class times, instructors and the weekly rotation (Mon & Thu, Tue & Fri, Wed & Sat repeat). A `null` in the rotation means no class in that slot; evening pilates is paused this way for now.
+- `SLOTS`, `TYPES` and `ROTA`: class times, instructors and the weekly rotation (Mon & Thu, Tue & Fri, Wed & Sat repeat). A `null` in the rotation means no class in that slot; evening pilates is paused this way for now. `OVERRIDES` changes single dates (for example, Thursday 3 and 10 December swap pilates to 6am and HIIT to 8am).
 - `PAYMENTS_LIVE`: `false` for now. Each booking ends with a pre-filled WhatsApp message to the club (class, date, price, name, WhatsApp, email, first visit, waiver accepted). Staff confirm the spot and send a Wompi payment link.
 
 Add `?demo=1` to the URL to preview the pay-online flow with sample availability and a simulated checkout, and `?now=2026-12-02T07:30` to preview a given Medellín date and time.
