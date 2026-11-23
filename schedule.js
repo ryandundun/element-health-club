@@ -555,7 +555,7 @@
     var desc = t("ics.desc") + " " + t("ics.spa", { e: until(s.h) }) + " " + t("ref") + ": " + b.ref;
     var ics = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Element Health Club//Schedule//ES", "CALSCALE:GREGORIAN", "BEGIN:VEVENT",
       "UID:" + b.ref + "@elementhealthclub.com", "DTSTAMP:" + z(new Date(Date.now() - TZ_MS)), "DTSTART:" + z(s.start), "DTEND:" + z(end),
-      "SUMMARY:" + title.replace(/[,;]/g, "\\$&"), "DESCRIPTION:" + desc.replace(/[,;]/g, "\\$&"), "LOCATION:Element Health Club\\, Laureles\\, Medellín",
+      "SUMMARY:" + title.replace(/[,;]/g, "\\$&"), "DESCRIPTION:" + desc.replace(/[,;]/g, "\\$&"), "LOCATION:Element Health Club\\, Tv 39D #74-105 Piso 4\\, Laureles - Estadio\\, Medellín",
       "END:VEVENT", "END:VCALENDAR"].join("\r\n");
     var a = document.createElement("a");
     a.href = URL.createObjectURL(new Blob([ics], { type: "text/calendar;charset=utf-8" }));

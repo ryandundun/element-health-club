@@ -104,7 +104,7 @@
       "loc.eyebrow": "Find us",
       "loc.title": "In the heart of Laureles.",
       "loc.lead": "Tree-lined streets, the best cafés in the city and now a place to take care of yourself. A short walk from Segundo Parque and the Estadio metro station.",
-      "loc.address.label": "Address", "loc.address.value": "Laureles, Medellín, Antioquia. Exact address announced soon.",
+      "loc.address.label": "Address", "loc.address.value": "Tv 39D #74-105 Piso 4<br>Laureles - Estadio, Medellín",
       "loc.hours.label": "Hours", "loc.hours.value": "Monday to Saturday 6:00 to 21:00 · Sunday closed",
       "loc.contact.label": "Contact",
 
@@ -211,7 +211,7 @@
       "loc.eyebrow": "Encuéntranos",
       "loc.title": "En el corazón de Laureles.",
       "loc.lead": "Calles arboladas, los mejores cafés de la ciudad y ahora un lugar para cuidarte. A pocos pasos del Segundo Parque y de la estación Estadio del metro.",
-      "loc.address.label": "Dirección", "loc.address.value": "Laureles, Medellín, Antioquia. Pronto anunciamos la dirección exacta.",
+      "loc.address.label": "Dirección", "loc.address.value": "Tv 39D #74-105 Piso 4<br>Laureles - Estadio, Medellín",
       "loc.hours.label": "Horario", "loc.hours.value": "Lunes a sábado 6:00 a 21:00 · Domingo cerrado",
       "loc.contact.label": "Contacto",
 
