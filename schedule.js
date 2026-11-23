@@ -683,16 +683,21 @@
     var glued = /^([0-9a-f-]{36})\?id=(.+)$/i.exec(bid);   /* in case the payment id was added with a second "?" */
     if (glued) { bid = glued[1]; tx = tx || glued[2]; }
     var kept = read("ehc.pending");
-    if (!bid && tx && kept) bid = kept.bid;
+    var sent = !!bid || !!tx;   /* Wompi sent the visitor back */
+    /* Wompi shows its own "payment approved" page first, and some visitors close it and come back on their own later:
+       this browser remembers the booking, so the page can still tell them they are booked. */
+    if (!bid && kept) bid = kept.bid;
     if (!bid) return;
     ["booking", "id", "env"].forEach(function (k) { q.delete(k); });
-    history.replaceState(null, "", location.pathname + (q.toString() ? "?" + q.toString() : ""));
-    check(bid, tx, kept && kept.bid === bid ? kept.f : null, 0);
+    if (sent) history.replaceState(null, "", location.pathname + (q.toString() ? "?" + q.toString() : ""));
+    check(bid, tx, kept && kept.bid === bid ? kept.f : null, 0, sent);
   }
-  function check(bid, tx, f, tries) {
+  function check(bid, tx, f, tries, sent) {
     api("GET", "/bookings/" + bid + (tx ? "?tx=" + encodeURIComponent(tx) + "&return_url=" + encodeURIComponent(here()) : "")).then(function (r) {
       if (!r.ok || !r.data.booking) return;
       var d = r.data, st = d.state, id = d.booking.class_id;
+      /* a visitor who came back on their own only hears good news: an unpaid or lapsed booking is not put in front of them again */
+      if (!sent && st !== "confirmed") { if (st === "expired" || st === "cancelled") store("ehc.pending", null); return; }
       if (st === "confirmed") { state.mine[id] = true; store("ehc.mine", state.mine); store("ehc.pending", null); }
       if (st === "cancelled") { store("ehc.pending", null); return; }
       for (var w = 0; w < 2; w++) if (sessions(w).some(function (x) { return x.id === id; })) state.week = w;
@@ -708,7 +713,7 @@
       else if (st === "expired") { b.step = 1; b.expired = true; b.holdEnd = 0; store("ehc.pending", null); }
       else if (st === "pending") {
         b.step = 3; b.pending = tries < 15 ? "short" : "long";
-        if (tries < 15) setTimeout(function () { if (state.b === b) check(bid, tx, null, tries + 1); }, 4000);
+        if (tries < 15) setTimeout(function () { if (state.b === b) check(bid, tx, null, tries + 1, sent); }, 4000);
       }
       else { b.step = 3; b.declined = st === "declined"; }   /* declined, or came back without paying: the spot is still held */
       state.b = b;
