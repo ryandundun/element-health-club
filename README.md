@@ -40,24 +40,32 @@ The blog is written in Spanish and organized as SEO "silos": one pillar page per
 
 ## Class schedule and booking
 
-`/schedule` shows two weeks of classes and lets visitors book. The settings are at the top of `schedule.js`:
+`/schedule` shows two weeks of classes and lets visitors book and pay.
 
+### Booking and payments run on Vorzal
+
+**The timetable, the spots left, every booking and the Wompi payment live in Vorzal, the club's booking system (vorzal.com), not in this repository.** `schedule.js` only draws what Vorzal sends and passes bookings to it:
+
+- On load the page asks Vorzal for the next two weeks of classes (`VORZAL` at the top of `schedule.js`): each class with its time, instructor, price and whether it is open, nearly full ("Last spots"), full, or closed for online booking.
+- When a visitor continues from their details, Vorzal takes the spot, holds it for 15 minutes and answers with a Wompi checkout link. "Pay with Wompi" sends the visitor there.
+- Wompi sends the visitor back to `/schedule?booking=…&id=…`. The page asks Vorzal where the booking stands and shows "You're booked", the payment step again (declined, or not paid yet), or that the hold ran out.
+- Vorzal sends the confirmation email, tells the team about each booking and keeps the list of who is coming to each class.
+
+What this means when editing this site:
+
+- **To change the timetable (a time, an instructor, a new class, a price, the number of spots), change it in Vorzal.** Editing `ROTA`, `SAT_ORDERS`, `OVERRIDES` or the prices here does not change what visitors see or book.
+- **Do not add a database, server functions or Wompi keys to this project.** The Wompi keys are kept in Vorzal. This repository is public, so nothing secret may ever be committed here.
+- A class Vorzal sends is matched to this page's wording and colours by its short key (`hiit`, `tramp`, `pil` in `TYPES`). A new kind of class shows with the name Vorzal gives it until a key is added here.
+
+The settings at the top of `schedule.js`:
+
+- `PAYMENTS_LIVE`: `true`. With `false`, or whenever Vorzal can't be reached, the page falls back to the built-in timetable below and each booking ends with a pre-filled WhatsApp message to the club (class, date, price, name, WhatsApp, email, first visit, waiver accepted), so the page keeps working.
+- `VORZAL`: the address of the club's classes in Vorzal.
 - `OPENING`: first day of classes (Tuesday 1 December 2026). Days before it are not shown.
-- `PRICE_REG` and `PRICE_FOUNDING`: regular price ($60.000) and founding price ($40.000), which applies to classes before `FOUNDING_END` (1 January 2027).
-- `CAP`: spots per class (16). Spot counts are never shown; "Last spots" and "Full" appear only once real availability is connected.
-- `TYPES`, `ROTA` and `SAT_ORDERS`: instructors, the weekday rotation by start hour (Mon & Thu, Tue & Fri, Wed) and Saturday's three morning classes (8, 9 and 10am), whose order rotates every week while the trampoline class alternates between Stefi and Diana. Evening pilates is paused. `OVERRIDES` changes single dates (for example, Thursday 3 and 10 December swap pilates to 6am and HIIT to 8am).
-- `PAYMENTS_LIVE`: `false` for now. Each booking ends with a pre-filled WhatsApp message to the club (class, date, price, name, WhatsApp, email, first visit, waiver accepted). Staff confirm the spot and send a Wompi payment link.
+- `CAP` and `LAST`: used for display only. Spot counts are never shown; Vorzal tells the page when a class is down to its last spots or full.
+- The fallback timetable, used only when Vorzal can't be reached: `PRICE_REG` and `PRICE_FOUNDING` (regular price $60.000 and founding price $40.000 for classes before `FOUNDING_END`, 1 January 2027), and `TYPES`, `ROTA`, `SAT_ORDERS` and `OVERRIDES` (instructors, the weekday rotation by start hour, Saturday's three rotating morning classes, and one-off changes for single dates). Keep it roughly in step with Vorzal.
 
-Add `?demo=1` to the URL to preview the pay-online flow with sample availability and a simulated checkout, and `?now=2026-12-02T07:30` to preview a given Medellín date and time.
-
-### Online payments (next step)
-
-To take payments on the site, Wompi's checkout needs a small server part, deployed on Vercel with the site:
-
-1. In the Vercel project settings, add the Wompi keys as environment variables (never in the code): public key, integrity secret and events secret, for sandbox first, then production.
-2. A server function creates the booking, holds the spot for 15 minutes and returns a signed Wompi reference; `startPayment()` in `schedule.js` opens Wompi's checkout with it.
-3. A second function receives Wompi's payment events, checks their signature, confirms the booking and sends the confirmation.
-4. Set `PAYMENTS_LIVE = true`.
+Add `?demo=1` to the URL to preview the pay-online flow with sample availability and a simulated checkout (it does not talk to Vorzal), and `?now=2026-12-02T07:30` to preview a given Medellín date and time.
 
 ## Editing
 
