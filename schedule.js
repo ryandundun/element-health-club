@@ -177,10 +177,11 @@
     tramp: { el: "air", who: ["Stefi", "Diana"] },
     pil: { el: "earth", who: ["Camila"] }
   };
-  /* weekly rotation: Mon & Thu = A, Tue & Fri = B, Wed & Sat = C (one entry per slot above) */
-  var A = ["hiit", "tramp", "pil", "tramp", "hiit", "pil"];
-  var B = ["tramp", "pil", "hiit", "pil", "tramp", "hiit"];
-  var C = ["pil", "hiit", "tramp", "hiit", "pil", "tramp"];
+  /* weekly rotation: Mon & Thu = A, Tue & Fri = B, Wed & Sat = C (one entry per slot above; null = no class).
+     Evening pilates is paused for now: put "pil" back in the nulls to bring it back. */
+  var A = ["hiit", "tramp", "pil", "tramp", "hiit", null];
+  var B = ["tramp", "pil", "hiit", null, "tramp", "hiit"];
+  var C = ["pil", "hiit", "tramp", "hiit", null, "tramp"];
   var ROTA = [A, B, C, A, B, C];
   var HOLD_MS = 15 * 60 * 1000;   /* spot held while paying online */
   var PROMO = "PRIMERA";          /* demo-only code */
@@ -227,6 +228,7 @@
       var day = new Date(mon.getTime() + i * DAY);
       SLOTS.forEach(function (h, j) {
         var id = ymd(day) + "-" + h, type = ROTA[i][j], mine = !!state.mine[id];
+        if (!type) return;
         /* real availability will come from the booking server; until then every class shows as open (the demo uses sample numbers) */
         var taken = DEMO ? Math.min(CAP, Math.min(CAP, POPULAR[h] + hash(id) % 7) + (mine ? 1 : 0)) : 0;
         var start = new Date(day.getTime() + h * HOUR);
@@ -362,7 +364,10 @@
       if (h === 6) html += '<div class="wk-sep">' + esc(t("morning")) + "</div>";
       if (h === 17) html += '<div class="wk-sep">' + esc(t("evening")) + "</div>";
       html += '<div class="wk-time"><b>' + hm(h) + "</b><span>" + ap(h) + "</span></div>";
-      dows.forEach(function (i) { html += cellHTML(list.filter(function (s) { return s.di === i && s.h === h; })[0]); });
+      dows.forEach(function (i) {
+        var s = list.filter(function (x) { return x.di === i && x.h === h; })[0];
+        html += s ? cellHTML(s) : '<div class="cell-empty" aria-hidden="true"></div>';
+      });
     });
     $("weekGrid").style.gridTemplateColumns = "74px repeat(" + dows.length + ", minmax(0, 1fr))";
     $("weekGrid").innerHTML = html;
