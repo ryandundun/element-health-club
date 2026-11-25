@@ -40,7 +40,7 @@
       "ritual.s1": "Your class", "ritual.s1b": "One hour: HIIT, trampoline or mat pilates",
       "ritual.s2": "Saunas", "ritual.s2b": "Finnish and infrared",
       "ritual.s3": "Cold plunge", "ritual.s3b": "If you're up for it", "ritual.free": "Free · optional",
-      "offer.tag": "Your first class is free", "offer.post": "Recovery included. After that, {p} per class, or 3 classes in 7 days for {k}.", "firstFree": "1st class free",
+      "offer.tag": "Your first class is free", "offer.post": "Recovery included. After that: day pass {p} (a class with recovery after, or recovery only), or 3 classes in 7 days for {k}.", "offer.rec": "Recovery only? Message us", "firstFree": "1st class free",
       "week.label": "Week", "week.this": "This week", "week.next": "Next week",
       "filter.label": "Filter classes", "filter.all": "All classes", "day.label": "Day",
       "sch.foot": "Closed on Sundays.",
@@ -98,7 +98,7 @@
       "p4.title@pre": "Almost there", "p4.text@pre": "Send the WhatsApp message to finish. We'll reply to confirm your spot and send your payment link.",
       "week.open": "Opening week", "week.second": "Second week", "opening": "Classes start {d}.",
       "mock.pill": "Demo", "mock.text": "Availability and payment on this page are simulated.",
-      "wa.hi": "Hi! I'd like to book a class at Element:", "wa.class": "Class", "wa.date": "Date", "wa.price": "Price", "wa.name": "Name",
+      "wa.rec": "Hi! I'd like a recovery-only day pass at Element.", "wa.hi": "Hi! I'd like to book a class at Element:", "wa.class": "Class", "wa.date": "Date", "wa.price": "Price", "wa.name": "Name",
       "wa.email": "Email", "wa.first": "First time at Element", "wa.yes": "Yes", "wa.no": "No",
       "wa.waiver": "I accept the health waiver and the cancellation policy."
     },
@@ -114,7 +114,7 @@
       "ritual.s1": "Tu clase", "ritual.s1b": "Una hora: HIIT, trampolín o pilates en colchoneta",
       "ritual.s2": "Saunas", "ritual.s2b": "Finlandés e infrarrojo",
       "ritual.s3": "Cold plunge", "ritual.s3b": "Si te animas", "ritual.free": "Gratis · opcional",
-      "offer.tag": "Tu primera clase es gratis", "offer.post": "Con Recovery incluido. Después, {p} por clase, o 3 clases en 7 días por {k}.", "firstFree": "1ª clase gratis",
+      "offer.tag": "Tu primera clase es gratis", "offer.post": "Con Recovery incluido. Después: pase de día {p} (una clase con Recovery después, o solo Recovery), o 3 clases en 7 días por {k}.", "offer.rec": "¿Solo Recovery? Escríbenos", "firstFree": "1ª clase gratis",
       "week.label": "Semana", "week.this": "Esta semana", "week.next": "Próxima semana",
       "filter.label": "Filtrar clases", "filter.all": "Todas las clases", "day.label": "Día",
       "sch.foot": "Los domingos cerramos.",
@@ -172,7 +172,7 @@
       "p4.title@pre": "¡Ya casi!", "p4.text@pre": "Envía el mensaje de WhatsApp para terminar. Te respondemos para confirmar tu cupo y enviarte el link de pago.",
       "week.open": "Semana de apertura", "week.second": "Segunda semana", "opening": "Las clases empiezan el {d}.",
       "mock.pill": "Demo", "mock.text": "La disponibilidad y el pago en esta página son simulados.",
-      "wa.hi": "¡Hola! Quiero reservar una clase en Element:", "wa.class": "Clase", "wa.date": "Fecha", "wa.price": "Precio", "wa.name": "Nombre",
+      "wa.rec": "¡Hola! Quiero un pase de día solo de Recovery en Element.", "wa.hi": "¡Hola! Quiero reservar una clase en Element:", "wa.class": "Clase", "wa.date": "Fecha", "wa.price": "Precio", "wa.name": "Nombre",
       "wa.email": "Correo", "wa.first": "Primera vez en Element", "wa.yes": "Sí", "wa.no": "No",
       "wa.waiver": "Acepto el consentimiento de salud y la política de cancelación."
     }
@@ -359,6 +359,7 @@
     var offer = $("offer");   /* the welcome offer: first class free, then the regular price or the 3-class pack */
     offer.hidden = false;
     offer.innerHTML = '<span class="offer-tag">' + esc(t("offer.tag")) + "</span><span>" + esc(t("offer.post", { p: money(PRICE_REG), k: money(PACK3) })) + "</span>" +
+      '<a class="offer-rec" target="_blank" rel="noopener" href="https://wa.me/' + WA_NUMBER + "?text=" + encodeURIComponent(t("wa.rec")) + '">' + esc(t("offer.rec")) + " →</a>" +
       (pre ? '<span class="offer-open">' + esc(t("opening", { d: longDate(new Date(OPENING)) })) + "</span>" : "");
   }
 
