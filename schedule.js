@@ -261,8 +261,11 @@
     return plan;
   }
   /* with Vorzal's timetable each class carries its own price; the built-in one goes by date */
-  function priceOf(s) { return s.price != null ? s.price : s.day.getTime() < FOUNDING_END ? PRICE_FOUNDING : PRICE_REG; }
-  function regOf(s) { return s.list != null ? s.list : PRICE_REG; }
+  /* MIN_PRICE: never show a class below this price, even if Vorzal still sends the old $40.000 founding price.
+     Set it to 0 once Vorzal itself has every class at $60.000. Checkout charges what Vorzal charges. */
+  var MIN_PRICE = PRICE_REG;
+  function priceOf(s) { var p = s.price != null ? s.price : s.day.getTime() < FOUNDING_END ? PRICE_FOUNDING : PRICE_REG; return p > 0 ? Math.max(p, MIN_PRICE) : p; }
+  function regOf(s) { return Math.max(s.list != null ? s.list : PRICE_REG, priceOf(s)); }
   /* a kind of class this page has no wording for yet is shown with the name Vorzal gave it */
   function cname(s) { return s.name && !TYPES[s.type] ? s.name : t("c." + s.type); }
 
