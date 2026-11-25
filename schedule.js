@@ -20,7 +20,8 @@
   var DEMO = /[?&]demo=1(&|$)/.test(location.search);
   var PAY = PAYMENTS_LIVE || DEMO;            /* show the pay-online flow; switched off if Vorzal can't be reached */
   var live = null;                            /* the classes Vorzal sent; null until they arrive */
-  var loading = PAYMENTS_LIVE && !DEMO;       /* true until Vorzal has answered (or failed) for the first time */
+  var loading = PAYMENTS_LIVE && !DEMO;
+  var FIRST_FREE = false;                     /* Vorzal says whether a first class is free (Members → Prices in Vorzal) */       /* true until Vorzal has answered (or failed) for the first time */
   if (/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) {   /* local testing only: ?api=<address> points the page at another Vorzal */
     var apiOverride = new URLSearchParams(location.search).get("api");
     if (apiOverride) VORZAL = apiOverride;
@@ -65,6 +66,11 @@
       "close": "Close", "step.1": "Class", "step.2": "Details", "step.3": "Payment",
       "p1.title": "Your class", "spa.tl": "Free recovery, optional: saunas and cold plunge", "spa.until": "After class, until {e}",
       "spa.note": "No need to decide now. Stay five minutes or the full hour, or head straight out after class.",
+      "opt.title": "How do you want to pay?", "opt.single": "This class", "opt.pack": "{n} classes in {d} days", "opt.packSub": "This class plus {m} more within {d} days",
+      "free.first": "Your first class at Element is free. See you there!", "free.member": "Included in your {name} membership.",
+      "free.pack": "Booked with your pack: {left} left to book by {date}.", "free.packLast": "Booked with your pack: this is its last class.",
+      "bought.pack": "Your pack is on: book your other {left} classes by {date} with this same WhatsApp number, and they're free.",
+      "firstHint": "First time at Element? Your first class is free: we check your number on the next step.", "switching": "Updating…",
       "promo.q": "Have a code?", "promo.ph": "Code", "promo.apply": "Apply", "promo.ok": "First class free applied.",
       "promo.bad": "That code isn't valid.", "promo.hint": "Mockup: try PRIMERA",
       "total": "Total", "continue": "Continue", "back": "Back", "toPay": "Continue to payment",
@@ -139,6 +145,11 @@
       "close": "Cerrar", "step.1": "Clase", "step.2": "Datos", "step.3": "Pago",
       "p1.title": "Tu clase", "spa.tl": "Recovery gratis y opcional: saunas y cold plunge en la zona húmeda", "spa.until": "Después de clase, hasta las {e}",
       "spa.note": "No tienes que decidir ahora. Quédate cinco minutos o la hora completa, o vete directo después de clase.",
+      "opt.title": "¿Cómo quieres pagar?", "opt.single": "Solo esta clase", "opt.pack": "{n} clases en {d} días", "opt.packSub": "Esta clase y {m} más en {d} días",
+      "free.first": "Tu primera clase en Element es gratis. ¡Te esperamos!", "free.member": "Incluida en tu membresía {name}.",
+      "free.pack": "Reservada con tu paquete: te quedan {left} para reservar hasta el {date}.", "free.packLast": "Reservada con tu paquete: es su última clase.",
+      "bought.pack": "Tu paquete está activo: reserva tus otras {left} clases hasta el {date} con este mismo número de WhatsApp, y son gratis.",
+      "firstHint": "¿Primera vez en Element? Tu primera clase es gratis: revisamos tu número en el siguiente paso.", "switching": "Actualizando…",
       "promo.q": "¿Tienes un código?", "promo.ph": "Código", "promo.apply": "Aplicar", "promo.ok": "Primera clase gratis aplicada.",
       "promo.bad": "Ese código no es válido.", "promo.hint": "Maqueta: prueba con PRIMERA",
       "total": "Total", "continue": "Continuar", "back": "Atrás", "toPay": "Continuar al pago",
@@ -261,9 +272,9 @@
     return plan;
   }
   /* with Vorzal's timetable each class carries its own price; the built-in one goes by date */
-  /* MIN_PRICE: never show a class below this price, even if Vorzal still sends the old $40.000 founding price.
-     Set it to 0 once Vorzal itself has every class at $60.000. Checkout charges what Vorzal charges. */
-  var MIN_PRICE = PRICE_REG;
+  /* MIN_PRICE: never show a class below this price. 0 now that Vorzal itself has every class at $60.000.
+     Checkout always charges what Vorzal charges. */
+  var MIN_PRICE = 0;
   function priceOf(s) { var p = s.price != null ? s.price : s.day.getTime() < FOUNDING_END ? PRICE_FOUNDING : PRICE_REG; return p > 0 ? Math.max(p, MIN_PRICE) : p; }
   function regOf(s) { return Math.max(s.list != null ? s.list : PRICE_REG, priceOf(s)); }
   /* a kind of class this page has no wording for yet is shown with the name Vorzal gave it */
@@ -465,14 +476,16 @@
     return { id: id, step: 1, promo: false, promoMsg: null, showPromo: false, holdEnd: 0, expired: false, declined: false,
              showPolicy: false, method: "card", errs: {}, f: { name: "", wa: "", email: "", first: false, waiver: false }, ref: "",
              /* set by Vorzal once the spot is held: the booking's id, the Wompi payment link, and what went wrong if anything */
-             bid: "", payUrl: "", busy: false, fail: null, pending: null };
+             bid: "", payUrl: "", busy: false, fail: null, pending: null,
+             /* Vorzal's answer: the amount to pay (0 = free), how it was priced, and the packs on offer while it waits */
+             amount: null, pricing: null, switching: false };
   }
   function showSheet() {
     renderSheet();
     if (!sheet.open) sheet.showModal();
     clearInterval(timer); timer = setInterval(tick, 1000);
   }
-  function total(s) { return state.b.promo ? 0 : priceOf(s); }
+  function total(s) { return state.b.promo ? 0 : state.b.amount != null ? state.b.amount : priceOf(s); }
   function summaryHTML(s) {
     return '<div class="sum el-' + s.el + '"><span class="el-tag">' + esc(t("e." + s.el)) + "</span><h3>" + esc(cname(s)) + "</h3>" +
       "<p>" + esc(cap1(longDate(s.day))) + " · " + esc(t("with", { name: s.who })) + "</p>" +
@@ -483,12 +496,42 @@
     return '<div class="tot"><small>' + esc(t("total")) + "</small><b>" + money(total(s)) + "</b>" + (total(s) < regOf(s) ? "<s>" + money(regOf(s)) + "</s>" : "") + "</div>";
   }
   function linesHTML(s, b) {
+    var chosen = packChosen(b);
+    if (chosen) return '<ul class="lines"><li><span>' + esc(planName(chosen)) + "<br><small>" + esc(t("opt.packSub", { m: (chosen.classes || 1) - 1, d: chosen.days || 7 })) + "</small></span><b>" + money(chosen.price) + "</b></li>" +
+      "<li><span>" + esc(t("l.spa")) + "</span><b>" + esc(t("l.free")) + "</b></li>" +
+      "<li><b>" + esc(t("total")) + "</b><b>" + money(total(s)) + "</b></li></ul>";
     var p = priceOf(s), reg = Math.max(regOf(s), p);
     return '<ul class="lines"><li><span>' + esc(cname(s)) + "<br><small>" + esc(cap1(fmt(s.day, { weekday: "short", day: "numeric", month: "short" }))) + ", " + hm(s.h) + " " + ap(s.h) + "</small></span><b>" + money(reg) + "</b></li>" +
       (p < reg ? "<li><span>" + esc(t("l.found")) + "</span><b>−" + money(reg - p) + "</b></li>" : "") +
       "<li><span>" + esc(t("l.spa")) + "</span><b>" + esc(t("l.free")) + "</b></li>" +
       (b.promo ? "<li><span>" + esc(t("l.code", { c: PROMO })) + "</span><b>−" + money(p) + "</b></li>" : "") +
       "<li><b>" + esc(t("total")) + "</b><b>" + money(total(s)) + "</b></li></ul>";
+  }
+  function planName(o) { return (L() === "es" && o.name_es) || o.name; }
+  function packChosen(b) { var pr = b.pricing; if (!pr || !pr.option) return null; return (pr.offers || []).filter(function (o) { return o.key === pr.option; })[0] || lastOffers[pr.option] || null; }
+  var lastOffers = {};
+  /* while a spot waits for payment: pay the class alone, or buy a pack with it */
+  function optionsHTML(s, b) {
+    var offers = (b.pricing && b.pricing.offers) || [];
+    if (!offers.length) return "";
+    offers.forEach(function (o) { lastOffers[o.key] = o; });
+    var on = (b.pricing && b.pricing.option) || "single";
+    var opt = function (key, title, sub, price) {
+      return '<button type="button" class="opt" data-opt="' + esc(key) + '" aria-pressed="' + (on === key) + '"' + (b.switching ? " disabled" : "") + "><span><b>" + esc(title) + "</b>" + (sub ? "<small>" + esc(sub) + "</small>" : "") + "</span><em>" + money(price) + "</em></button>";
+    };
+    return '<div class="opts" role="group" aria-label="' + esc(t("opt.title")) + '"><p class="opts-t">' + esc(t("opt.title")) + "</p>" +
+      opt("single", t("opt.single"), "", priceOf(s)) +
+      offers.map(function (o) { return opt(o.key, t("opt.pack", { n: o.classes, d: o.days || 7 }), t("opt.packSub", { m: (o.classes || 1) - 1, d: o.days || 7 }), o.price); }).join("") + "</div>";
+  }
+  /* the line under "You're booked" saying how this class was paid for */
+  function pricedHTML(b) {
+    var pr = b.pricing; if (!pr) return "";
+    var line = "", p = pr.pass, until = p && p.ends ? longDate(new Date(p.ends + "T12:00:00Z")) : "";
+    if (pr.kind === "first_free") line = t("free.first");
+    else if (pr.kind === "membership" && p) line = t("free.member", { name: p.name });
+    else if (pr.kind === "pack" && p && pr.option) line = p.left > 0 ? t("bought.pack", { left: p.left, date: until }) : "";
+    else if (pr.kind === "pack" && p) line = p.left > 0 ? t("free.pack", { left: p.left, date: until }) : t("free.packLast");
+    return line ? '<p class="priced">' + esc(line) + "</p>" : "";
   }
   function mmss(ms) { var x = Math.max(0, Math.ceil(ms / 1000)); return Math.floor(x / 60) + ":" + String(x % 60).padStart(2, "0"); }
 
@@ -529,6 +572,7 @@
             (b.promoMsg ? '<p class="msg ' + (b.promo ? "ok" : "bad") + '" role="status">' + esc(t(b.promoMsg)) + "</p>" : "") +
             '<p class="hint">' + esc(t("promo.hint")) + "</p>" : "") + "</div>";
       }
+      if (live && PAY && FIRST_FREE) html += '<p class="hint first-hint">' + esc(t("firstHint")) + "</p>";
       f = totHTML(s) + '<button type="button" class="btn btn-primary" data-go="2">' + esc(t("continue")) + "</button>";
     } else if (b.step === 2) {
       var e = b.errs;
@@ -543,7 +587,7 @@
         field("fWa", "f.wa", "tel", b.f.wa, "tel", ' inputmode="tel" placeholder="300 123 4567"') +
         '<p class="hint" style="margin:-8px 0 14px">' + esc(t("f.waHint")) + "</p>" +
         field("fEmail", "f.email", "email", b.f.email, "email") +
-        '<label class="check"><input type="checkbox" id="fFirst"' + (b.f.first ? " checked" : "") + "><span>" + esc(t("f.first")) + "</span></label>" +
+        (live && PAY ? "" : '<label class="check"><input type="checkbox" id="fFirst"' + (b.f.first ? " checked" : "") + "><span>" + esc(t("f.first")) + "</span></label>") +
         '<label class="check"><input type="checkbox" id="fWaiver"' + (b.f.waiver ? " checked" : "") + (e.fWaiver ? ' aria-invalid="true" aria-describedby="fWaiverE"' : "") + "><span>" + esc(t("f.waiver")) + "</span></label>" +
         (e.fWaiver ? '<p class="msg bad" id="fWaiverE" style="margin:-6px 0 12px">' + esc(t(e.fWaiver)) + "</p>" : "") +
         '<button type="button" class="link-btn" id="polToggle" aria-expanded="' + b.showPolicy + '" style="margin:0 0 12px 32px">' + esc(t("f.read")) + "</button>" +
@@ -557,11 +601,11 @@
     } else if (b.step === 3) {
       html += '<p class="hold">' + IC.clock + "<span>" + esc(t("hold")) + ' <b id="holdT">' + mmss(b.holdEnd - Date.now()) + "</b></span></p>" +
         (b.declined ? '<p class="alert" role="alert">' + esc(t("declined")) + "</p>" : "") +
-        '<h2 id="sheetTitle">' + esc(t("p3.title")) + "</h2>" + linesHTML(s, b) +
+        '<h2 id="sheetTitle">' + esc(t("p3.title")) + "</h2>" + optionsHTML(s, b) + linesHTML(s, b) +
         (total(s) > 0 ? '<p class="hint">' + esc(t("payWith")) + '</p><div class="methods"><span>' + esc(t("m.card")) + "</span><span>PSE</span><span>Nequi</span><span>Bancolombia</span><span>Daviplata</span></div>" +
           '<p class="secure">' + IC.shield + "<span>" + esc(t("secure")) + "</span></p>" : "");
-      f = '<button type="button" class="link-btn" data-go="2">' + esc(t("back")) + '</button><button type="button" class="btn btn-primary btn-wide" id="payBtn">' +
-        esc(total(s) > 0 ? t("pay", { p: money(total(s)) }) : t("confirm")) + "</button>";
+      f = '<button type="button" class="link-btn" data-go="2">' + esc(t("back")) + '</button><button type="button" class="btn btn-primary btn-wide" id="payBtn"' + (b.switching ? " disabled" : "") + ">" +
+        esc(b.switching ? t("switching") : total(s) > 0 ? t("pay", { p: money(total(s)) }) : t("confirm")) + "</button>";
     } else if (!PAY) {
       html += '<div class="done-ic wa-ic">' + IC.wa + '</div><h2 id="sheetTitle">' + esc(t("p4.title")) + "</h2>" +
         '<p style="color:var(--ink-2);margin:-6px 0 18px">' + esc(t("p4.text")) + "</p>" + summaryHTML(s) +
@@ -570,7 +614,7 @@
       f = '<button type="button" class="btn btn-ghost btn-wide" id="doneBtn">' + esc(t("done")) + "</button>";
     } else {
       html += '<div class="done-ic">' + IC.check + '</div><h2 id="sheetTitle">' + esc(t("p4.title")) + "</h2>" +
-        '<p style="color:var(--ink-2);margin:-6px 0 18px">' + esc(t("p4.text", { email: b.f.email })) + "</p>" + summaryHTML(s) +
+        '<p style="color:var(--ink-2);margin:-6px 0 18px">' + esc(t("p4.text", { email: b.f.email })) + "</p>" + pricedHTML(b) + summaryHTML(s) +
         '<p class="ref">' + esc(t("ref")) + " <b>" + esc(b.ref) + "</b></p>" +
         '<div class="bring"><h3>' + esc(t("bring")) + "</h3><ul><li>" + esc(t("b1")) + "</li><li>" + esc(t("b2")) + "</li><li>" + esc(t("b3")) + "</li><li>" + esc(t("b4")) + "</li></ul></div>" +
         '<div class="done-actions"><button type="button" class="btn btn-primary" id="icsBtn">' + IC.cal + esc(t("ics")) + '</button><a class="btn btn-ghost" href="/location">' + esc(t("getHere")) + "</a></div>";
@@ -585,7 +629,7 @@
     var b = state.b;
     if (b.step !== 2) return;
     b.f.name = $("fName").value.trim(); b.f.wa = $("fWa").value.trim(); b.f.email = $("fEmail").value.trim();
-    b.f.first = $("fFirst").checked; b.f.waiver = $("fWaiver").checked;
+    b.f.first = $("fFirst") ? $("fFirst").checked : b.f.first; b.f.waiver = $("fWaiver").checked;
   }
   function validate() {
     var b = state.b, e = {}, digits = b.f.wa.replace(/\D/g, "");
@@ -640,6 +684,7 @@
      built-in timetable and the WhatsApp booking stay in place. */
   function load() {
     if (!PAYMENTS_LIVE || DEMO) return Promise.resolve();
+    if (!load.plans) load.plans = api("GET", "/plans").then(function (r) { FIRST_FREE = !!(r.ok && r.data.first_class_free); });
     return api("GET", "?from=" + ymd(monday(0)) + "&days=14").then(function (r) {
       var first = loading;
       loading = false;
@@ -660,6 +705,7 @@
       var err = r.data && r.data.error;
       if (r.ok && r.data.booking) {
         b.bid = r.data.booking.id; b.ref = r.data.booking.code; b.payUrl = r.data.payment_url || "";
+        b.amount = r.data.booking.amount != null ? r.data.booking.amount : null; b.pricing = r.data.pricing || null;
         if (r.data.booking.state === "confirmed") { confirmBooking(); return; }
         b.holdEnd = Date.parse(r.data.booking.hold_expires_at) || Date.now() + HOLD_MS;
         b.step = 3; b.declined = false;
@@ -669,6 +715,22 @@
       else if (err === "bad_email") b.errs = { fEmail: "err.email" };
       else { PAY = false; b.step = 3; applyStatic(); }   /* Vorzal can't take it right now: this booking finishes on WhatsApp */
       renderSheet(); focusTitle();
+    });
+  }
+
+  /* step 3: the customer picks the class alone or a pack; Vorzal answers the new amount and payment link */
+  function choose(key) {
+    var b = state.b;
+    if (!b || b.switching || !b.bid || ((b.pricing && b.pricing.option) || "single") === key) return;
+    b.switching = true; renderSheet();
+    api("POST", "/bookings/" + b.bid + "/option", { option: key, return_url: here() }).then(function (r) {
+      if (state.b !== b) return;
+      b.switching = false;
+      if (r.ok && r.data.booking) {
+        b.payUrl = r.data.payment_url || b.payUrl; b.amount = r.data.booking.amount; b.pricing = r.data.pricing || b.pricing;
+        b.holdEnd = Date.parse(r.data.booking.hold_expires_at) || b.holdEnd;
+      } else if (r.status === 410) { b.step = 1; b.expired = true; b.holdEnd = 0; }
+      renderSheet();
     });
   }
 
@@ -711,6 +773,7 @@
       state.day = s.di;
       var b = state.b && state.b.bid === bid ? state.b : newBooking(id);
       b.bid = bid; b.ref = d.booking.code; b.payUrl = d.payment_url || "";
+      b.amount = d.booking.amount != null ? d.booking.amount : null; b.pricing = d.pricing || null;
       if (f) b.f = f; else if (!b.f.email) { b.f.name = d.booking.name || ""; b.f.email = d.booking.email || ""; b.f.waiver = true; }
       b.holdEnd = Date.parse(d.booking.hold_expires_at) || 0;
       b.pending = null; b.declined = false; b.expired = false;
@@ -773,6 +836,7 @@
       case "simNo": sim.close(); state.b.declined = true; renderSheet(); break;
       case "simClose": sim.close(); break;
     }
+    if (el.hasAttribute("data-opt")) { choose(el.getAttribute("data-opt")); return; }
     if (el.hasAttribute("data-m")) {
       state.b.method = el.getAttribute("data-m");
       $("simMethods").querySelectorAll("button").forEach(function (x) { x.setAttribute("aria-pressed", String(x === el)); });

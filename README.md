@@ -51,6 +51,13 @@ The blog is written in Spanish and organized as SEO "silos": one pillar page per
 - Wompi sends the visitor back to `/schedule?booking=…&id=…`. The page asks Vorzal where the booking stands and shows "You're booked", the payment step again (declined, or not paid yet), or that the hold ran out.
 - Vorzal sends the confirmation email, tells the team about each booking and keeps the list of who is coming to each class.
 
+### Free first class, the 3-class pack and memberships also run on Vorzal
+
+- **Free first class**: Vorzal decides who is new (no class booked before with that WhatsApp number or email). Their booking is confirmed straight away with nothing to pay, and "You're booked" says the first class is free. The page no longer asks "First time at Element?" when booking online.
+- **3-class pack**: when a spot is waiting for payment, Vorzal says which packs that visitor may buy. The payment step then offers "This class" or "3 classes in 7 days", and switching asks Vorzal for the new amount and payment link (`POST /bookings/<id>/option`). Once paid, the visitor's next two classes within 7 days of the first are booked free with the same WhatsApp number. A pack is once per person, and its price comes off the first month of a membership started within those 7 days.
+- **Memberships** (`/memberships`, `join.js` and `join.css`): each plan's Reserve button opens a panel (name, WhatsApp, email, an OK to be charged every month). The card or Nequi account is saved in Wompi's own window, so card numbers never touch this site. Vorzal charges the first month at once and then every month on the same day, and members book classes free on `/schedule` with the same WhatsApp number (the Recovery Pass has no classes). The team cancels, freezes or records a payment in Vorzal (Agenda → Members). If Vorzal can't be reached, Reserve opens WhatsApp as before.
+- **Prices**: what visitors are charged for classes, packs and memberships is set in Vorzal (Change prices on the timetable for a class; Members → Prices for packs, memberships and the free first class). The prices typed on these pages (`site.js`, `PACK3` and `PRICE_REG` in `schedule.js`) are for display, so keep them the same as in Vorzal.
+
 What this means when editing this site:
 
 - **To change the timetable (a time, an instructor, a new class, a price, the number of spots), change it in Vorzal.** Editing `ROTA`, `SAT_ORDERS`, `OVERRIDES` or the prices here does not change what visitors see or book.

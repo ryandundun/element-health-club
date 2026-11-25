@@ -318,3 +318,16 @@ input[aria-invalid="true"] { border-color: var(--clay); }
 .pre-note { display: flex; gap: 10px; align-items: flex-start; padding: 14px 16px; border-radius: 14px; background: var(--forest-soft); color: var(--ink-2); font-size: 14.5px; }
 .pre-note svg { flex: none; width: 18px; height: 18px; color: var(--forest); margin-top: 2px; }
 .done-ic.wa-ic svg { width: 28px; height: 28px; }
+
+/* ---------- step 3: the class alone or a pack (prices from Vorzal) ---------- */
+.opts { display: grid; gap: 8px; margin: 0 0 6px; }
+.opts-t { font-size: 13.5px; font-weight: 700; color: var(--ink-2); }
+.opt { appearance: none; display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; text-align: left; font: inherit; color: var(--ink); background: var(--surface); border: 1.5px solid var(--line-strong); border-radius: 14px; padding: 12px 14px; cursor: pointer; }
+.opt b { display: block; font-size: 15px; }
+.opt small { display: block; font-size: 13px; color: var(--muted); margin-top: 2px; }
+.opt em { font-style: normal; font-weight: 800; white-space: nowrap; }
+.opt[aria-pressed="true"] { border-color: var(--forest); box-shadow: 0 0 0 3px color-mix(in srgb, var(--forest) 18%, transparent); }
+.opt[disabled] { opacity: .6; cursor: progress; }
+/* step 4: how the class was paid for (free first class, a pack, a membership) */
+.priced { background: var(--forest-soft); color: var(--ink); border-radius: 12px; padding: 12px 14px; font-size: 14.5px; font-weight: 600; margin: 0 0 16px; }
+.first-hint { margin-top: 12px; }
