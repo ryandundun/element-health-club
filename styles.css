@@ -402,3 +402,13 @@
   .plan.featured .plan-price { border-color: #2B4638; }
   .plan.featured .badge, .plan.featured .plan-save, .plan.featured .btn-primary { background: #CFA86E; color: #1A1510; }
   .plan .badge { z-index: 1; }
+
+  /* plan buttons: solid, in each plan's colour */
+  .plan .btn { font-size: 16px; font-weight: 800; padding-block: 16px; letter-spacing: .01em; box-shadow: 0 8px 20px -10px rgba(20,32,26,.45); }
+  .plan[data-plan="recovery"] .btn { background: #2E6F8E; color: #fff; }
+  .plan[data-plan="move"] .btn { background: #C9643B; color: #fff; }
+  .plan[data-plan="elite"] .btn { background: #14201A; color: #F5F0E8; }
+  .plan.featured .btn { background: #CFA86E; color: #1A1510; }
+  .plan .btn:hover { filter: brightness(1.08); }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .plan[data-plan="elite"] .btn { background: #E2C28C; color: #1A1510; } }
+  :root[data-theme="dark"] .plan[data-plan="elite"] .btn { background: #E2C28C; color: #1A1510; }
