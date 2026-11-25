@@ -12,7 +12,7 @@ Static multi-page site: plain HTML, CSS and JS with no build step. Deployed on V
 | `/elements` | `elements.html` | The four elements (philosophy) |
 | `/experiences` | `experiences.html` | Everything inside: all services |
 | `/a-day-here` | `a-day-here.html` | A day at Element timeline |
-| `/memberships` | `memberships.html` | Membership plans |
+| `/memberships` | `memberships.html` | Membership plans, founding prices, first-class-free offer and terms (prices and wording live in the `plans.*`, `welcome.*` and `rules.*` keys in `site.js`) |
 | `/location` | `location.html` | Address, hours, contact, map |
 | `/schedule` | `schedule.html` | Class schedule and booking (uses `schedule.css` and `schedule.js`) |
 
