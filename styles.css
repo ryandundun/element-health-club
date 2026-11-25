@@ -385,3 +385,20 @@
   .post p, .post li { font-size: 17px; }
   .post-cta { padding: 28px 22px; }
 }
+
+  /* membership plans: each plan carries the colour of its WhatsApp card */
+  .plan { overflow: visible; }
+  .plan::before { content: ""; position: absolute; left: -1px; right: -1px; top: -1px; height: 6px; border-radius: var(--radius) var(--radius) 0 0; background: var(--plan-c, var(--brand)); }
+  .plan[data-plan="recovery"] { --plan-c: linear-gradient(90deg, #E08A2A, #2E6F8E); }
+  .plan[data-plan="move"] { --plan-c: #C9643B; }
+  .plan[data-plan="elite"] { --plan-c: linear-gradient(90deg, #0C0A08, #CFA86E); }
+  .plan.featured { background: #10271E; border-color: #10271E; color: #F5F0E8; --plan-c: #CFA86E; }
+  .plan.featured h3 { color: #F5F0E8; }
+  .plan.featured .sub, .plan.featured .plan-was { color: #9DB0A3; }
+  .plan.featured li { color: #D9DDD0; }
+  .plan.featured li svg, .plan.featured .plan-found { color: #DDB87E; }
+  .plan.featured .plan-was s { color: #D9DDD0; }
+  .plan.featured .plan-now small { color: #9DB0A3; }
+  .plan.featured .plan-price { border-color: #2B4638; }
+  .plan.featured .badge, .plan.featured .plan-save, .plan.featured .btn-primary { background: #CFA86E; color: #1A1510; }
+  .plan .badge { z-index: 1; }
