@@ -8,9 +8,10 @@
 
   /* ---------- launch settings ---------- */
   var OPENING = Date.UTC(2026, 11, 1);        /* Tuesday 1 December 2026: first day of classes */
-  var FOUNDING_END = Date.UTC(2027, 0, 1);    /* the founding price applies to classes before this date */
+  var FOUNDING_END = OPENING;                 /* no founding class price: classes are $60.000 and the first class is free */
   var PRICE_REG = 60000;                      /* COP, regular price per class */
-  var PRICE_FOUNDING = 40000;                 /* COP, December founding price */
+  var PRICE_FOUNDING = 40000;                 /* COP, founding price (unused while FOUNDING_END = OPENING) */
+  var PACK3 = 100000;                         /* COP, 3 classes in 7 days, shown in the welcome offer */
   var CAP = 16;                               /* spots per class */
   var LAST = 3;                               /* spot counts are never shown; "Last spots" appears at this many or fewer */
   var WA_NUMBER = "573106508588";             /* same number as site.js */
@@ -28,10 +29,10 @@
   /* ---------- copy ---------- */
   var S = {
     en: {
-      "meta.title": "Class schedule · Element Health Club",
+      "meta.title": "Classes · Element Health Club",
       "meta.description": "See this week's HIIT, trampoline and mat pilates classes in Laureles, Medellín. Free, optional sauna and cold plunge after every class. Book and pay online.",
-      "nav.schedule": "Schedule", "nav.cta": "Book a class",
-      "hero.eyebrow": "Class schedule",
+      "nav.schedule": "Classes", "nav.cta": "Book a class",
+      "hero.eyebrow": "Classes",
       "hero.title": "Move for an hour. <em>Stay for recovery if you like.</em>",
       "hero.lead": "Every class is one hour. Afterwards, the saunas and cold plunge are yours for up to an hour, free and completely optional. Pick a time, reserve your spot and pay in under a minute.",
       "ritual.kicker": "Free with every class", "ritual.title": "Recovery is on the house",
@@ -39,7 +40,7 @@
       "ritual.s1": "Your class", "ritual.s1b": "One hour: HIIT, trampoline or mat pilates",
       "ritual.s2": "Saunas", "ritual.s2b": "Finnish and infrared",
       "ritual.s3": "Cold plunge", "ritual.s3b": "If you're up for it", "ritual.free": "Free · optional",
-      "offer.tag": "December founding price", "offer.post": "per class, with free recovery after.",
+      "offer.tag": "Your first class is free", "offer.post": "Recovery included. After that, {p} per class, or 3 classes in 7 days for {k}.", "firstFree": "1st class free",
       "week.label": "Week", "week.this": "This week", "week.next": "Next week",
       "filter.label": "Filter classes", "filter.all": "All classes", "day.label": "Day",
       "sch.foot": "Closed on Sundays.",
@@ -102,10 +103,10 @@
       "wa.waiver": "I accept the health waiver and the cancellation policy."
     },
     es: {
-      "meta.title": "Horario de clases · Element Health Club",
+      "meta.title": "Clases · Element Health Club",
       "meta.description": "Consulta las clases de HIIT, trampolín y pilates en colchoneta de esta semana en Laureles, Medellín. Sauna y cold plunge gratis y opcionales después de cada clase. Reserva y paga en línea.",
-      "nav.schedule": "Horario", "nav.cta": "Reserva tu clase",
-      "hero.eyebrow": "Horario de clases",
+      "nav.schedule": "Clases", "nav.cta": "Reserva tu clase",
+      "hero.eyebrow": "Clases",
       "hero.title": "Una hora para moverte. <em>Y Recovery, si te provoca.</em>",
       "hero.lead": "Cada clase dura una hora. Después, los saunas y el cold plunge son tuyos hasta por una hora, gratis y totalmente opcional. Elige un horario, reserva tu cupo y paga en menos de un minuto.",
       "ritual.kicker": "Gratis con cada clase", "ritual.title": "Recovery va por cuenta de la casa",
@@ -113,7 +114,7 @@
       "ritual.s1": "Tu clase", "ritual.s1b": "Una hora: HIIT, trampolín o pilates en colchoneta",
       "ritual.s2": "Saunas", "ritual.s2b": "Finlandés e infrarrojo",
       "ritual.s3": "Cold plunge", "ritual.s3b": "Si te animas", "ritual.free": "Gratis · opcional",
-      "offer.tag": "Precio fundador de diciembre", "offer.post": "por clase, con Recovery gratis después.",
+      "offer.tag": "Tu primera clase es gratis", "offer.post": "Con Recovery incluido. Después, {p} por clase, o 3 clases en 7 días por {k}.", "firstFree": "1ª clase gratis",
       "week.label": "Semana", "week.this": "Esta semana", "week.next": "Próxima semana",
       "filter.label": "Filtrar clases", "filter.all": "Todas las clases", "day.label": "Día",
       "sch.foot": "Los domingos cerramos.",
@@ -355,9 +356,9 @@
       chips += '<button type="button" class="chip el-' + TYPES[k].el + '" data-f="' + k + '" aria-pressed="' + (state.filter === k) + '"><i></i>' + esc(t("c." + k)) + "</button>";
     });
     $("chips").innerHTML = chips;
-    var founding = first.getTime() < FOUNDING_END, offer = $("offer");
-    offer.hidden = !founding && !pre;
-    offer.innerHTML = (founding ? '<span class="offer-tag">' + esc(t("offer.tag")) + "</span><span><s>" + money(PRICE_REG) + "</s> <b>" + money(PRICE_FOUNDING) + "</b> " + esc(t("offer.post")) + "</span>" : "") +
+    var offer = $("offer");   /* the welcome offer: first class free, then the regular price or the 3-class pack */
+    offer.hidden = false;
+    offer.innerHTML = '<span class="offer-tag">' + esc(t("offer.tag")) + "</span><span>" + esc(t("offer.post", { p: money(PRICE_REG), k: money(PACK3) })) + "</span>" +
       (pre ? '<span class="offer-open">' + esc(t("opening", { d: longDate(new Date(OPENING)) })) + "</span>" : "");
   }
 
@@ -384,7 +385,7 @@
 
   function priceHTML(s) {
     var p = priceOf(s);
-    return '<span class="price">' + (p < regOf(s) ? "<s>" + money(regOf(s)) + "</s>" : "") + money(p) + "<small>COP</small></span>";
+    return '<span class="price">' + (p < regOf(s) ? "<s>" + money(regOf(s)) + "</s>" : "") + money(p) + "<small>COP</small>" + (p > 0 ? "<em>" + esc(t("firstFree")) + "</em>" : "") + "</span>";
   }
 
   function cardHTML(s) {
