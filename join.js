@@ -5,6 +5,10 @@
   Prices charged come from Vorzal (Members → Prices in the Vorzal dashboard), so keep the prices on this page the same.
   If Vorzal can't be reached, or a plan isn't set up there, the Reserve button keeps opening WhatsApp as before.
 
+  Photo: on the welcome screen the new member can add a photo of their face (optional, with a box to tick first), so the
+  front desk recognizes them at the entrance. It is made small here and sent to Vorzal, which keeps it private; they can
+  change or remove it later on their membership page.
+
   Manage my membership: any link with a data-manage attribute opens a small panel that asks for the member's email;
   Vorzal emails the link to their own membership page (change card or Nequi, freeze, cancel). Same fallback to WhatsApp.
 */
@@ -40,7 +44,12 @@
       mKicker: "Members", mTitle: "Manage my membership",
       mText: "Type the email you joined with and we'll send you the link to your membership page. There you can see your payments, change your card, freeze or cancel.",
       mCta: "Email me the link", mSentTitle: "Check your inbox", mSentText: "If {email} has a membership with us, the link is on its way. It can take a minute, and it may land in spam.",
-      mLink: "Email me my membership link"
+      mLink: "Email me my membership link",
+      pTitle: "Add your photo (optional)", pText: "So we recognize you at the entrance. Face the camera, in good light, with no cap or sunglasses.",
+      pAgree: "I agree that Element Health Club uses this photo to recognize me at the entrance. I can remove it from my membership page whenever I want.",
+      pBtn: "Take or choose a photo", pAgain: "Change photo", pBusy: "Saving your photo…",
+      pSaved: "Photo saved. You can change or remove it from your membership page (the link is in your email).",
+      pErrAgree: "Tick the box first.", pErr: "We couldn't save that picture. Try another one, or add it later from your membership page."
     },
     es: {
       title: "Únete a {plan}", perMonth: "{p} COP al mes",
@@ -63,7 +72,12 @@
       mKicker: "Miembros", mTitle: "Administra tu membresía",
       mText: "Escribe el correo con el que te inscribiste y te enviamos el enlace a tu página de membresía. Ahí ves tus pagos y puedes cambiar tu tarjeta, congelarla o cancelarla.",
       mCta: "Enviarme el enlace", mSentTitle: "Revisa tu correo", mSentText: "Si {email} tiene una membresía con nosotros, el enlace va en camino. Puede tardar un minuto, y puede llegar a spam.",
-      mLink: "Enviarme el enlace de mi membresía"
+      mLink: "Enviarme el enlace de mi membresía",
+      pTitle: "Agrega tu foto (opcional)", pText: "Para reconocerte en la entrada. Mira a la cámara, con buena luz, sin gorra ni gafas oscuras.",
+      pAgree: "Acepto que Element Health Club use esta foto para reconocerme en la entrada. Puedo quitarla desde mi página de membresía cuando quiera.",
+      pBtn: "Tomar o elegir una foto", pAgain: "Cambiar foto", pBusy: "Guardando tu foto…",
+      pSaved: "Foto guardada. Puedes cambiarla o quitarla desde tu página de membresía (el enlace va en tu correo).",
+      pErrAgree: "Marca la casilla primero.", pErr: "No pudimos guardar esa imagen. Prueba con otra, o agrégala después desde tu página de membresía."
     }
   };
   function L() { return document.documentElement.lang === "es" ? "es" : "en"; }
@@ -181,7 +195,8 @@
         (m.next_charge_at ? "<li><span>" + esc(t("next")) + "</span><b>" + esc(dateLong(m.next_charge_at)) + " · " + money(p.price) + "</b></li>" : "") +
         (m.method ? "<li><span>" + esc(t("method")) + "</span><b>" + esc(m.method) + "</b></li>" : "") +
         "</ul>" +
-        '<p class="jn-note">' + esc(p.includes_classes ? t("classes") : t("recovery")) + "</p>";
+        '<p class="jn-note">' + esc(p.includes_classes ? t("classes") : t("recovery")) + "</p>" +
+        (m.id ? photoHTML() : "");
       f = p.includes_classes
         ? '<a class="btn btn-primary jn-wide" href="/schedule">' + esc(t("book")) + "</a>"
         : '<button type="button" class="btn btn-primary jn-wide" id="jnDone">' + esc(t("done")) + "</button>";
@@ -195,6 +210,48 @@
     body.innerHTML = html;
     foot.innerHTML = f;
     foot.hidden = !f;
+  }
+
+  /* The photo block on the welcome screen. state.photo: { ok (box ticked), busy, saved (a small preview), err } */
+  function photoHTML() {
+    var ph = state.photo || (state.photo = { ok: false, busy: false, saved: null, err: null });
+    return '<div class="jn-photo">' +
+      (ph.saved ? '<img class="jn-photo-img" alt="" src="' + esc(ph.saved) + '">' : "") +
+      '<div class="jn-photo-main"><b>' + esc(t("pTitle")) + "</b>" +
+      '<p>' + esc(ph.saved ? t("pSaved") : t("pText")) + "</p>" +
+      (ph.saved ? "" : '<label class="jn-check"><input type="checkbox" id="jnPhotoOk"' + (ph.ok ? " checked" : "") + "><span>" + esc(t("pAgree")) + "</span></label>") +
+      (ph.err ? '<p class="jn-err" role="alert">' + esc(t(ph.err)) + "</p>" : "") +
+      '<button type="button" class="btn btn-ghost" id="jnPhotoBtn"' + (ph.busy ? " disabled" : "") + ">" + esc(t(ph.busy ? "pBusy" : ph.saved ? "pAgain" : "pBtn")) + "</button>" +
+      '<input type="file" accept="image/*" id="jnPhotoFile" hidden></div></div>';
+  }
+  /* A phone photo is several megabytes: draw it at most 900 px wide or tall and send that as a JPEG. */
+  function smallPhoto(file) {
+    return new Promise(function (ok, no) {
+      var url = URL.createObjectURL(file), img = new Image();
+      img.onload = function () {
+        try {
+          var k = Math.min(1, 900 / Math.max(img.naturalWidth, img.naturalHeight));
+          var c = document.createElement("canvas");
+          c.width = Math.max(1, Math.round(img.naturalWidth * k)); c.height = Math.max(1, Math.round(img.naturalHeight * k));
+          c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+          ok(c.toDataURL("image/jpeg", 0.86));
+        } catch (e) { no(e); } finally { URL.revokeObjectURL(url); }
+      };
+      img.onerror = function () { URL.revokeObjectURL(url); no(new Error("not a picture")); };
+      img.src = url;
+    });
+  }
+  function sendPhoto(file) {
+    var m = state.result, ph = state.photo;
+    if (!file || !m || !m.id || !ph) return;
+    ph.busy = true; ph.err = null; render();
+    smallPhoto(file).then(function (data) {
+      return api("POST", "/join/" + m.id + "/photo", { photo: data, consent: true }).then(function (r) {
+        ph.busy = false;
+        if (r.ok) { ph.saved = data; ph.err = null; } else ph.err = "pErr";
+        render();
+      });
+    }, function () { ph.busy = false; ph.err = "pErr"; render(); });
   }
 
   function readForm() {
@@ -270,8 +327,20 @@
     if (el.id === "jnClose" || el.id === "jnDone") dlg.close();
     else if (el.id === "jnGo") go();
     else if (el.id === "jnAgain") { state.step = "form"; state.errs = {}; render(); }
+    else if (el.id === "jnPhotoBtn") {
+      var ph = state.photo, box = dlg.querySelector("#jnPhotoOk");
+      if (box) ph.ok = box.checked;
+      if (!ph.saved && !ph.ok) { ph.err = "pErrAgree"; render(); return; }
+      ph.err = null;
+      dlg.querySelector("#jnPhotoFile").click();
+    }
     else if (el.id === "jnSend") sendLink();
     else if (el.id === "jnLink") openManage(state.f.email, true);
+  });
+  dlg.addEventListener("change", function (ev) {
+    if (!ev.target) return;
+    if (ev.target.id === "jnPhotoOk" && state.photo) { state.photo.ok = ev.target.checked; if (ev.target.checked && state.photo.err === "pErrAgree") { state.photo.err = null; render(); } }
+    if (ev.target.id === "jnPhotoFile") { var file = ev.target.files && ev.target.files[0]; ev.target.value = ""; sendPhoto(file); }
   });
   dlg.addEventListener("keydown", function (ev) {
     if (ev.key === "Enter" && ev.target && ev.target.id === "jnMEmail") { ev.preventDefault(); sendLink(); }

@@ -53,3 +53,11 @@ html:has(dialog.jn[open]) { overflow: hidden; }
 /* "Manage my membership" lines on the Memberships page */
 .manage-line { margin-top: 10px; }
 .manage-line a, .rules-single a[data-manage] { color: var(--brand); font-weight: 700; }
+
+/* The optional photo on the welcome screen */
+.jn-photo { display: flex; gap: 14px; align-items: flex-start; border: 1px solid var(--line); border-radius: 12px; padding: 14px; margin-bottom: 16px; }
+.jn-photo-main { flex: 1; min-width: 0; }
+.jn-photo-main b { display: block; color: var(--ink); font-size: 15px; }
+.jn-photo-main p { font-size: 14px; color: var(--ink-2); margin: 4px 0 10px; }
+.jn-photo-main .jn-check { font-size: 13.5px; margin-bottom: 12px; }
+.jn-photo-img { flex: none; width: 72px; height: 72px; border-radius: 50%; object-fit: cover; background: var(--surface); }
