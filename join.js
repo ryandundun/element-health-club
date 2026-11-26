@@ -4,6 +4,9 @@
   and Vorzal (the club's booking system) charges the first month at once and then every month on the same day.
   Prices charged come from Vorzal (Members → Prices in the Vorzal dashboard), so keep the prices on this page the same.
   If Vorzal can't be reached, or a plan isn't set up there, the Reserve button keeps opening WhatsApp as before.
+
+  Manage my membership: any link with a data-manage attribute opens a small panel that asks for the member's email;
+  Vorzal emails the link to their own membership page (change card or Nequi, freeze, cancel). Same fallback to WhatsApp.
 */
 (function () {
   "use strict";
@@ -18,7 +21,7 @@
   var S = {
     en: {
       title: "Join {plan}", perMonth: "{p} COP a month",
-      how: "We charge {p} today, then automatically every month on the same day. Cancel or freeze anytime by writing to us.",
+      how: "We charge {p} today, then automatically every month on the same day. Cancel or freeze anytime from your membership page (the link is in your emails).",
       packNote: "Bought the 3-class pack in the last 7 days? Use the same WhatsApp number and its price comes off today's charge.",
       name: "Full name", wa: "WhatsApp", waHint: "Use the number you book classes with.", email: "Email",
       agree: "I agree to be charged {p} every month until I cancel.",
@@ -33,11 +36,15 @@
       declined: "The payment wasn't approved{r}. No membership was created: try another card or Nequi.", again: "Try again",
       already: "You already have an active membership with this number or email. Questions? Message us on WhatsApp.",
       long: "Your bank is still confirming the payment. We'll email {email} as soon as it's approved.",
-      failed: "Something went wrong. Please try again, or message us on WhatsApp.", waBtn: "Message us on WhatsApp"
+      failed: "Something went wrong. Please try again, or message us on WhatsApp.", waBtn: "Message us on WhatsApp",
+      mKicker: "Members", mTitle: "Manage my membership",
+      mText: "Type the email you joined with and we'll send you the link to your membership page. There you can see your payments, change your card, freeze or cancel.",
+      mCta: "Email me the link", mSentTitle: "Check your inbox", mSentText: "If {email} has a membership with us, the link is on its way. It can take a minute, and it may land in spam.",
+      mLink: "Email me my membership link"
     },
     es: {
       title: "Únete a {plan}", perMonth: "{p} COP al mes",
-      how: "Cobramos {p} hoy y luego automáticamente cada mes el mismo día. Cancela o congela cuando quieras escribiéndonos.",
+      how: "Cobramos {p} hoy y luego automáticamente cada mes el mismo día. Cancela o congela cuando quieras desde tu página de membresía (el enlace va en tus correos).",
       packNote: "¿Compraste el paquete de 3 clases en los últimos 7 días? Usa el mismo número de WhatsApp y su precio se descuenta del cobro de hoy.",
       name: "Nombre completo", wa: "WhatsApp", waHint: "Usa el número con el que reservas tus clases.", email: "Correo",
       agree: "Acepto que me cobren {p} cada mes hasta que cancele.",
@@ -52,7 +59,11 @@
       declined: "El pago no fue aprobado{r}. No se creó ninguna membresía: prueba con otra tarjeta o con Nequi.", again: "Intentar de nuevo",
       already: "Ya tienes una membresía activa con este número o correo. ¿Dudas? Escríbenos por WhatsApp.",
       long: "Tu banco aún está confirmando el pago. Te escribiremos a {email} apenas quede aprobado.",
-      failed: "Algo salió mal. Inténtalo de nuevo o escríbenos por WhatsApp.", waBtn: "Escríbenos por WhatsApp"
+      failed: "Algo salió mal. Inténtalo de nuevo o escríbenos por WhatsApp.", waBtn: "Escríbenos por WhatsApp",
+      mKicker: "Miembros", mTitle: "Administra tu membresía",
+      mText: "Escribe el correo con el que te inscribiste y te enviamos el enlace a tu página de membresía. Ahí ves tus pagos y puedes cambiar tu tarjeta, congelarla o cancelarla.",
+      mCta: "Enviarme el enlace", mSentTitle: "Revisa tu correo", mSentText: "Si {email} tiene una membresía con nosotros, el enlace va en camino. Puede tardar un minuto, y puede llegar a spam.",
+      mLink: "Enviarme el enlace de mi membresía"
     }
   };
   function L() { return document.documentElement.lang === "es" ? "es" : "en"; }
@@ -79,7 +90,7 @@
   document.body.appendChild(dlg);
   var body = dlg.querySelector("#jnBody"), foot = dlg.querySelector("#jnFoot");
 
-  var plans = {}, publicKey = null, state = null, packCounts = false;
+  var plans = {}, publicKey = null, state = null, packCounts = false, manageReady = false;
   function plan() { return state && plans[state.key]; }
   function planName(p) { return (L() === "es" && p.name_es) || p.name; }
 
@@ -91,7 +102,48 @@
     if (!dlg.open) dlg.showModal();
   }
 
+  /* Manage my membership: the email is all we ask; the link goes to that inbox, never shown here. */
+  function openManage(email, send) {
+    state = { step: "manage", f: { email: email || "" }, errs: {}, busy: false };
+    render();
+    if (!dlg.open) dlg.showModal();
+    if (send) sendLink();
+  }
+  function renderManage() {
+    dlg.querySelector("#jnClose").setAttribute("aria-label", t("close"));
+    dlg.querySelector("#jnKicker").textContent = t("mKicker");
+    var html, f;
+    if (state.step === "manage") {
+      var bad = state.errs.jnMEmail;
+      html = '<h2 id="jnTitle">' + esc(t("mTitle")) + '</h2><p class="jn-how">' + esc(t("mText")) + "</p>" +
+        (state.fail ? '<p class="jn-alert" role="alert">' + esc(state.fail) + "</p>" : "") +
+        '<div class="jn-field"><label for="jnMEmail">' + esc(t("email")) + '</label><input type="email" id="jnMEmail" autocomplete="email" value="' + esc(state.f.email) + '"' +
+        (bad ? ' aria-invalid="true" aria-describedby="jnMEmailE"' : "") + ">" + (bad ? '<span class="jn-err" id="jnMEmailE">' + esc(t("err.email")) + "</span>" : "") + "</div>";
+      f = '<button type="button" class="btn btn-primary jn-wide" id="jnSend"' + (state.busy ? " disabled" : "") + ">" + esc(t(state.busy ? "busy" : "mCta")) + "</button>";
+    } else {
+      html = '<div class="jn-ok" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16v12H4z"/><path d="m4 7 8 6 8-6"/></svg></div>' +
+        '<h2 id="jnTitle">' + esc(t("mSentTitle")) + '</h2><p class="jn-how">' + esc(t("mSentText", { email: state.f.email })) + "</p>";
+      f = '<button type="button" class="btn btn-primary jn-wide" id="jnDone">' + esc(t("done")) + "</button>";
+    }
+    body.innerHTML = html;
+    foot.innerHTML = f;
+    foot.hidden = false;
+  }
+  function sendLink() {
+    var input = dlg.querySelector("#jnMEmail");
+    if (input) state.f.email = input.value.trim();
+    state.fail = null;
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(state.f.email)) { state.errs = { jnMEmail: "email" }; render(); var el = dlg.querySelector("#jnMEmail"); if (el) el.focus(); return; }
+    state.errs = {}; state.busy = true; render();
+    api("POST", "/member-link", { email: state.f.email }).then(function (r) {
+      state.busy = false;
+      if (r.ok) state.step = "manageSent"; else state.fail = t("failed");
+      render();
+    });
+  }
+
   function render() {
+    if (state && (state.step === "manage" || state.step === "manageSent")) { renderManage(); return; }
     var p = plan(); if (!p) return;
     var price = money(p.price), html = "", f = "";
     dlg.querySelector("#jnClose").setAttribute("aria-label", t("close"));
@@ -137,6 +189,7 @@
       var msg = state.step === "declined" ? t("declined", { r: state.reason ? ": " + state.reason.replace(/\.$/, "") : "" }) : state.step === "already" ? t("already") : t("failed");
       html = '<h2 id="jnTitle">' + esc(t("title", { plan: planName(p) })) + '</h2><p class="jn-alert" role="alert">' + esc(msg) + "</p>";
       f = (state.step === "declined" || state.step === "error" ? '<button type="button" class="btn btn-primary" id="jnAgain">' + esc(t("again")) + "</button>" : "") +
+        (state.step === "already" ? '<button type="button" class="btn btn-primary" id="jnLink">' + esc(t("mLink")) + "</button>" : "") +
         '<a class="btn btn-ghost" target="_blank" rel="noopener" href="https://wa.me/' + WA_NUMBER + '">' + esc(t("waBtn")) + "</a>";
     }
     body.innerHTML = html;
@@ -217,10 +270,24 @@
     if (el.id === "jnClose" || el.id === "jnDone") dlg.close();
     else if (el.id === "jnGo") go();
     else if (el.id === "jnAgain") { state.step = "form"; state.errs = {}; render(); }
+    else if (el.id === "jnSend") sendLink();
+    else if (el.id === "jnLink") openManage(state.f.email, true);
+  });
+  dlg.addEventListener("keydown", function (ev) {
+    if (ev.key === "Enter" && ev.target && ev.target.id === "jnMEmail") { ev.preventDefault(); sendLink(); }
+  });
+
+  /* "Manage my membership" links (the page's language switch redraws them, so the click is caught on the page) */
+  document.addEventListener("click", function (ev) {
+    var a = ev.target && ev.target.closest && ev.target.closest("[data-manage]");
+    if (!a || !manageReady) return;   /* Vorzal not reachable: the link opens WhatsApp */
+    ev.preventDefault();
+    openManage("");
   });
 
   /* ---------- the Reserve buttons ---------- */
   api("GET", "/plans").then(function (r) {
+    if (r.ok) manageReady = true;
     if (!r.ok || !r.data.payments || !r.data.payments.public_key) return;   /* not set up: WhatsApp as before */
     publicKey = r.data.payments.public_key;
     (r.data.plans || []).forEach(function (p) { if (p.kind === "membership") plans[p.key] = p; if (p.kind === "pack" && p.counts_toward_membership) packCounts = true; });

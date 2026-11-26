@@ -49,3 +49,7 @@ html:has(dialog.jn[open]) { overflow: hidden; }
 .jn-spin { width: 36px; height: 36px; border-radius: 50%; border: 3px solid var(--line); border-top-color: var(--forest); animation: jn-spin .9s linear infinite; margin-top: 8px; }
 @keyframes jn-spin { to { transform: rotate(360deg); } }
 @media (prefers-reduced-motion: reduce) { .jn-spin { animation-duration: 3s; } }
+
+/* "Manage my membership" lines on the Memberships page */
+.manage-line { margin-top: 10px; }
+.manage-line a, .rules-single a[data-manage] { color: var(--brand); font-weight: 700; }
