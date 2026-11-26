@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title data-i18n="meta.title">Element Health Club · Laureles, Medellín</title>
-<meta name="description" data-i18n-content="meta.description" content="A health and wellness club in Laureles, Medellín. Cold plunge, sauna, HIIT, pilates, dance exercise, trampoline fitness and a juice bar, all under one roof.">
+<meta name="description" data-i18n-content="meta.description" content="A health and wellness club in Laureles, Medellín. Cold plunge, sauna, HIIT, trampoline and pilates classes and a juice bar, all under one roof.">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <meta name="theme-color" content="#F6F3EC" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#121010" media="(prefers-color-scheme: dark)">
@@ -13,12 +13,12 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Element Health Club">
 <meta property="og:title" content="Element Health Club · Laureles, Medellín">
-<meta property="og:description" content="Cold plunge, sauna, HIIT, pilates, dance exercise, trampoline fitness and a juice bar, all under one roof in Laureles.">
-<meta property="og:image" content="https://elementhealthclub.com/assets/og.jpg">
+<meta property="og:description" content="Cold plunge, sauna, HIIT, trampoline and pilates classes and a juice bar, all under one roof in Laureles.">
+<meta property="og:image" content="https://elementhealthclub.com/assets/og-photo.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://elementhealthclub.com/assets/og.jpg">
+<meta name="twitter:image" content="https://elementhealthclub.com/assets/og-photo.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=Manrope:wght@400;500;600;700;800&family=Cinzel:wght@500;600&display=swap">
@@ -50,7 +50,7 @@
         <button type="button" data-lang="en" aria-pressed="true">EN</button>
         <button type="button" data-lang="es" aria-pressed="false">ES</button>
       </div>
-      <a href="/schedule" class="btn btn-primary" data-i18n="nav.cta">Book a class</a>
+      <a href="/schedule" class="btn btn-primary" data-i18n="nav.cta">Free class</a>
       <button class="menu-btn" type="button" aria-label="Menu" aria-expanded="false" id="menuBtn">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
       </button>
@@ -67,23 +67,137 @@
       <div>
         <span class="eyebrow" data-i18n="hero.eyebrow">Opening Tuesday, 1 December</span>
         <h1 data-i18n-html="hero.title">Where the body <em>finds its balance</em></h1>
-        <p class="lead" data-i18n="hero.lead">A health and wellness club built around the four elements. Plunge into ice water, sweat in the sauna, move through HIIT, pilates and dance exercise, then refuel at the juice bar. Everything you need to feel alive, in one place.</p>
+        <p class="lead" data-i18n="hero.lead">HIIT, trampoline and pilates classes, with a Recovery session included after every class: sauna and cold plunge. Then refuel at the juice bar. In Laureles, Medellín.</p>
         <div class="hero-ctas">
-          <a href="#visit" class="btn btn-primary" data-i18n="hero.cta1">Book a visit</a>
-          <a href="/experiences" class="btn btn-ghost" data-i18n="hero.cta2">See all experiences</a>
+          <a href="/schedule" class="btn btn-primary btn-lg" data-i18n="hero.cta1">Book your free first class</a>
+          <a href="/memberships" class="btn btn-ghost btn-lg" data-i18n="hero.cta2">See memberships</a>
         </div>
-        <p class="hero-note" data-i18n="hero.note">Your first class is free. Founding memberships with unlimited classes from $349,000 COP a month.</p>
+        <p class="hero-note" data-i18n="hero.note">Founding memberships from $349,000 COP a month. No contract.</p>
       </div>
 
-      <div class="hero-art">
-        <img src="/assets/logo-wall.jpg" alt="Element Health Club logo in bronze on a stone wall" width="1536" height="1024" fetchpriority="high">
+      <div class="hero-photo">
+        <img src="/assets/photos/hero.jpg" alt="A member mid-squat in a trampoline class at Element Health Club" data-i18n-alt="hero.alt" width="1162" height="1400" fetchpriority="high">
+        <div class="hero-badge"><span data-i18n="hero.badge.k">First class</span><b data-i18n="hero.badge.v">Free, Recovery included</b></div>
       </div>
     </div>
 
-    <div class="stats fade">
-      <div class="stat"><b>9</b><span data-i18n="stats.one">experiences under one roof</span></div>
-      <div class="stat"><b>4</b><span data-i18n="stats.two">elements, one philosophy</span></div>
-      <div class="stat"><b>6</b><span data-i18n="stats.three">days a week in Laureles</span></div>
+    <ul class="perks fade">
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5L20 7"/></svg><div><b data-i18n="perk.1.t">Your first class is free</b><span data-i18n="perk.1.d">Book online in a minute. Recovery included.</span></div></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5L20 7"/></svg><div><b data-i18n="perk.2.t">Recovery after every class</b><span data-i18n="perk.2.d">Sauna and cold plunge, up to 1 hour.</span></div></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5L20 7"/></svg><div><b data-i18n="perk.3.t">Small groups</b><span data-i18n="perk.3.d">16 people max per class.</span></div></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ HOW A VISIT WORKS ============ -->
+<section class="how">
+  <div class="wrap">
+    <div class="section-head fade">
+      <div><span class="eyebrow" data-i18n="how.eyebrow">How a visit works</span><h2 data-i18n="how.title">Move. Recover. Refuel.</h2></div>
+      <p class="lead" data-i18n="how.lead">Every class comes with the rest of the ritual. Stay for all of it, or just train and go.</p>
+    </div>
+    <div class="how-grid">
+      <article class="how-card fade">
+        <div class="how-img"><img src="/assets/photos/move.jpg" alt="Trampoline class led by an Element instructor" data-i18n-alt="how.alt.1" loading="lazy" decoding="async"></div>
+        <div class="how-body"><span class="how-n">01</span><h3 data-i18n="how.1.t">Move</h3><p data-i18n="how.1.d">Kettlebell HIIT, trampoline or mat pilates, in small groups with instructors who know your name.</p></div>
+      </article>
+      <article class="how-card fade">
+        <div class="how-img"><img src="/assets/photos/recovery.jpg" alt="The sauna and cold plunge area" data-i18n-alt="how.alt.2" loading="lazy" decoding="async"></div>
+        <div class="how-body"><span class="how-n">02</span><h3 data-i18n="how.2.t">Recover</h3><p data-i18n="how.2.d">Stay for a Recovery session in the sauna and cold plunge, up to an hour, included with your class.</p></div>
+      </article>
+      <article class="how-card fade">
+        <div class="how-img"><img src="/assets/photos/refuel.jpg" alt="The juice bar, with a view of the trees" data-i18n-alt="how.alt.3" loading="lazy" decoding="async"></div>
+        <div class="how-body"><span class="how-n">03</span><h3 data-i18n="how.3.t">Refuel</h3><p data-i18n="how.3.d">A juice or a shake at the bar, looking out over the trees of Laureles.</p></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CLASSES AND INSTRUCTORS ============ -->
+<section class="classes">
+  <div class="wrap">
+    <div class="section-head fade">
+      <div><span class="eyebrow" data-i18n="cls.eyebrow">The classes</span><h2 data-i18n="cls.title">Three classes. Four instructors.</h2></div>
+      <p class="lead" data-i18n="cls.lead">Weekday mornings at 6, 7 and 8, weekday evenings from 5 to 7, and Saturdays at 8, 9 and 10.</p>
+    </div>
+    <div class="cls-grid">
+      <article class="cls-card c-hiit fade">
+        <h3 data-i18n="cls.hiit.t">Kettlebell HIIT</h3>
+        <p data-i18n="cls.hiit.d">Short, intense intervals with kettlebells for strength and conditioning.</p>
+        <span class="cls-who" data-i18n="cls.hiit.w">with Juan Pablo</span>
+      </article>
+      <article class="cls-card c-tramp fade">
+        <h3 data-i18n="cls.tramp.t">Trampoline</h3>
+        <p data-i18n="cls.tramp.d">High-energy cardio on your own mini trampoline. Easy on the joints, impossible not to smile.</p>
+        <span class="cls-who" data-i18n="cls.tramp.w">with Stefi and Diana</span>
+      </article>
+      <article class="cls-card c-pil fade">
+        <h3 data-i18n="cls.pil.t">Mat pilates</h3>
+        <p data-i18n="cls.pil.d">Core, posture and control on the mat. Slow, precise and harder than it looks.</p>
+        <span class="cls-who" data-i18n="cls.pil.w">with Camila</span>
+      </article>
+    </div>
+    <a class="text-cta fade" href="/schedule"><span data-i18n="cls.cta">See the schedule and book</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+  </div>
+</section>
+
+<!-- ============ GALLERY ============ -->
+<section class="gallery">
+  <div class="wrap">
+    <div class="section-head single fade">
+      <div><span class="eyebrow" data-i18n="gal.eyebrow">The club</span><h2 data-i18n="gal.title">A fourth floor among the trees of Laureles.</h2></div>
+    </div>
+    <div class="gal-grid fade">
+      <img class="g1" src="/assets/photos/studio.jpg" alt="The open studio at sunset" data-i18n-alt="gal.alt.1" loading="lazy" decoding="async">
+      <img class="g2" src="/assets/photos/group.jpg" alt="A trampoline class in full swing" data-i18n-alt="gal.alt.2" loading="lazy" decoding="async">
+      <img class="g3" src="/assets/photos/smiles.jpg" alt="Two members laughing after class" data-i18n-alt="gal.alt.3" loading="lazy" decoding="async">
+      <img class="g4" src="/assets/photos/corridor.jpg" alt="The hallway lit at dusk" data-i18n-alt="gal.alt.4" loading="lazy" decoding="async">
+    </div>
+  </div>
+</section>
+
+<!-- ============ MEMBERSHIPS PREVIEW ============ -->
+<section class="mem-preview">
+  <div class="wrap">
+    <div class="section-head fade">
+      <div><span class="eyebrow" data-i18n="mem.eyebrow">Memberships</span><h2 data-i18n="mem.title">Founding prices, for the first to join.</h2></div>
+      <p class="lead" data-i18n="mem.note">No contract: cancel anytime. Freeze up to 30 days a year.</p>
+    </div>
+    <div class="mem-grid">
+      <a class="mem-card fade" href="/memberships" data-plan="move">
+        
+        <h3>Move</h3>
+        <p class="mem-price"><b>$349.000</b> <span data-i18n="mem.per">/ month</span></p>
+        <p class="mem-d" data-i18n="mem.move.d">Unlimited classes, Recovery session after each</p>
+      </a>
+      <a class="mem-card featured fade" href="/memberships" data-plan="element">
+        <span class="mem-badge" data-i18n="mem.badge">Most complete</span>
+        <h3>Element</h3>
+        <p class="mem-price"><b>$399.000</b> <span data-i18n="mem.per">/ month</span></p>
+        <p class="mem-d" data-i18n="mem.element.d">Unlimited classes and Recovery any day</p>
+      </a>
+      <a class="mem-card fade" href="/memberships" data-plan="elite">
+        
+        <h3>Elite</h3>
+        <p class="mem-price"><b>$849.000</b> <span data-i18n="mem.per">/ month</span></p>
+        <p class="mem-d" data-i18n="mem.elite.d">All of Element, plus two 90-minute massages a month</p>
+      </a>
+    </div>
+    <a class="mem-rp fade" href="/memberships#memberships" data-i18n-html="mem.rp"><b>Recovery Pass</b> · sauna and cold plunge only, no classes · <b>$249,000</b></a>
+    <a class="text-cta fade" href="/memberships"><span data-i18n="mem.cta">Compare memberships</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="faq">
+  <div class="wrap faq-wrap">
+    <div class="fade"><span class="eyebrow" data-i18n="faq.eyebrow">Questions</span><h2 data-i18n="faq.title">Good to know before your first class.</h2></div>
+    <div class="faq-list">
+      <details class="faq-item fade"><summary data-i18n="faq.1.q">How do I book my free first class?</summary><p data-i18n-html="faq.1.a">Pick a class on the <a href="/schedule">Classes</a> page and book online. Your first class is free, Recovery included. One per person.</p></details>
+      <details class="faq-item fade"><summary data-i18n="faq.2.q">What is Recovery?</summary><p data-i18n-html="faq.2.a">Our sauna and cold plunge area. After every class you can stay for a Recovery session of up to an hour, included. It is optional: stay ten minutes, the full hour or skip it.</p></details>
+      <details class="faq-item fade"><summary data-i18n="faq.3.q">How much does it cost after my first class?</summary><p data-i18n-html="faq.3.a">A day pass is $60,000 COP, or try 3 classes in 7 days for $100,000 COP. Founding memberships start at $349,000 COP a month. <a href="/memberships">See memberships</a>.</p></details>
+      <details class="faq-item fade"><summary data-i18n="faq.4.q">Can I cancel my membership?</summary><p data-i18n-html="faq.4.a">Yes. There is no contract, so you can cancel anytime, and you can freeze it for up to 30 days a year.</p></details>
+      <details class="faq-item fade"><summary data-i18n="faq.5.q">Where are you and when are you open?</summary><p data-i18n-html="faq.5.a">Tv 39D #74-105, 4th floor, Laureles - Estadio, Medellín. Monday to Friday 6:00 to 21:00, Saturday 8:00 to 20:00, Sunday closed. <a href="/location">See the map</a>.</p></details>
     </div>
   </div>
 </section>
@@ -92,14 +206,11 @@
 <section id="visit" class="cta">
   <div class="wrap">
     <div class="cta-card fade">
-      <h2 data-i18n="cta.title">Ready to find your element?</h2>
-      <p data-i18n="cta.text">Send us a message on WhatsApp to book a free first visit, ask about founding memberships or just say hello.</p>
+      <h2 data-i18n-html="cta.title">Your first class <em>is on us.</em></h2>
+      <p data-i18n="cta.text">Book online in a minute, Recovery included. Questions first? Message us on WhatsApp.</p>
       <div class="cta-row">
-        <a class="btn btn-clay" id="waLink" href="https://wa.me/573106508588?text=Hola%2C%20quiero%20reservar%20una%20visita%20a%20Element%20Health%20Club" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1.1 2.7c.1.2 1.9 2.8 4.5 4 1.7.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2l-.5-.3z"/></svg>
-          <span data-i18n="cta.whatsapp">Message us on WhatsApp</span>
-        </a>
-        <a class="btn btn-ghost" href="mailto:hola@elementhealthclub.co" data-i18n="cta.email">Send an email</a>
+        <a class="btn btn-clay btn-lg" href="/schedule" data-i18n="cta.book">Book my free class</a>
+        <a class="btn btn-ghost btn-lg" id="waLink" href="https://wa.me/573106508588" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1.1 2.7c.1.2 1.9 2.8 4.5 4 1.7.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2l-.5-.3z"/></svg><span data-i18n="cta.whatsapp">Message us on WhatsApp</span></a>
       </div>
     </div>
   </div>

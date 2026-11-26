@@ -1,4 +1,16 @@
 {
   "cleanUrls": true,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/blog/baile-ejercicio",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/blog/baile-ejercicio/:path*",
+      "destination": "/blog",
+      "permanent": true
+    }
+  ]
 }
