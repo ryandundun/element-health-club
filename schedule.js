@@ -411,7 +411,7 @@
       : '<button type="button" class="btn btn-primary btn-sm" data-book="' + s.id + '">' + esc(t("book")) + "</button>";
     return '<article class="cls el-' + s.el + (s.past ? " is-past" : "") + '">' +
       '<div class="cls-time"><b>' + hm(s.h) + "</b><span>" + ap(s.h) + "</span></div>" +
-      '<div class="cls-card"><div class="cls-top"><h4>' + esc(cname(s)) + '</h4><span class="el-tag">' + esc(t("e." + s.el)) + "</span></div>" +
+      '<div class="cls-card"><div class="cls-top"><h4>' + esc(cname(s)) + "</h4></div>" +
       '<p class="cls-meta">' + esc(t("with", { name: s.who })) + (isLast(s) ? ' · <span class="low">' + esc(t("last")) + "</span>" : "") + "</p>" +
       '<div class="spa-band">' + IC.drop + "<span>" + esc(t("spaBand", { e: until(s.h) })) + "</span></div>" +
       '<div class="cls-foot">' + priceHTML(s) + action + "</div></div></article>";
@@ -431,7 +431,7 @@
     var label = cname(s) + ", " + cap1(longDate(s.day)) + ", " + hm(s.h) + " " + ap(s.h) + ", " + t("with", { name: s.who }) + (st ? ", " + st.replace("✓ ", "") : "");
     var cls = "cell el-" + s.el + (s.left <= 0 && !s.mine ? " is-full" : "") + (s.mine ? " is-booked" : "") + (matches(s) ? "" : " is-dim");
     return '<button type="button" class="' + cls + '" data-book="' + s.id + '"' + (dis ? " disabled" : "") + ' aria-label="' + esc(label) + '">' +
-      '<span class="el-tag">' + esc(t("e." + s.el)) + '</span><span class="nm">' + esc(cname(s)) + '</span><span class="who">' + esc(s.who) + "</span>" +
+      '<span class="nm">' + esc(cname(s)) + '</span><span class="who">' + esc(s.who) + "</span>" +
       '<span class="bot"><span class="spots' + (isLast(s) ? " low" : "") + '">' + esc(st) + '</span><span class="spa-mini">' + esc(t("spaMini")) + "</span></span></button>";
   }
 
@@ -487,7 +487,7 @@
   }
   function total(s) { return state.b.promo ? 0 : state.b.amount != null ? state.b.amount : priceOf(s); }
   function summaryHTML(s) {
-    return '<div class="sum el-' + s.el + '"><span class="el-tag">' + esc(t("e." + s.el)) + "</span><h3>" + esc(cname(s)) + "</h3>" +
+    return '<div class="sum el-' + s.el + '"><h3>' + esc(cname(s)) + "</h3>" +
       "<p>" + esc(cap1(longDate(s.day))) + " · " + esc(t("with", { name: s.who })) + "</p>" +
       '<ol class="tl"><li><b>' + range(s.h, s.h + 1) + "</b>" + esc(cname(s)) + "</li>" +
       '<li class="spa"><b>' + esc(t("spa.until", { e: until(s.h) })) + "</b>" + esc(t("spa.tl")) + "</li></ol></div>";
