@@ -10,14 +10,82 @@
   }
   var T = {
     en: {
+      "hero.badge.k": "First class",
+      "hero.badge.v": "Free, Recovery included",
+      "hero.alt": "A member mid-squat in a trampoline class at Element Health Club",
+      "perk.1.t": "Your first class is free",
+      "perk.1.d": "Book online in a minute. Recovery included.",
+      "perk.2.t": "Recovery after every class",
+      "perk.2.d": "Sauna and cold plunge, up to 1 hour.",
+      "perk.3.t": "Small groups",
+      "perk.3.d": "16 people max per class.",
+      "how.eyebrow": "How a visit works",
+      "how.title": "Move. Recover. Refuel.",
+      "how.lead": "Every class comes with the rest of the ritual. Stay for all of it, or just train and go.",
+      "how.1.t": "Move",
+      "how.1.d": "Kettlebell HIIT, trampoline or mat pilates, in small groups with instructors who know your name.",
+      "how.2.t": "Recover",
+      "how.2.d": "Stay for a Recovery session in the sauna and cold plunge, up to an hour, included with your class.",
+      "how.3.t": "Refuel",
+      "how.3.d": "A juice or a shake at the bar, looking out over the trees of Laureles.",
+      "how.alt.1": "Trampoline class led by an Element instructor",
+      "how.alt.2": "The sauna and cold plunge area",
+      "how.alt.3": "The juice bar, with a view of the trees",
+      "cls.eyebrow": "The classes",
+      "cls.title": "Three classes. Four instructors.",
+      "cls.lead": "Weekday mornings at 6, 7 and 8, weekday evenings from 5 to 7, and Saturdays at 8, 9 and 10.",
+      "cls.hiit.t": "Kettlebell HIIT",
+      "cls.hiit.d": "Short, intense intervals with kettlebells for strength and conditioning.",
+      "cls.hiit.w": "with Juan Pablo",
+      "cls.tramp.t": "Trampoline",
+      "cls.tramp.d": "High-energy cardio on your own mini trampoline. Easy on the joints, impossible not to smile.",
+      "cls.tramp.w": "with Stefi and Diana",
+      "cls.pil.t": "Mat pilates",
+      "cls.pil.d": "Core, posture and control on the mat. Slow, precise and harder than it looks.",
+      "cls.pil.w": "with Camila",
+      "cls.cta": "See the schedule and book",
+      "gal.eyebrow": "The club",
+      "gal.title": "A fourth floor among the trees of Laureles.",
+      "gal.alt.1": "The open studio at sunset",
+      "gal.alt.2": "A trampoline class in full swing",
+      "gal.alt.3": "Two members laughing after class",
+      "gal.alt.4": "The hallway lit at dusk",
+      "mem.eyebrow": "Memberships",
+      "mem.title": "Founding prices, for the first to join.",
+      "mem.move.d": "Unlimited classes, Recovery session after each",
+      "mem.element.d": "Unlimited classes and Recovery any day",
+      "mem.elite.d": "All of Element, plus two 90-minute massages a month",
+      "mem.rp": "<b>Recovery Pass</b> · sauna and cold plunge only, no classes · <b>$249,000</b>",
+      "mem.per": "/ month",
+      "mem.badge": "Most complete",
+      "mem.cta": "Compare memberships",
+      "mem.note": "No contract: cancel anytime. Freeze up to 30 days a year.",
+      "faq.eyebrow": "Questions",
+      "faq.title": "Good to know before your first class.",
+      "faq.1.q": "How do I book my free first class?",
+      "faq.1.a": "Pick a class on the <a href=\"/schedule\">Classes</a> page and book online. Your first class is free, Recovery included. One per person.",
+      "faq.2.q": "What is Recovery?",
+      "faq.2.a": "Our sauna and cold plunge area. After every class you can stay for a Recovery session of up to an hour, included. It is optional: stay ten minutes, the full hour or skip it.",
+      "faq.3.q": "How much does it cost after my first class?",
+      "faq.3.a": "A day pass is $60,000 COP, or try 3 classes in 7 days for $100,000 COP. Founding memberships start at $349,000 COP a month. <a href=\"/memberships\">See memberships</a>.",
+      "faq.4.q": "Can I cancel my membership?",
+      "faq.4.a": "Yes. There is no contract, so you can cancel anytime, and you can freeze it for up to 30 days a year.",
+      "faq.5.q": "Where are you and when are you open?",
+      "faq.5.a": "Tv 39D #74-105, 4th floor, Laureles - Estadio, Medellín. Monday to Friday 6:00 to 21:00, Saturday 8:00 to 20:00, Sunday closed. <a href=\"/location\">See the map</a>.",
+      "cta.book": "Book my free class",
+      "bar.soon": "Grand opening in {n} days · Tuesday 1 December",
+      "bar.tomorrow": "Grand opening tomorrow · Tuesday 1 December",
+      "bar.open": "Now open in Laureles",
+      "bar.cta": "Your first class is free",
+      "sticky.cta": "Book your free class",
       "meta.title": "Element Health Club · Laureles, Medellín",
-      "meta.description": "A health and wellness club in Laureles, Medellín. Cold plunge, sauna, HIIT, pilates, dance exercise, trampoline fitness and a juice bar, all under one roof.",
+      "meta.description": "A health and wellness club in Laureles, Medellín. Cold plunge, sauna, HIIT, trampoline and pilates classes and a juice bar, all under one roof.",
       "meta.title.elements": "The four elements · Element Health Club",
       "meta.description.elements": "Water, fire, earth and air: the philosophy behind Element Health Club, a health and wellness club in Laureles, Medellín.",
       "meta.title.experiences": "Experiences · Element Health Club",
-      "meta.description.experiences": "Cold plunge, sauna, HIIT, fitness classes, pilates, dance exercise, trampoline fitness and a juice bar at Element Health Club in Laureles, Medellín.",
+      "meta.description.experiences": "Cold plunge, sauna, HIIT, trampoline, pilates and a juice bar at Element Health Club in Laureles, Medellín.",
       "meta.title.day": "A day at Element · Element Health Club",
-      "meta.description.day": "Move, heat, cold, refuel, dance. See how a day at Element Health Club in Laureles, Medellín can flow.",
+      "meta.description.day": "Move, heat, cold, refuel. See how a day at Element Health Club in Laureles, Medellín can flow.",
       "meta.title.memberships": "Memberships · Element Health Club",
       "meta.description.memberships": "Move, Element and Elite memberships and the Recovery Pass at Element Health Club in Laureles, Medellín, at founding member prices. Your first class is free.",
       "meta.title.location": "Location and hours · Element Health Club",
@@ -29,19 +97,16 @@
       "nav.memberships": "Memberships",
       "nav.location": "Location",
       "nav.schedule": "Classes",
-      "nav.cta": "Book a class",
+      "nav.cta": "Free class",
 
       "hero.eyebrow": "Opening Tuesday, 1 December",
       "hero.title": "Where the body <em>finds its balance</em>",
-      "hero.lead": "A health and wellness club built around the four elements. Plunge into ice water, sweat in the sauna, move through HIIT, pilates and dance exercise, then refuel at the juice bar. Everything you need to feel alive, in one place.",
-      "hero.cta1": "Book a visit",
-      "hero.cta2": "See all experiences",
-      "hero.note": "Your first class is free. Founding memberships with unlimited classes from $349,000 COP a month.",
+      "hero.lead": "HIIT, trampoline and pilates classes, with a Recovery session included after every class: sauna and cold plunge. Then refuel at the juice bar. In Laureles, Medellín.",
+      "hero.cta1": "Book your free first class",
+      "hero.cta2": "See memberships",
+      "hero.note": "Founding memberships from $349,000 COP a month. No contract.",
       "hero.chip1": "Cold plunge",
       "hero.chip2": "Dry sauna",
-      "stats.one": "experiences under one roof",
-      "stats.two": "elements, one philosophy",
-      "stats.three": "days a week in Laureles",
 
       "elements.eyebrow": "Our philosophy",
       "elements.title": "Four elements. One complete practice.",
@@ -68,8 +133,6 @@
       "svc.fitness.text": "Strength, mobility and functional training for every level, led by coaches who know your name.",
       "svc.pilates.name": "Pilates",
       "svc.pilates.text": "Mat and reformer pilates to build core strength, posture and long, controlled movement.",
-      "svc.dance.name": "Dance exercise classes",
-      "svc.dance.text": "High-energy dance workouts led by local instructors. No experience needed, just bring your energy.",
       "svc.trampoline.name": "Trampoline fitness",
       "svc.trampoline.text": "Low-impact, high-energy rebounding classes. Great for the lymphatic system, better for your mood.",
       "svc.juice.name": "Juice & protein bar",
@@ -85,7 +148,6 @@
       "day.2.title": "Heat", "day.2.text": "Fifteen minutes in the sauna to loosen everything.",
       "day.3.title": "Cold", "day.3.text": "Three minutes in the plunge. Breathe. This is the part you will talk about.",
       "day.5.title": "Refuel", "day.5.text": "Protein shake or a smoothie bowl at the café. Then go run your day.",
-      "day.6.title": "Dance", "day.6.text": "Come back for a dance exercise class. Because you are in Medellín.",
 
       "plans.eyebrow": "Memberships",
       "plans.title": "Pick the rhythm that fits your life.",
@@ -158,8 +220,8 @@
       "loc.hours.label": "Hours", "loc.hours.value": "Monday to Friday 6:00 to 21:00 · Saturday 8:00 to 20:00 · Sunday closed",
       "loc.contact.label": "Contact",
 
-      "cta.title": "Ready to find your element?",
-      "cta.text": "Send us a message on WhatsApp to book a free first visit, ask about founding memberships or just say hello.",
+      "cta.title": "Your first class <em>is on us.</em>",
+      "cta.text": "Book online in a minute, Recovery included. Questions first? Message us on WhatsApp.",
       "cta.whatsapp": "Message us on WhatsApp",
       "cta.email": "Send an email",
       "wa.text": "Hi, I'd like to book a visit to Element Health Club.",
@@ -167,14 +229,82 @@
       "footer.copy": "© 2026 Element Health Club · Laureles, Medellín"
     },
     es: {
+      "hero.badge.k": "Primera clase",
+      "hero.badge.v": "Gratis, con Recovery incluido",
+      "hero.alt": "Una alumna en plena sentadilla en una clase de trampolín en Element Health Club",
+      "perk.1.t": "Tu primera clase es gratis",
+      "perk.1.d": "Reserva en línea en un minuto. Con Recovery incluido.",
+      "perk.2.t": "Recovery después de cada clase",
+      "perk.2.d": "Sauna y cold plunge, hasta 1 hora.",
+      "perk.3.t": "Grupos reducidos",
+      "perk.3.d": "Máximo 16 personas por clase.",
+      "how.eyebrow": "Así es una visita",
+      "how.title": "Muévete. Recupérate. Recarga.",
+      "how.lead": "Cada clase viene con el resto del ritual. Quédate para todo, o entrena y sigue con tu día.",
+      "how.1.t": "Muévete",
+      "how.1.d": "HIIT con kettlebells, trampolín o mat pilates, en grupos reducidos y con instructores que te conocen.",
+      "how.2.t": "Recupérate",
+      "how.2.d": "Quédate a una sesión de Recovery en el sauna y el cold plunge, hasta una hora, incluida con tu clase.",
+      "how.3.t": "Recarga",
+      "how.3.d": "Un jugo o un batido en la barra, con vista a los árboles de Laureles.",
+      "how.alt.1": "Clase de trampolín guiada por una instructora de Element",
+      "how.alt.2": "La zona de sauna y cold plunge",
+      "how.alt.3": "La barra de jugos, con vista a los árboles",
+      "cls.eyebrow": "Las clases",
+      "cls.title": "Tres clases. Cuatro instructores.",
+      "cls.lead": "Entre semana a las 6, 7 y 8 de la mañana y de 5 a 7 de la tarde. Sábados a las 8, 9 y 10.",
+      "cls.hiit.t": "HIIT con kettlebells",
+      "cls.hiit.d": "Intervalos cortos e intensos con kettlebells para fuerza y resistencia.",
+      "cls.hiit.w": "con Juan Pablo",
+      "cls.tramp.t": "Trampolín",
+      "cls.tramp.d": "Cardio lleno de energía en tu propio mini trampolín. Suave con las articulaciones, imposible no sonreír.",
+      "cls.tramp.w": "con Stefi y Diana",
+      "cls.pil.t": "Mat pilates",
+      "cls.pil.d": "Core, postura y control en colchoneta. Lento, preciso y más exigente de lo que parece.",
+      "cls.pil.w": "con Camila",
+      "cls.cta": "Ver horario y reservar",
+      "gal.eyebrow": "El club",
+      "gal.title": "Un cuarto piso entre los árboles de Laureles.",
+      "gal.alt.1": "El estudio abierto al atardecer",
+      "gal.alt.2": "Una clase de trampolín en plena acción",
+      "gal.alt.3": "Dos alumnas riendo después de clase",
+      "gal.alt.4": "El pasillo iluminado al anochecer",
+      "mem.eyebrow": "Membresías",
+      "mem.title": "Precios fundadores para quienes se unen primero.",
+      "mem.move.d": "Clases ilimitadas, sesión de Recovery después de cada una",
+      "mem.element.d": "Clases ilimitadas y Recovery cualquier día",
+      "mem.elite.d": "Todo Element, más dos masajes de 90 minutos al mes",
+      "mem.rp": "<b>Recovery Pass</b> · solo sauna y cold plunge, sin clases · <b>$249.000</b>",
+      "mem.per": "/ mes",
+      "mem.badge": "La más completa",
+      "mem.cta": "Comparar membresías",
+      "mem.note": "Sin permanencia: cancela cuando quieras. Congela hasta 30 días al año.",
+      "faq.eyebrow": "Preguntas",
+      "faq.title": "Lo que conviene saber antes de tu primera clase.",
+      "faq.1.q": "¿Cómo reservo mi primera clase gratis?",
+      "faq.1.a": "Elige una clase en <a href=\"/schedule\">Clases</a> y reserva en línea. Tu primera clase es gratis, con Recovery incluido. Una por persona.",
+      "faq.2.q": "¿Qué es Recovery?",
+      "faq.2.a": "Nuestra zona húmeda, con sauna y cold plunge. Después de cada clase puedes quedarte a una sesión de Recovery de hasta una hora, incluida. Es opcional: quédate diez minutos, la hora completa o sigue tu día.",
+      "faq.3.q": "¿Cuánto cuesta después de la primera clase?",
+      "faq.3.a": "El pase de día cuesta $60.000, o prueba 3 clases en 7 días por $100.000. Las membresías fundadoras van desde $349.000 al mes. <a href=\"/memberships\">Ver membresías</a>.",
+      "faq.4.q": "¿Puedo cancelar mi membresía?",
+      "faq.4.a": "Sí. No hay permanencia: puedes cancelar cuando quieras y congelarla hasta 30 días al año.",
+      "faq.5.q": "¿Dónde están y qué horario tienen?",
+      "faq.5.a": "Tv 39D #74-105, piso 4, Laureles - Estadio, Medellín. Lunes a viernes de 6:00 a 21:00, sábados de 8:00 a 20:00, domingos cerrado. <a href=\"/location\">Ver el mapa</a>.",
+      "cta.book": "Reservar mi clase gratis",
+      "bar.soon": "Gran apertura en {n} días · martes 1 de diciembre",
+      "bar.tomorrow": "Gran apertura mañana · martes 1 de diciembre",
+      "bar.open": "Ya abrimos en Laureles",
+      "bar.cta": "Tu primera clase es gratis",
+      "sticky.cta": "Reserva tu clase gratis",
       "meta.title": "Element Health Club · Laureles, Medellín",
-      "meta.description": "Un club de salud y bienestar en Laureles, Medellín. Cold plunge, sauna, HIIT, pilates, baile fitness, trampolín y bar de jugos, todo en un solo lugar.",
+      "meta.description": "Un club de salud y bienestar en Laureles, Medellín. Cold plunge, sauna, clases de HIIT, trampolín y pilates, y bar de jugos, todo en un solo lugar.",
       "meta.title.elements": "Los cuatro elementos · Element Health Club",
       "meta.description.elements": "Agua, fuego, tierra y aire: la filosofía de Element Health Club, un club de salud y bienestar en Laureles, Medellín.",
       "meta.title.experiences": "Experiencias · Element Health Club",
-      "meta.description.experiences": "Cold plunge, sauna, HIIT, clases de fitness, pilates, baile fitness, trampolín y bar de jugos en Element Health Club, Laureles, Medellín.",
+      "meta.description.experiences": "Cold plunge, sauna, HIIT, trampolín, pilates y bar de jugos en Element Health Club, Laureles, Medellín.",
       "meta.title.day": "Un día en Element · Element Health Club",
-      "meta.description.day": "Muévete, calor, frío, recarga y baila. Así puede fluir un día en Element Health Club, en Laureles, Medellín.",
+      "meta.description.day": "Muévete, calor, frío y recarga. Así puede fluir un día en Element Health Club, en Laureles, Medellín.",
       "meta.title.memberships": "Membresías · Element Health Club",
       "meta.description.memberships": "Membresías Move, Element y Elite y el Recovery Pass en Element Health Club, Laureles, Medellín, con precio de miembro fundador. Tu primera clase es gratis.",
       "meta.title.location": "Ubicación y horario · Element Health Club",
@@ -186,19 +316,16 @@
       "nav.memberships": "Membresías",
       "nav.location": "Ubicación",
       "nav.schedule": "Clases",
-      "nav.cta": "Reserva tu clase",
+      "nav.cta": "Clase gratis",
 
       "hero.eyebrow": "Abrimos el martes 1 de diciembre",
       "hero.title": "Donde el cuerpo <em>encuentra su equilibrio</em>",
-      "hero.lead": "Un club de salud y bienestar inspirado en los cuatro elementos. Sumérgete en agua helada, suda en el sauna, muévete con HIIT, pilates y baile fitness, y recarga energía en el bar de jugos. Todo lo que necesitas para sentirte vivo, en un solo lugar.",
-      "hero.cta1": "Reserva una visita",
-      "hero.cta2": "Ver todas las experiencias",
-      "hero.note": "Tu primera clase es gratis. Membresías fundadoras con clases ilimitadas desde $349.000 al mes.",
+      "hero.lead": "Clases de HIIT, trampolín y pilates, con una sesión de Recovery incluida después de cada clase: sauna y cold plunge. Luego, recarga en la barra de jugos. En Laureles, Medellín.",
+      "hero.cta1": "Reserva tu primera clase gratis",
+      "hero.cta2": "Ver membresías",
+      "hero.note": "Membresías fundadoras desde $349.000 al mes. Sin permanencia.",
       "hero.chip1": "Cold plunge",
       "hero.chip2": "Sauna seco",
-      "stats.one": "experiencias bajo un mismo techo",
-      "stats.two": "elementos, una filosofía",
-      "stats.three": "días a la semana en Laureles",
 
       "elements.eyebrow": "Nuestra filosofía",
       "elements.title": "Cuatro elementos. Una práctica completa.",
@@ -225,8 +352,6 @@
       "svc.fitness.text": "Fuerza, movilidad y entrenamiento funcional para todos los niveles, con entrenadores que saben tu nombre.",
       "svc.pilates.name": "Pilates",
       "svc.pilates.text": "Pilates en colchoneta y reformer para fortalecer el core, mejorar la postura y moverte con control.",
-      "svc.dance.name": "Clases de baile fitness",
-      "svc.dance.text": "Entrenamientos de baile llenos de energía con instructores locales. No necesitas experiencia, solo ganas de moverte.",
       "svc.trampoline.name": "Trampolín fitness",
       "svc.trampoline.text": "Clases de rebote de bajo impacto y alta energía. Buenísimo para el sistema linfático, mejor para el ánimo.",
       "svc.juice.name": "Bar de jugos y proteína",
@@ -242,7 +367,6 @@
       "day.2.title": "Calor", "day.2.text": "Quince minutos en el sauna para soltar todo.",
       "day.3.title": "Frío", "day.3.text": "Tres minutos en el cold plunge. Respira. Esta es la parte de la que vas a hablar.",
       "day.5.title": "Recarga", "day.5.text": "Batido de proteína o un bowl de smoothie en el café. Y a conquistar el día.",
-      "day.6.title": "Baila", "day.6.text": "Vuelve en la noche para la clase de baile fitness. Porque estás en Medellín.",
 
       "plans.eyebrow": "Membresías",
       "plans.title": "Elige el ritmo que va con tu vida.",
@@ -315,8 +439,8 @@
       "loc.hours.label": "Horario", "loc.hours.value": "Lunes a viernes 6:00 a 21:00 · Sábado 8:00 a 20:00 · Domingo cerrado",
       "loc.contact.label": "Contacto",
 
-      "cta.title": "¿Listo para encontrar tu elemento?",
-      "cta.text": "Escríbenos por WhatsApp para reservar una primera visita gratis, preguntar por las membresías fundadoras o simplemente saludar.",
+      "cta.title": "Tu primera clase <em>va por nuestra cuenta.</em>",
+      "cta.text": "Reserva en línea en un minuto, con Recovery incluido. ¿Tienes preguntas? Escríbenos por WhatsApp.",
       "cta.whatsapp": "Escríbenos por WhatsApp",
       "cta.email": "Envíanos un correo",
       "wa.text": "Hola, quiero reservar una visita a Element Health Club.",
@@ -339,6 +463,11 @@
       var k = el.getAttribute("data-i18n-html");
       if (dict[k] != null) el.innerHTML = dict[k];
     });
+    document.querySelectorAll("[data-i18n-alt]").forEach(function (el) {
+      var k = el.getAttribute("data-i18n-alt");
+      if (dict[k] !== undefined) el.setAttribute("alt", dict[k]);
+    });
+    renderBar(dict);
     document.querySelectorAll("[data-i18n-content]").forEach(function (el) {
       var k = el.getAttribute("data-i18n-content");
       if (dict[k] != null) el.setAttribute("content", dict[k]);
@@ -357,6 +486,41 @@
     if (!document.documentElement.hasAttribute("data-lang-lock")) {
       try { localStorage.setItem("element-lang", lang); } catch (e) {}
     }
+  }
+
+  /* ---------- opening bar (every page) and phone booking button ----------
+     The bar counts down to opening day, then says "now open" through December, then just offers the free class.
+     Times are Medellín (UTC-5): opening day starts at 05:00 UTC on 1 December 2026. */
+  var OPENING = Date.UTC(2026, 11, 1, 5), BAR_OPEN_UNTIL = Date.UTC(2027, 0, 1, 5);
+  var onSchedule = /^\/schedule/.test(location.pathname);
+  var bookHref = onSchedule ? "#horario" : "/schedule";
+  var bar = document.createElement("a");
+  bar.className = "open-bar"; bar.href = bookHref;
+  bar.innerHTML = '<span class="ob-lead"></span><span class="ob-cta"></span>';
+  document.body.insertBefore(bar, document.body.firstChild);
+  var sticky = null;
+  if (!onSchedule && !document.documentElement.hasAttribute("data-no-sticky")) {
+    sticky = document.createElement("div");
+    sticky.className = "sticky-book";
+    sticky.innerHTML = '<a class="btn btn-primary" href="/schedule"></a>';
+    document.body.appendChild(sticky);
+    document.body.classList.add("has-sticky");
+    /* show it once the visitor has scrolled past the first screen */
+    var onScroll = function () { sticky.classList.toggle("show", window.scrollY > window.innerHeight * 0.7); };
+    window.addEventListener("scroll", onScroll, { passive: true }); onScroll();
+  }
+  function renderBar(dict) {
+    var now = Date.now(), lead = "";
+    if (now < OPENING) {
+      var days = Math.ceil((OPENING - now) / 86400000);
+      lead = days <= 1 ? dict["bar.tomorrow"] : (dict["bar.soon"] || "").replace("{n}", days);
+    } else if (now < BAR_OPEN_UNTIL) {
+      lead = dict["bar.open"];
+    }
+    bar.querySelector(".ob-lead").textContent = lead || "";
+    bar.querySelector(".ob-lead").hidden = !lead;
+    bar.querySelector(".ob-cta").textContent = (dict["bar.cta"] || "") + " →";
+    if (sticky) sticky.firstChild.textContent = dict["sticky.cta"] || "";
   }
 
   function initialLang() {
