@@ -216,6 +216,15 @@
      and the trampoline class alternates between Stefi and Diana. */
   var SAT_HOURS = [8, 9, 10];
   var SAT_ORDERS = [["pil", "hiit", "tramp"], ["hiit", "tramp", "pil"], ["tramp", "pil", "hiit"]];
+  /* who teaches each weekday class when it isn't the default rotation, by day (Mon = 0) and start hour.
+     From opening: Stefi teaches Juan Pablo's Monday, Wednesday and Friday HIIT, back to back with her trampoline
+     where possible (Monday's trampoline moves from Diana to Stefi, and Thursday's from Stefi to Diana). */
+  var WHO = {
+    0: { 6: "Stefi", 7: "Stefi", 17: "Stefi", 18: "Stefi" },
+    2: { 7: "Stefi", 8: "Stefi", 17: "Stefi", 19: "Diana" },
+    3: { 7: "Diana", 17: "Diana" },
+    4: { 6: "Stefi", 8: "Stefi", 18: "Stefi", 19: "Stefi" }
+  };
   /* one-off changes for a specific date: { "YYYY-MM-DD": { hour: class or null } } */
   var OVERRIDES = {
     "2026-12-03": { 6: "pil", 8: "hiit" },   /* Camila can't do Thursday 8am in the first two weeks: pilates and HIIT swap */
@@ -268,6 +277,7 @@
     } else {
       for (h in ROTA[i]) { var ty = ROTA[i][h]; plan[h] = { type: ty, who: TYPES[ty].who[(i + ROW[h]) % TYPES[ty].who.length] }; }
     }
+    if (WHO[i]) for (h in WHO[i]) if (plan[h]) plan[h].who = WHO[i][h];
     for (h in ov) { if (ov[h]) plan[h] = { type: ov[h], who: TYPES[ov[h]].who[0] }; else delete plan[h]; }
     return plan;
   }
